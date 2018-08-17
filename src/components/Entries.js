@@ -4,6 +4,13 @@ import Entry from './Entry'
 
 export default class Entries extends Component{
     
+    handleClick=(event)=>{
+        event.preventDefault();
+        console.log(this.props.fetchEntries())
+    }
+    
+    
+    
     render(){
         return(
             <div>
@@ -14,6 +21,7 @@ export default class Entries extends Component{
                             <Entry entry={ent}/>)
                     })}
                 </ul>
+                <button onClick={this.handleClick}>Get the Entries</button>
             </div>
         )
     }

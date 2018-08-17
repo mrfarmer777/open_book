@@ -2,12 +2,25 @@
 
 export default function entriesReducer(
     state={
+        loading: false,
         entries: []
     },action){
     
     switch(action.type){
         case "ADD_ENTRY":
-            console.log("THIS GOT CALLED")
+            console.log('adding single entry: ' + action.payload)
+            return {
+                ...state,
+                entries: [...state.entries, action.payload]
+            }
+        case "BEGIN_GET_ENTRIES_REQUEST":
+            console.log('beginning entry fetch')
+            return {
+                ...state,
+                loading: true,
+            }
+        case "ADD_ENTRIES": 
+            console.log('Adding multiple entries: '+action.payload)
             return {
                 ...state,
                 entries: [...state.entries, action.payload]
