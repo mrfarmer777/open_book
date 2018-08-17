@@ -1,10 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import HomeContainer from '../containers/HomeContainer'
 
 
 const Home = () => (
     <div>
       <h2>HOME</h2>
+      <HomeContainer/>
     </div>
 )
 
