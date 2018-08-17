@@ -5,7 +5,7 @@ export default class Entries extends Component{
     
     render(){
         return(
-            <li>{this.props.title}, {this.props.minutes}, {this.props.pages}</li>
+            <li>{this.props.entry.title}, {this.props.entry.time}, {this.props.entry.pages}</li>
         )
     }
 }

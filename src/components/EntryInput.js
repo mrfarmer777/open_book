@@ -19,7 +19,7 @@ export default class EntryInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
-        this.props.addEntry();
+        this.props.addEntry(this.state);
         this.setState({
             title: "",
             time: "0",

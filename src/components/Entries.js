@@ -11,7 +11,7 @@ export default class Entries extends Component{
                 <ul>
                     {this.props.entries.map(ent=>{
                         return (
-                            <Entry/>)
+                            <Entry entry={ent}/>)
                     })}
                 </ul>
             </div>

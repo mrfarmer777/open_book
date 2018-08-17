@@ -2,7 +2,7 @@
 
 export default function entriesReducer(
     state={
-        entries:[]
+        entries: []
     },action){
     
     switch(action.type){
