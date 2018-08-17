@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+
+import { createStore } from 'redux'; 
+import entriesReducer from './reducers/entriesReducer'
+
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
