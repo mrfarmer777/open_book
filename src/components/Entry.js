@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 
-export default class Entries extends Component{
+export default class Entry extends Component{
     
     render(){
         return(

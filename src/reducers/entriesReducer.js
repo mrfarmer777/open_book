@@ -20,10 +20,11 @@ export default function entriesReducer(
                 loading: true,
             }
         case "ADD_ENTRIES": 
+            
             console.log('Adding multiple entries: '+action.payload)
             return {
                 ...state,
-                entries: [...state.entries, action.payload]
+                entries: action.payload
             }
         default: 
             return state

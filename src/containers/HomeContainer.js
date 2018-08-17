@@ -9,6 +9,7 @@ import Entries from '../components/Entries'
 class HomeContainer extends Component{
     
     render(){
+        debugger
         return (
             <div>
                 <EntryInput addEntry={this.props.addEntry} />

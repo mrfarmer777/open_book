@@ -7,11 +7,13 @@ export default class Entries extends Component{
     handleClick=(event)=>{
         event.preventDefault();
         console.log(this.props.fetchEntries())
+        this.props.fetchEntries()
     }
     
     
     
     render(){
+        
         return(
             <div>
                 <h4>My Entries</h4>

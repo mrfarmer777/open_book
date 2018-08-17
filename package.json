@@ -2,7 +2,6 @@
   "name": "dog_ears",
   "version": "0.1.0",
   "private": true,
-  "proxy": {"/api": {"target": "https://flatiron-2-mrfarmer7771.c9users.io", "secure": false}},
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -13,7 +12,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start -a $IP -p $PORT",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
