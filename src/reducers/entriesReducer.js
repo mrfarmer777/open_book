@@ -7,9 +7,10 @@ export default function entriesReducer(
     
     switch(action.type){
         case "ADD_ENTRY":
+            console.log("THIS GOT CALLED")
             return {
                 ...state,
-                entries: [...state.entries, action.payload.entry]
+                entries: [...state.entries, action.payload]
             }
         default: 
             return state
