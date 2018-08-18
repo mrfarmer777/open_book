@@ -13,8 +13,8 @@ export default function entriesReducer(
                 ...state,
                 entries: [...state.entries, action.payload]
             }
-        case "BEGIN_GET_ENTRIES_REQUEST":
-            console.log('beginning entry fetch')
+        case "BEGIN_ENTRIES_REQUEST":
+            console.log('beginning entry request')
             return {
                 ...state,
                 loading: true,
