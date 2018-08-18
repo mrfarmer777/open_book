@@ -14,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker';
 import MrRouter from './Routers/Router';
 
 
-const store=createStore(entriesReducer,applyMiddleware(thunk))
+const store=createStore(rootReducer,applyMiddleware(thunk))
 
 ReactDOM.render(
     <Provider store={store}>
