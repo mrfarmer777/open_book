@@ -1660,3 +1660,107 @@ Processing by EntriesController#index as */*
 Completed 200 OK in 4ms (Views: 3.6ms | ActiveRecord: 0.3ms)
 
 
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:10:04 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.55ms)
+Completed 200 OK in 57ms (Views: 39.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:14:12 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.68ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:14:28 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.61ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.3ms)
+
+
+Started DELETE "/entries/10" for 76.245.251.194 at 2018-08-18 05:14:28 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#destroy as */*
+  Parameters: {"id"=>"10", "entry"=>{}}
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/entries_controller.rb:16
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/entries_controller.rb:17
+  [1m[36mEntry Destroy (0.5ms)[0m  [1m[31mDELETE FROM "entries" WHERE "entries"."id" = ?[0m  [["id", 10]]
+  ↳ app/controllers/entries_controller.rb:17
+  [1m[35m (13.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/entries_controller.rb:17
+No template found for EntriesController#destroy, rendering head :no_content
+Completed 204 No Content in 85ms (ActiveRecord: 14.5ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:14:33 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.54ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:14:58 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.56ms)
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/entries" for 76.245.251.194 at 2018-08-18 05:15:04 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#create as */*
+  Parameters: {"entry"=>{"title"=>"HOw's about this", "time"=>"3", "pages"=>"354"}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/entries_controller.rb:11
+  [1m[36mEntry Create (0.5ms)[0m  [1m[32mINSERT INTO "entries" ("title", "time", "pages", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["title", "HOw's about this"], ["time", 3], ["pages", 354], ["created_at", "2018-08-18 05:15:04.816343"], ["updated_at", "2018-08-18 05:15:04.816343"]]
+  ↳ app/controllers/entries_controller.rb:11
+  [1m[35m (14.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/entries_controller.rb:11
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:12
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.63ms)
+Completed 200 OK in 24ms (Views: 2.4ms | ActiveRecord: 15.6ms)
+
+
+Started DELETE "/entries/16" for 76.245.251.194 at 2018-08-18 05:15:09 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#destroy as */*
+  Parameters: {"id"=>"16", "entry"=>{}}
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/entries_controller.rb:16
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/entries_controller.rb:17
+  [1m[36mEntry Destroy (0.3ms)[0m  [1m[31mDELETE FROM "entries" WHERE "entries"."id" = ?[0m  [["id", 16]]
+  ↳ app/controllers/entries_controller.rb:17
+  [1m[35m (17.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/entries_controller.rb:17
+No template found for EntriesController#destroy, rendering head :no_content
+Completed 204 No Content in 56ms (ActiveRecord: 18.2ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 05:15:09 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.74ms)
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.4ms)
+
+

@@ -14,6 +14,10 @@ class HomeContainer extends Component{
         console.log(this.props.fetchEntries())
     }
     
+    componentDidMount(){
+        this.props.fetchEntries();
+    }
+    
     render(){
         
         return (

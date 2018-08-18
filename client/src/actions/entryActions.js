@@ -39,6 +39,6 @@ export function deleteEntry(id){
       }
   })
       .then(response => console.log("Item was deleted"))
-      .then(dispatch(fetchEntries()))
+      .then(()=>dispatch(fetchEntries()))
   };
 }
