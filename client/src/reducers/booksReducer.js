@@ -1,13 +1,12 @@
 
 
 export default function booksReducer(
-    state={
-        books: []
-    },action){
+    state= []
+    ,action){
     
     switch(action.type){
-        case "ADD_ENTRY":
-            console.log('adding single entry: ' + action.payload)
+        case "POST_BOOK":
+            console.log('posting book... ' + action.payload)
             return {
                 ...state,
                 entries: [...state.entries, action.payload]

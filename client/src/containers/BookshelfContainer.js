@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-//import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
+import { fetchBooks, postBook, deleteBook } from '../actions/bookActions'
 
 import BookInput from '../components/BookInput'
 import Bookshelf from '../components/Bookshelf'
@@ -11,7 +11,7 @@ class BookshelfContainer extends Component{
     
     handleClick=(event)=>{
         event.preventDefault();
-        console.log(this.props.fetchEntries())
+        
     }
     
     componentDidMount(){
@@ -32,13 +32,15 @@ class BookshelfContainer extends Component{
 
 const mapStateToProps = state =>{
     return {
-        
+        books: state.books
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return {
-       
+       fetchBooks: ()=>{dispatch(fetchBooks())},
+       postBook: (book)=>{dispatch(postBook(book))},
+       deleteBook: (id)=>{dispatch(deleteBook(id))}
     }
 }
 
