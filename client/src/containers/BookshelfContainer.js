@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 //import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
 
-//import EntryInput from '../components/EntryInput'
-//import Entries from '../components/Entries'
+import BookInput from '../components/BookInput'
+import Bookshelf from '../components/Bookshelf'
 
 class BookshelfContainer extends Component{
     
@@ -23,6 +23,8 @@ class BookshelfContainer extends Component{
         return (
             <div>
                 <p>The only thing I like more than books is the shelves that contain them. Which I, in turn, contain.</p>
+                <BookInput/>
+                <Bookshelf/>
             </div>
         )
     }
