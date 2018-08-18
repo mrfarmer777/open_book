@@ -18,9 +18,9 @@ class HomeContainer extends Component{
         
         return (
             <div>
-                <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} />
+                <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry}  />
                 <button onClick={this.handleClick}>Get the Entries</button>
-                <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} />
+                <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
             </div>
         )
     }

@@ -16,7 +16,7 @@ export default class Entries extends Component{
                 <ul>
                     {this.props.entries.map(ent=>{
                         return (
-                            <Entry entry={ent}/>)
+                            <Entry key={ent.id} entry={ent} deleteEntry={this.props.deleteEntry}/>)
                     })}
                 </ul>
             </div>
