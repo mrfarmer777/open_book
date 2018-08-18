@@ -10,9 +10,14 @@ export default class Bookshelf extends Component{
         return(
             <div>
                 <h4>My Books</h4>
-                <ul>
-                    <li>This is where books go, y'all</li>
-                </ul>
+                <div>
+                    {this.props.books.map(book=>{
+                        return(
+                            <Book book={book} deleteBook={this.props.deleteBoook}/>
+                        )
+                    })}
+                    
+                </div>
             </div>
         )
     }

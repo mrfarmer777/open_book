@@ -23,8 +23,8 @@ class BookshelfContainer extends Component{
         return (
             <div>
                 <p>The only thing I like more than books is the shelves that contain them. Which I, in turn, contain.</p>
-                <BookInput/>
-                <Bookshelf/>
+                <BookInput postBook={this.props.postBook} />
+                <Bookshelf books={this.props.books} deleteBook={this.props.deleteBook}/>
             </div>
         )
     }

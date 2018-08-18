@@ -20,7 +20,7 @@ export default class BookInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
-        this.props.postEntry(this.state);
+        this.props.postBook(this.state);
         this.setState({
             title: "",
             author: "",
