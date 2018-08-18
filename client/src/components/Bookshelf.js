@@ -13,7 +13,7 @@ export default class Bookshelf extends Component{
                 <div>
                     {this.props.books.map(book=>{
                         return(
-                            <Book book={book} deleteBook={this.props.deleteBoook}/>
+                            <Book book={book} deleteBook={this.props.deleteBook}/>
                         )
                     })}
                     

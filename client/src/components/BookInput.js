@@ -8,7 +8,7 @@ export default class BookInput extends Component{
             title: "",
             author: "",
             pages: "",
-            genres: [],
+            genres: "",
         }
     }
     
@@ -25,7 +25,7 @@ export default class BookInput extends Component{
             title: "",
             author: "",
             pages: "",
-            genres: [],
+            genres: "",
         })
     }
     
