@@ -17,7 +17,6 @@ export default function entriesReducer(
             console.log('beginning entry request')
             return {
                 ...state,
-                loading: true,
             }
         case "ADD_ENTRIES": 
             

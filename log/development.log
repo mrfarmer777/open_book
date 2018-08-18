@@ -1784,3 +1784,12 @@ Processing by EntriesController#index as */*
 Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.3ms)
 
 
+Started GET "/entries" for 76.245.251.194 at 2018-08-18 06:09:12 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+  [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (6.48ms)
+Completed 200 OK in 11ms (Views: 9.2ms | ActiveRecord: 0.3ms)
+
+
