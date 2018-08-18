@@ -11,6 +11,12 @@ export default function booksReducer(
                 ...state,
                 entries: [...state.entries, action.payload]
             }
+        case "BEGIN_BOOKS_REQUEST":
+            console.log("sending request...")
+            return state
+        case "ADD_BOOKS":
+            console.log('adding state with books: '+ action.payload)
+            return action.payload
         default: 
             return state
     }

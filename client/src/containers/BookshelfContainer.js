@@ -16,10 +16,11 @@ class BookshelfContainer extends Component{
     
     componentDidMount(){
         console.log('Mount for days.')
+        this.props.fetchBooks();
     }
     
     render(){
-        
+        debugger
         return (
             <div>
                 <p>The only thing I like more than books is the shelves that contain them. Which I, in turn, contain.</p>
