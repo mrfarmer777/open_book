@@ -27,3 +27,18 @@ export function postEntry(entry){
       .then(entries => dispatch({ type: 'ADD_ENTRIES', payload: entries }));
   };
 }
+
+
+export function deleteEntry(id){
+  return (dispatch) => {
+    dispatch({ type: 'BEGIN_GET_ENTRIES_REQUEST' });
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/entries/${id}`, {
+      method: 'delete',
+       headers: {
+        'Content-Type': 'application/json'
+      }
+  })
+      .then(response => console.log("Item was deleted"))
+      .then(dispatch(fetchEntries()))
+  };
+}
