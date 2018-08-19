@@ -43,15 +43,11 @@ export default class EntryInput extends Component{
                         )
                     })}
                 </select>
-                    
-                
-                
-                
                 <label for="time">Minutes: </label>
                 <input type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                 <label for="pages">Pages: </label>
                 <input type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
-                <input type="submit" value="New Entry"/>
+                <input class="btn btn-default" type="submit" value="New Entry"/>
             </form>
             
             )
