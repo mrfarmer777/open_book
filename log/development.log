@@ -5666,3 +5666,79 @@ Processing by BooksController#index as */*
 Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 0.8ms)
 
 
+Started GET "/entries/stats" for 76.245.251.194 at 2018-08-19 04:58:05 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#stats as HTML
+  [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/models/entry.rb:7
+  [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/models/entry.rb:13
+  [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/models/entry.rb:13
+  [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/models/entry.rb:7
+  [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/models/entry.rb:13
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.15ms)
+Completed 200 OK in 6ms (Views: 0.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/books/1" for 76.245.251.194 at 2018-08-19 04:58:12 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:21
+[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:22
+[active_model_serializers] Rendered BookSerializer with ActiveModelSerializers::Adapter::Attributes (2.8ms)
+Completed 200 OK in 7ms (Views: 3.7ms | ActiveRecord: 0.7ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to RemoveTitleFromEntries (20180819045845)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aentries" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aentries" ("id","title","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","title","time","pages","created_at","updated_at","book_id" FROM "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "entries" ("id" integer NOT NULL PRIMARY KEY, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "entries" ("id","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","time","pages","created_at","updated_at","book_id" FROM "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180819045845"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (15.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Started GET "/books/1" for 76.245.251.194 at 2018-08-19 05:00:51 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mBook Load (1.6ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:21
+[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:22
+[active_model_serializers] Rendered BookSerializer with ActiveModelSerializers::Adapter::Attributes (27.54ms)
+Completed 200 OK in 82ms (Views: 29.3ms | ActiveRecord: 4.7ms)
+
+
