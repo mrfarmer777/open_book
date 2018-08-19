@@ -7,14 +7,13 @@ export default class Stats extends Component{
         
         return(
             <div>
-                <h3>My Stats</h3>
                 <ul>
-                    <li>Books Read: {this.props.bookStats.books_read}</li>
-                    <li>Most Recent Book: {this.props.bookStats.most_recent_book}</li>
-                    <li>Genres Read: {this.props.bookStats.genres_read}</li>
-                    <li>Total Pages Read: {this.props.entryStats.total_pages}</li>
-                    <li>Total Minutes Read: {this.props.entryStats.total_minutes}</li>
-                    <li>Average Reading Rate: {this.props.entryStats.reading_rate} pages/minutes</li>
+                    <li><b>Books Read: </b>{this.props.bookStats.books_read}</li>
+                    <li><b>Most Recent Book:</b> {this.props.bookStats.most_recent_book}</li>
+                    <li><b>Genres Read: </b>{this.props.bookStats.genres_read}</li>
+                    <li><b>Total Pages Read:</b> {this.props.entryStats.total_pages}</li>
+                    <li><b>Total Minutes Read: </b>{this.props.entryStats.total_minutes}</li>
+                    <li><b>Average Reading Rate: </b>{this.props.entryStats.reading_rate} pages/minutes</li>
                 </ul>
             </div>
         )
