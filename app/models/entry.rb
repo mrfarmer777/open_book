@@ -16,7 +16,7 @@ class Entry < ApplicationRecord
     
     def self.average_reading_rate
         if self.total_minutes>0
-            (self.total_pages.to_f/self.total_minutes.to_f)
+            (self.total_pages.to_f/self.total_minutes.to_f).round(2)
         else
             0
         end
