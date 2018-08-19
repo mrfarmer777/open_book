@@ -14,7 +14,7 @@ class StatsContainer extends Component{
     render(){
         
         return (
-            <div>
+            <div class="container-fluid">
                 <Stats entryStats={this.props.entryStats} bookStats={this.props.bookStats}/>
             </div>
         )
