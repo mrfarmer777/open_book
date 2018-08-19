@@ -5,9 +5,9 @@ import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
 
 
+
 const Home = () => (
     <div>
-      <h2>HOME</h2>
       <HomeContainer/>
     </div>
 )
@@ -31,12 +31,27 @@ const Bookshelf = () => (
   
 const MrRouter = () => (
     <Router>
-        <div>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/stats">Stats</Link></li>
-                <li><Link to="/bookshelf">Bookshelf</Link></li>
-            </ul>
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" >Dog Ears</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/stats">Stats</Link></li>
+                    <li><Link to="/bookshelf">Bookshelf</Link></li>
+                </ul>
+            </div>
+            
+        </nav>
+        
         
         
         <hr/>
