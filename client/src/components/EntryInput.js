@@ -15,6 +15,7 @@ export default class EntryInput extends Component{
         this.setState({
             [event.target.name]: event.target.value,
         })
+        
     }
     
     handleSubmit=(event)=>{
@@ -33,10 +34,12 @@ export default class EntryInput extends Component{
         return (
             <form onSubmit={this.handleSubmit}>
                 <label for="book_id">Book: </label>
-                <select id="book_id">
+                <select name="book_id" value={this.state.book_id} onChange={this.handleChange}>
+                    <option value="" default disabled>Select a book</option>
                     {this.props.books.map(book=>{
+                        
                         return(
-                            <option value={book.id}>{book.title}</option>
+                            <option key={book.id} value={book.id}>{book.title}</option>
                         )
                     })}
                 </select>

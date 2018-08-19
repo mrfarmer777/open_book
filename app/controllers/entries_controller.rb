@@ -7,7 +7,7 @@ class EntriesController < ApplicationController
     end
     
     def create
-        @entry=Entry.new(title: entry_params[:title], time: entry_params[:time], pages: entry_params[:pages])
+        @entry=Entry.new(book_id: entry_params[:book_id], time: entry_params[:time], pages: entry_params[:pages])
         @entry.save
         render json: Entry.all
     end
@@ -20,6 +20,6 @@ class EntriesController < ApplicationController
     
     private
     def entry_params
-        params.require(:entry).permit(:title, :time, :pages)
+        params.require(:entry).permit(:book_id, :time, :pages)
     end
 end

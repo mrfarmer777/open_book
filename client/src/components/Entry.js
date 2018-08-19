@@ -13,7 +13,7 @@ export default class Entry extends Component{
     render(){
         return(
             <li>
-                <p>{this.props.entry.id}: Read {this.props.entry.title} for {this.props.entry.time} minutes, and read {this.props.entry.pages} pages. </p>
+                <p>{this.props.entry.id}: Read {this.props.entry.book.title} for {this.props.entry.time} minutes, and read {this.props.entry.pages} pages. </p>
                 <button id={this.props.entry.id} onClick={this.handleClick}>Delete Entry</button>
             </li>
         )
