@@ -17,6 +17,10 @@ class EntriesController < ApplicationController
         @entry.destroy
     end
     
+    def stats
+        render json: {total_pages: Entry.total_pages, total_minutes: Entry.total_minutes, reading_rate: Entry.average_reading_rate}
+    end
+    
     
     private
     def entry_params
