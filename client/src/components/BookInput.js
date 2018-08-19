@@ -43,19 +43,23 @@ export default class BookInput extends Component{
     
     render(){
         return (
-            <div id="book-input" class="container" >
-                <h3>Add a New Book to Your Shelf</h3>
+            <div id="book-input" class="container panel" >
                     <form id="book-input-form" onSubmit={this.handleSubmit}>
-                        <label for="title">Book Title: </label>
-                        <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
-                        <label for="author">Author: </label>
-                        <input type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
-                        <label for="pages">Pages: </label>
-                        <input type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
-                        <label for="pages">Genres: </label>
-                        <input type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
-                        <input class="btn btn-primary" type="submit" value="Add Book"/>
+                        <div class="input-group">
+                            <label for="title">Book Title: </label>
+                            <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                            <label for="author">Author: </label>
+                            <input type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
+                        </div>
+                        <div class="input-group">
+                            <label for="pages">Pages: </label>
+                            <input type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
+                            <label for="pages">Genres: </label>
+                            <input type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
+                        </div>
+                        <button class="btn btn-primary" value="Add Book">Add Book</button>
                     </form>
+                    
                 </div>
             
             )
