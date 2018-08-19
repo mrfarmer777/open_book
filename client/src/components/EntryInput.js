@@ -5,7 +5,7 @@ export default class EntryInput extends Component{
     constructor(){
         super()
         this.state={
-            title: "",
+            book_id: "",
             time: "0",
             pages: "0",
         }
@@ -21,7 +21,7 @@ export default class EntryInput extends Component{
         event.preventDefault();
         this.props.postEntry(this.state);
         this.setState({
-            title: "",
+            book_id: "",
             time: "0",
             pages: "0",
         })
@@ -29,10 +29,21 @@ export default class EntryInput extends Component{
     
     
     render(){
+        
         return (
             <form onSubmit={this.handleSubmit}>
-                <label for="title">Book Title: </label>
-                <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                <label for="book_id">Book: </label>
+                <select id="book_id">
+                    {this.props.books.map(book=>{
+                        return(
+                            <option value={book.id}>{book.title}</option>
+                        )
+                    })}
+                </select>
+                    
+                
+                
+                
                 <label for="time">Minutes: </label>
                 <input type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                 <label for="pages">Pages: </label>

@@ -2,9 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
+import { fetchBooks, postBook } from '../actions/bookActions'
 
 import EntryInput from '../components/EntryInput'
 import Entries from '../components/Entries'
+import BookInput from '../components/BookInput'
 
 class HomeContainer extends Component{
     
@@ -16,14 +18,15 @@ class HomeContainer extends Component{
     
     componentDidMount(){
         this.props.fetchEntries();
+        this.props.fetchBooks();
     }
     
     render(){
         
         return (
             <div>
-                <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry}  />
-                <button onClick={this.handleClick}>Get the Entries</button>
+                <BookInput postBook={this.props.postBook} />
+                <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
                 <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
             </div>
         )
@@ -33,6 +36,7 @@ class HomeContainer extends Component{
 const mapStateToProps = state =>{
     return {
         entries: state.entries,
+        books: state.books
     }
 }
 
@@ -42,6 +46,9 @@ const mapDispatchToProps = dispatch =>{
         fetchEntries: () => dispatch(fetchEntries()),  //this.props.fetchEntries is a function that results when you call dispath with the fetchEntries function imported above as an argument. Fetch entries should return a function....
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
+        
+        fetchBooks: () => dispatch(fetchBooks()),
+        postBook: (book) => dispatch(postBook(book))
     }
 }
 

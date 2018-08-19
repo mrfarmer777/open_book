@@ -32,17 +32,20 @@ export default class BookInput extends Component{
     
     render(){
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label for="title">Book Title: </label>
-                <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
-                <label for="author">Author(s): </label>
-                <input type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
-                <label for="pages">Pages: </label>
-                <input type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
-                <label for="pages">Genres: </label>
-                <input type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
-                <input type="submit" value="Add Book"/>
-            </form>
+            <div>
+            <h3>Add a New Book to Your Shelf</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <label for="title">Book Title: </label>
+                    <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                    <label for="author">Author(s): </label>
+                    <input type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
+                    <label for="pages">Pages: </label>
+                    <input type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
+                    <label for="pages">Genres: </label>
+                    <input type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
+                    <input type="submit" value="Add Book"/>
+                </form>
+            </div>
             
             )
     }
