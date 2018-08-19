@@ -22,8 +22,7 @@ class BookshelfContainer extends Component{
     render(){
         
         return (
-            <div>
-                <p>The only thing I like more than books is the shelves that contain them. Which I, in turn, contain.</p>
+            <div class="container-fluid">
                 <BookInput postBook={this.props.postBook} />
                 <Bookshelf books={this.props.books} deleteBook={this.props.deleteBook}/>
             </div>

@@ -8,16 +8,17 @@ export default class Bookshelf extends Component{
     render(){
         
         return(
-            <div>
+            <div class="well container">
                 <h4>My Books</h4>
-                <div>
+                
+                <div class="row clearfix">
                     {this.props.books.map(book=>{
                         return(
                             <Book book={book} deleteBook={this.props.deleteBook}/>
                         )
                     })}
-                    
                 </div>
+                
             </div>
         )
     }

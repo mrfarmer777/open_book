@@ -26,7 +26,7 @@ class HomeContainer extends Component{
     render(){
         
         return (
-            <div>
+            <div class="container-fluid">
                 
                 <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
                 <BookInput postBook={this.props.postBook} />
