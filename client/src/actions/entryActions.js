@@ -12,7 +12,7 @@ export function fetchEntries() {
 
 
 export function postEntry(entry){
-  const body = JSON.stringify({entry: {title: entry.title, time: entry.time, pages: entry.pages}})
+  const body = JSON.stringify({entry: {book_id: entry.book_id, time: entry.time, pages: entry.pages}})
   console.log(body)
   return (dispatch) => {
     dispatch({ type: 'BEGIN_GET_ENTRIES_REQUEST' });

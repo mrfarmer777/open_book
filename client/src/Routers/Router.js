@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
+import StatsContainer from '../containers/StatsContainer'
 
 
 const Home = () => (
@@ -15,6 +16,7 @@ const Home = () => (
 const Stats = () => (
   <div>
       <h2>Stats</h2>
+      <StatsContainer/>
     </div>
   
   )

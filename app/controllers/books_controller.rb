@@ -17,9 +17,21 @@ class BooksController < ApplicationController
         @book.destroy
     end
     
+    def show
+        @book=Book.find(params[:id])
+        render json: @book
+    end
+    
+    def stats
+        @books=Book.all
+        render json: {books_read: @books.count, genres_read: Book.all_genres, most_recent_book: Book.most_recent.title}
+    end
+    
     
     private
     def book_params
         params.require(:book).permit(:title, :author, :pages, :genres)
     end
+    
+    
 end
