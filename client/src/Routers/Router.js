@@ -15,7 +15,7 @@ const Home = () => (
 
 const Stats = () => (
   <div>
-      <h2>Stats</h2>
+     
       <StatsContainer/>
     </div>
   
@@ -23,7 +23,7 @@ const Stats = () => (
   
 const Bookshelf = () => (
      <div>
-        <h2>Bookshelf Container</h2>
+        <h2>Bookshelf</h2>
         <BookshelfContainer/>
      </div>
      
