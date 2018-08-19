@@ -29,6 +29,8 @@ export default class EntryInput extends Component{
     }
     
     
+    
+    
     render(){
         
         return (
@@ -55,6 +57,7 @@ export default class EntryInput extends Component{
                         <input type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
                     </div>
                     <input class="btn btn-primary" type="submit" value="New Entry"/>
+
                 </form>
             </div>
             

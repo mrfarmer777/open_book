@@ -9,12 +9,14 @@ import Entries from '../components/Entries'
 import BookInput from '../components/BookInput'
 
 class HomeContainer extends Component{
-    
-    
-    handleClick=(event)=>{
-        event.preventDefault();
-        console.log(this.props.fetchEntries())
+    constructor(){
+        super()
+        this.state={
+            bookFormOpen: false,
+        }
     }
+    
+    
     
     componentDidMount(){
         this.props.fetchEntries();
@@ -25,8 +27,9 @@ class HomeContainer extends Component{
         
         return (
             <div>
-                <BookInput postBook={this.props.postBook} />
+                
                 <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
+                <BookInput postBook={this.props.postBook} />
                 <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
             </div>
         )

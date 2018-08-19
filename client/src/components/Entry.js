@@ -12,9 +12,10 @@ export default class Entry extends Component{
     
     render(){
         return(
-            <li>
-                <p>{this.props.entry.id}: Read {this.props.entry.book.title} for {this.props.entry.time} minutes, and read {this.props.entry.pages} pages. </p>
-                <button id={this.props.entry.id} onClick={this.handleClick}>Delete Entry</button>
+            <li class="list-group-item">
+                <button class="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.entry.id} onClick={this.handleClick}></button>
+                <p>Read {this.props.entry.page} of {this.props.entry.book.title} in {this.props.entry.time} minutes.</p>
+                
             </li>
         )
     }
