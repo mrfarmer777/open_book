@@ -2,6 +2,8 @@ class Entry < ApplicationRecord
     belongs_to :book
     
     
+    
+    
     def self.total_pages
         pages=0
         self.all.each{|ent| pages+=ent.pages}
@@ -21,6 +23,7 @@ class Entry < ApplicationRecord
             0
         end
     end
+    
     
     
 end
