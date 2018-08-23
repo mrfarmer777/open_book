@@ -23,7 +23,7 @@ const Stats = () => (
   
 const Bookshelf = () => (
      <div>
-        <h2>Bookshelf</h2>
+        
         <BookshelfContainer/>
      </div>
      

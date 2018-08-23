@@ -5,6 +5,7 @@ import { fetchBooks, postBook, deleteBook } from '../actions/bookActions'
 
 import BookInput from '../components/BookInput'
 import Bookshelf from '../components/Bookshelf'
+import BookDetails from '../components/BookDetails'
 
 class BookshelfContainer extends Component{
     
@@ -23,8 +24,10 @@ class BookshelfContainer extends Component{
         
         return (
             <div class="container-fluid">
+                <h2>My Bookshelf</h2>
                 <BookInput postBook={this.props.postBook} />
                 <Bookshelf books={this.props.books} deleteBook={this.props.deleteBook}/>
+                <BookDetails />
             </div>
         )
     }

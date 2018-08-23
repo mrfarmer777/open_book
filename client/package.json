@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "react": "^16.4.2",
-    "react-bootstrap": "^0.32.2",
+    "react-bootstrap": "^0.32.3",
+    "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
