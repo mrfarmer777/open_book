@@ -6,7 +6,7 @@ import logo from './logo.svg';
 import './App.css';
 
 //Components Import
-import Navbar from './components/Navbar'
+import MyNavbar from './components/Navbar'
 
 
 
@@ -24,7 +24,7 @@ class App extends Component {
           
         </header>
         <p className="App-intro">
-          <Navbar/>
+          <MyNavbar/>
         </p>
       </div>
     );

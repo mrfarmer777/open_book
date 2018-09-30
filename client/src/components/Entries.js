@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Entry from './Entry'
+import { Panel } from 'react-bootstrap'
 
 
 export default class Entries extends Component{
@@ -12,17 +13,18 @@ export default class Entries extends Component{
         
         return(
             <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-heading">My Entries</div>
-                    <div class="panel-body">
+                <Panel>
+                    <Panel.Heading>My Entries</Panel.Heading>
+                    <Panel.Body>
                         <ul class="list-group">
                             {this.props.entries.map(ent=>{
                                 return (
                                     <Entry key={ent.id} entry={ent} deleteEntry={this.props.deleteEntry}/>)
                             })}
                         </ul>
-                    </div>
-                </div>
+                    </Panel.Body>
+                </Panel>
+                
             </div>
         )
     }

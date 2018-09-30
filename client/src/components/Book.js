@@ -2,10 +2,25 @@ import React, {Component} from 'react'
 
 
 export default class Book extends Component{
+    constructor(){
+        super()
+        this.state={
+            likeCount: 0,
+        }
+    }
+    
+    
     
     handleClick=(event)=>{
         event.preventDefault();
         this.props.deleteBook(event.target.id)
+    }
+    
+    handleLike(event){
+        debugger
+        this.setState({
+            likeCount: this.state.likeCount+=1
+        })
     }
     
     
@@ -24,6 +39,8 @@ export default class Book extends Component{
                         <div class="panel-body">
                             <p>{this.props.book.author}</p>
                             <p>{this.props.book.genres}</p>
+                            <button onClick={this.handleLike}>Like</button>
+                            <p>{this.state.likeCount}</p>
                         </div>
                     </div>
                 </div>
