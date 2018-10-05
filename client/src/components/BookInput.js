@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 
 
@@ -45,19 +46,17 @@ export default class BookInput extends Component{
         return (
             <div id="book-input" class="container panel" >
                     <form id="book-input-form" onSubmit={this.handleSubmit}>
-                        <div class="input-group">
-                            <label for="title">Book Title: </label>
-                            <input type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
-                            <label for="author">Author: </label>
-                            <input type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
-                        </div>
-                        <div class="input-group">
-                            <label for="pages">Pages: </label>
-                            <input type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
-                            <label for="pages">Genres: </label>
-                            <input type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
-                        </div>
-                        <button class="btn btn-primary" value="Add Book">Add Book</button>
+                        <FormGroup controlId="bookEntryForm">
+                            <ControlLabel for="title">Book Title: </ControlLabel>
+                            <FormControl type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                            <ControlLabel for="author">Author: </ControlLabel>
+                            <FormControl type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
+                            <ControlLabel for="pages">Pages: </ControlLabel>
+                            <FormControl type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
+                            <ControlLabel for="pages">Genres: </ControlLabel>
+                            <FormControl type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
+                        </FormGroup>
+                        <Button bsStyle="primary" bsSize="small" type ="submit" value="Add Book">Add Book</Button>
                     </form>
                     
                 </div>
