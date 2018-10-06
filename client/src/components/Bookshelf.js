@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import Book from './Book'
+import {Well, Clearfix} from 'react-bootstrap'
 
 
 
 const Bookshelf=(props)=>{
     return(
-        <div class="well container">
+        <Well>
             <h4>My Books</h4>
             <div class="row clearfix">
                 {props.books.map(book=>{
@@ -15,7 +16,7 @@ const Bookshelf=(props)=>{
                 })}
             </div>
             
-        </div>
+        </Well>
     )
     
 }
