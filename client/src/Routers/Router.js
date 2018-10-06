@@ -4,6 +4,14 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
+import SplashContainer from '../containers/SplashContainer'
+
+const Splash=()=>(
+    <div>
+        <SplashContainer/>
+    </div>
+)
+
 
 
 const Home = () => (
@@ -14,8 +22,7 @@ const Home = () => (
 
 
 const Stats = () => (
-  <div>
-     
+    <div>
       <StatsContainer/>
     </div>
   
@@ -35,14 +42,14 @@ const MrRouter = () => (
         <Navbar collapseOnSelect>
             <Navbar.Header>
                 <Navbar.Brand>
-                    Dog Ears
+                    <Link to="/">Dog Ears</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
             </Navbar.Header>
             
             <Navbar.Collapse>    
                 <Nav>
-                    <NavItem><Link to="/">Home</Link></NavItem>
+                    <NavItem><Link to="/home">Home</Link></NavItem>
                     <NavItem><Link to="/stats">Stats</Link></NavItem>
                     <NavItem><Link to="/bookshelf">Bookshelf</Link></NavItem>
                 
@@ -50,17 +57,8 @@ const MrRouter = () => (
             </Navbar.Collapse>
         </Navbar>
         
-        
-        
-            
-            
-        
-        
-        
-        
-        <hr/>
-        
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={Splash}/>
+        <Route exact path="/home" component={Home}/>
         <Route exact path="/stats" component={Stats}/>
         <Route exact path="/bookshelf" component={Bookshelf}/>
         </div>
