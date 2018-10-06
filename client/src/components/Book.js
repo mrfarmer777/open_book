@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Button, Well, Panel} from 'react-bootstrap'
 
 
 export default class Book extends Component{
@@ -18,8 +19,8 @@ export default class Book extends Component{
     
     handleLike(event){
         debugger
-        this.setState({
-            likeCount: this.state.likeCount+=1
+        this.target.setState({
+            likeCount: this.target.state.likeCount+=1
         })
     }
     
@@ -29,20 +30,18 @@ export default class Book extends Component{
         return(
             
                 <div class="container col-md-3">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                    <Panel bsStyle="primary">
+                        <Panel.Heading>
                             <button class="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>
                             </button>
                             <h4>{this.props.book.title}</h4>
                             
-                        </div>
-                        <div class="panel-body">
+                        </Panel.Heading>
+                        <Panel.Body>
                             <p>{this.props.book.author}</p>
                             <p>{this.props.book.genres}</p>
-                            <button onClick={this.handleLike}>Like</button>
-                            <p>{this.state.likeCount}</p>
-                        </div>
-                    </div>
+                        </Panel.Body>
+                    </Panel>
                 </div>
             
         )
