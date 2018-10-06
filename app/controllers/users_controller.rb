@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     def create
         @user=User.new(name: user_params[:name], email: user_params[:email], type: user_params[:type], age: user_params[:age])
         @user.save
+        session[:user_id]=@user.id
         render json: User.all
     end
     
