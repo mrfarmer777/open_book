@@ -41,6 +41,7 @@ export default class SignInInput extends Component{
                 <FormGroup controlId="password">
                     <ControlLabel for="password">Password: </ControlLabel>
                     <FormControl type="password"></FormControl>
+                    <Button type="submit">Sign In</Button>
                 </FormGroup>    
             
             </form>
