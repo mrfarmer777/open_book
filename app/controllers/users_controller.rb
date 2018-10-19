@@ -12,15 +12,26 @@ class UsersController < ApplicationController
         @user=User.new(name: user_params[:name], email: user_params[:email], type: user_params[:type], age: user_params[:age], password: user_params[:password])
         print @user.valid?
         if @user.save
-            session[:user_id]=@user.id
-            render json: User.find(@user.id)
+            payload={user_id: @user.id}
+            token=JWT.encode(payload,"flobble")
+            render json: {user: @user, jwt: token}
         else
             render json: User.all
         end
     end
     
-    def show
-        @user=User.find(params[:id])
+    def me
+        
+        #this route requies an authorization header be sent with the JWT token
+        authHeader=request.headers["Authorization"]
+        
+        #select and decode the JWT
+        token=authHeader.split(" ")[1]
+        decoded=JWT.decode(token,"flobble", true, {algorithm: "HS256"})
+        user_id=decoded[0]["user_id"]
+        
+        #We good.
+        @user=User.find(user_id)
         render json: @user
     end
     
