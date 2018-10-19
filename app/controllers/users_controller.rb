@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     #skipping for now, double check this later...
+    before_action :current_user, only: [:me]
     skip_before_action :verify_authenticity_token
     
     def index
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
         print @user.valid?
         if @user.save
             payload={user_id: @user.id}
-            token=JWT.encode(payload,"flobble")
+            token = encode_token(payload)
             render json: {user: @user, jwt: token}
         else
             render json: User.all
@@ -21,17 +22,6 @@ class UsersController < ApplicationController
     end
     
     def me
-        
-        #this route requies an authorization header be sent with the JWT token
-        authHeader=request.headers["Authorization"]
-        
-        #select and decode the JWT
-        token=authHeader.split(" ")[1]
-        decoded=JWT.decode(token,"flobble", true, {algorithm: "HS256"})
-        user_id=decoded[0]["user_id"]
-        
-        #We good.
-        @user=User.find(user_id)
         render json: @user
     end
     

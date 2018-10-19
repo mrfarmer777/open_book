@@ -12,8 +12,7 @@ class AuthController < ApplicationController
             #create a payload for the JWT
             payload={user_id: @user.id}
             
-            #generate the JWT
-            token=JWT.encode(payload,"flobble")
+            token=encode_token(payload)
             
             #render specific json
             render json: { user: @user, jwt: token }
