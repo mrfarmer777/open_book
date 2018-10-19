@@ -2,6 +2,7 @@ class UsersController < ApplicationController
     #skipping for now, double check this later...
     before_action :current_user, only: [:me]
     skip_before_action :verify_authenticity_token
+    skip_before_action :authorized, only: [:create]
     
     def index
         @users=User.all
@@ -22,7 +23,11 @@ class UsersController < ApplicationController
     end
     
     def me
-        render json: @user
+        if @user
+            render json: @user
+        else
+            render json: {"message":"Incorrect JWT token"}
+        end
     end
     
     
