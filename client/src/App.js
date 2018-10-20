@@ -8,15 +8,11 @@ import './App.css';
 //Components Import
 
 
-
-
-
-
-
-
 class App extends Component {
   
-  
+  componentDidMount(){
+    console.log("I'm the app, and I did mount.");
+  }
   
   render() {
     return (

@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get "entries/stats", to: "entries#stats"
   post '/login', to: "auth#create"
   get "users/me", to: "users#me"
+  get '/welcome', to: "application#welcome"
   
 end

@@ -20,4 +20,6 @@ class AuthController < ApplicationController
             render json: { user: @user, jwt: token }
         end
     end
+    
+     
 end

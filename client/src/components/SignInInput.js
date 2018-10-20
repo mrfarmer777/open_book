@@ -22,6 +22,7 @@ export default class SignInInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
+        console.log("pickles");
         /*Turned off for now...
         this.props.postSession(this.state);
         */
@@ -36,12 +37,12 @@ export default class SignInInput extends Component{
             <form onSubmit={this.handleSubmit}>
                 <FormGroup controlId="email">
                     <ControlLabel for="email">Email: </ControlLabel>
-                    <FormControl type="text"></FormControl>
+                    <FormControl type="text" name="email" value={this.state.email} onChange={this.handleChange}></FormControl>
                 </FormGroup>
                 <FormGroup controlId="password">
                     <ControlLabel for="password">Password: </ControlLabel>
-                    <FormControl type="password"></FormControl>
-                    <Button type="submit">Sign In</Button>
+                    <FormControl type="password" name="password" value={this.state.password} onChange={this.handleChange}></FormControl>
+                    <Button type="submit" value="Submit">Sign In</Button>
                 </FormGroup>    
             
             </form>

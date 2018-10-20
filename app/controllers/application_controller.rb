@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :authorized
+    skip_before_action :authorized, only: [:welcome]
     
     def encode_token(payload)
         token=JWT.encode(payload,"flobble")
@@ -38,6 +39,10 @@ class ApplicationController < ActionController::Base
     end
     
     def authorized
-        redirect_to "/" unless logged_in?
+        redirect_to "/welcome" unless logged_in?
+    end
+    
+    def welcome
+        render json: {message: "please log in"}
     end
 end
