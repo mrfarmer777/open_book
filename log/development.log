@@ -14252,3 +14252,705 @@ Processing by AuthController#create as JSON
 Completed 200 OK in 145ms (Views: 20.1ms | ActiveRecord: 6.4ms)
 
 
+Started GET "/welcome" for 10.240.0.116 at 2018-10-21 02:12:38 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.24ms)
+Completed 200 OK in 16ms (Views: 9.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.171 at 2018-10-21 02:15:43 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.34ms)
+Completed 200 OK in 16ms (Views: 9.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.1.21 at 2018-10-21 02:19:05 +0000
+Cannot render console from 10.240.1.21! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.81ms)
+Completed 200 OK in 32ms (Views: 24.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.1.60 at 2018-10-21 02:19:10 +0000
+Cannot render console from 10.240.1.60! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (8.17ms)
+Completed 200 OK in 47ms (Views: 15.4ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/welcome" for 10.240.0.231 at 2018-10-21 02:21:06 +0000
+Cannot render console from 10.240.0.231! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.48ms)
+Completed 200 OK in 26ms (Views: 19.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.1.21 at 2018-10-21 02:21:14 +0000
+Cannot render console from 10.240.1.21! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (36.68ms)
+Completed 200 OK in 382ms (Views: 138.7ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 02:23:11 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.12ms)
+Completed 200 OK in 16ms (Views: 9.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.59 at 2018-10-21 02:27:54 +0000
+Cannot render console from 10.240.0.59! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.86ms)
+Completed 200 OK in 20ms (Views: 14.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.59 at 2018-10-21 02:28:38 +0000
+Cannot render console from 10.240.0.59! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.37ms)
+Completed 200 OK in 22ms (Views: 10.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 02:35:18 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.09ms)
+Completed 200 OK in 13ms (Views: 7.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:35:19 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:35:20 +0000
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 58ms (ActiveRecord: 0.0ms)
+
+
+Processing by BooksController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 10ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:35:20 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:35:20 +0000
+Processing by ApplicationController#welcome as */*
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.56ms)
+Processing by ApplicationController#welcome as */*
+Completed 200 OK in 39ms (Views: 32.6ms | ActiveRecord: 0.0ms)
+
+
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.97ms)
+Completed 200 OK in 31ms (Views: 25.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 10.240.0.171 at 2018-10-21 02:44:45 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by UsersController#index as HTML
+Redirected to http://flatiron-2-mrfarmer7771.c9users.io:8080/welcome
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 20ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.1.60 at 2018-10-21 02:44:46 +0000
+Cannot render console from 10.240.1.60! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as HTML
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.32ms)
+Completed 200 OK in 16ms (Views: 9.0ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:45:17 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:45:17 +0000
+Completed 302 Found in 29ms (ActiveRecord: 0.0ms)
+
+
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 12ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:45:18 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:45:18 +0000
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.45ms)
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Completed 200 OK in 48ms (Views: 40.7ms | ActiveRecord: 0.0ms)
+
+
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.34ms)
+Completed 200 OK in 22ms (Views: 8.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:46:43 +0000
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:46:43 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Processing by BooksController#index as */*
+Filter chain halted as :authorized rendered or redirected
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Completed 302 Found in 39ms (ActiveRecord: 0.0ms)
+
+
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 32ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:46:43 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.95ms)
+Completed 200 OK in 21ms (Views: 8.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:46:43 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.19ms)
+Completed 200 OK in 21ms (Views: 14.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.118 at 2018-10-21 02:46:55 +0000
+Cannot render console from 10.240.0.118! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.46ms)
+Completed 200 OK in 22ms (Views: 16.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.2.147 at 2018-10-21 02:47:22 +0000
+Cannot render console from 10.240.2.147! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"billy@trial.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"billy@trial.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "billy@trial.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (8.9ms)
+Completed 200 OK in 50ms (Views: 22.9ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 02:50:40 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.14ms)
+Completed 200 OK in 15ms (Views: 8.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:50:40 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:50:40 +0000
+Processing by EntriesController#index as */*
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Processing by BooksController#index as */*
+Filter chain halted as :authorized rendered or redirected
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Completed 302 Found in 59ms (ActiveRecord: 0.0ms)
+
+
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 38ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:50:41 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.14ms)
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:50:41 +0000
+Completed 200 OK in 37ms (Views: 30.5ms | ActiveRecord: 0.0ms)
+
+
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.03ms)
+Completed 200 OK in 15ms (Views: 8.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 02:52:14 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (7.47ms)
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:52:14 +0000
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:52:14 +0000
+Completed 200 OK in 49ms (Views: 39.3ms | ActiveRecord: 0.0ms)
+
+
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#index as */*
+Processing by EntriesController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 32ms (ActiveRecord: 0.0ms)
+
+
+Completed 302 Found in 26ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:52:14 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.01ms)
+Completed 200 OK in 20ms (Views: 7.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:52:14 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.04ms)
+Completed 200 OK in 27ms (Views: 15.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 02:55:44 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.7ms)
+Completed 200 OK in 22ms (Views: 16.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.0.59 at 2018-10-21 02:55:56 +0000
+Cannot render console from 10.240.0.59! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"billy@trial.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"billy@trial.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "billy@trial.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (8.04ms)
+Completed 200 OK in 48ms (Views: 23.5ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/welcome" for 10.240.0.118 at 2018-10-21 02:56:13 +0000
+Cannot render console from 10.240.0.118! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.53ms)
+Completed 200 OK in 16ms (Views: 9.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 02:56:13 +0000
+Started GET "/books" for 76.245.251.194 at 2018-10-21 02:56:13 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Processing by BooksController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 25ms (ActiveRecord: 0.0ms)
+
+
+Completed 302 Found in 14ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:56:13 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (7.4ms)
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 02:56:14 +0000
+Completed 200 OK in 29ms (Views: 23.3ms | ActiveRecord: 0.0ms)
+
+
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.16ms)
+Completed 200 OK in 20ms (Views: 9.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.118 at 2018-10-21 03:02:04 +0000
+Cannot render console from 10.240.0.118! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.51ms)
+Completed 200 OK in 20ms (Views: 9.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.0.207 at 2018-10-21 03:02:28 +0000
+Cannot render console from 10.240.0.207! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"billy@trial.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"billy@trial.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "billy@trial.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (7.63ms)
+Completed 200 OK in 44ms (Views: 20.5ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:02:29 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:02:29 +0000
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Filter chain halted as :authorized rendered or redirected
+Processing by BooksController#index as */*
+Completed 302 Found in 64ms (ActiveRecord: 0.0ms)
+
+
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 27ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 03:02:29 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 03:02:29 +0000
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.4ms)
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Completed 200 OK in 40ms (Views: 33.8ms | ActiveRecord: 0.0ms)
+
+
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.04ms)
+Completed 200 OK in 20ms (Views: 12.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.1.78 at 2018-10-21 03:07:10 +0000
+Cannot render console from 10.240.1.78! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:07:11 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:07:12 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.33ms)
+Completed 200 OK in 73ms (Views: 59.3ms | ActiveRecord: 0.0ms)
+
+
+Processing by EntriesController#index as */*
+  
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+SyntaxError (/home/ubuntu/workspace/dog_ears/app/controllers/books_controller.rb:2: syntax error, unexpected ','
+    skip_before_action :verify_authenticity_token, , :authorized
+                                                    ^):
+Filter chain halted as :authorized rendered or redirected
+  
+Completed 302 Found in 13ms (ActiveRecord: 0.0ms)
+
+
+app/controllers/books_controller.rb:2: syntax error, unexpected ','
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 03:07:14 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.16ms)
+Completed 200 OK in 73ms (Views: 64.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.1.21 at 2018-10-21 03:07:47 +0000
+Cannot render console from 10.240.1.21! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:07:48 +0000
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:07:49 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (8.95ms)
+Completed 200 OK in 86ms (Views: 68.3ms | ActiveRecord: 0.0ms)
+
+
+Processing by EntriesController#index as */*
+Processing by BooksController#index as */*
+Redirected to https://flatiron-2-mrfarmer7771.c9users.io/welcome
+Filter chain halted as :authorized rendered or redirected
+Completed 302 Found in 31ms (ActiveRecord: 0.0ms)
+
+
+  [1m[36mBook Load (2.6ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+Started GET "/welcome" for 76.245.251.194 at 2018-10-21 03:07:51 +0000
+  ↳ app/controllers/books_controller.rb:6
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.25ms)
+Completed 200 OK in 85ms (Views: 68.8ms | ActiveRecord: 0.0ms)
+
+
+[active_model_serializers]   [1m[36mEntry Load (1.9ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.5ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.5ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (631.69ms)
+Completed 200 OK in 1155ms (Views: 990.7ms | ActiveRecord: 38.4ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:08:27 +0000
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:08:27 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/welcome" for 10.240.0.171 at 2018-10-21 03:08:27 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Processing by BooksController#index as */*
+  [1m[36mEntry Load (2.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+Processing by ApplicationController#welcome as */*
+  [1m[36mBook Load (2.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.33ms)
+  ↳ app/controllers/books_controller.rb:6
+Completed 200 OK in 228ms (Views: 219.8ms | ActiveRecord: 0.0ms)
+
+
+[active_model_serializers]   [1m[36mEntry Load (69.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   [1m[36mBook Load (6.7ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (11.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   [1m[36mCACHE Book Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (9.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   [1m[36mCACHE Book Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   [1m[36mBook Load (1.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (9.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   [1m[36mBook Load (1.6ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (634.57ms)
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+Completed 200 OK in 1272ms (Views: 1018.0ms | ActiveRecord: 114.6ms)
+
+
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (691.34ms)
+Completed 200 OK in 1411ms (Views: 1266.7ms | ActiveRecord: 25.6ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:10:25 +0000
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:10:25 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by EntriesController#index as */*
+Processing by BooksController#index as */*
+  [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  [1m[36mBook Load (2.6ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/entries_controller.rb:7
+  ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.9ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (2.1ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mCACHE Book Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.5ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mCACHE Book Load (0.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (2.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (7.1ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.5ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.6ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (500.71ms)
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+Completed 200 OK in 989ms (Views: 837.9ms | ActiveRecord: 23.7ms)
+
+
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (637.54ms)
+Completed 200 OK in 1101ms (Views: 947.0ms | ActiveRecord: 31.1ms)
+
+
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:10:51 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#index as */*
+  [1m[36mBook Load (2.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.7ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (6.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.9ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.9ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mEntry Load (1.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (253.57ms)
+Completed 200 OK in 304ms (Views: 273.4ms | ActiveRecord: 19.3ms)
+
+
+Started GET "/welcome" for 10.240.1.78 at 2018-10-21 03:10:58 +0000
+Cannot render console from 10.240.1.78! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.92ms)
+Completed 200 OK in 74ms (Views: 63.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.0.171 at 2018-10-21 03:11:16 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (7.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (7.48ms)
+Completed 200 OK in 229ms (Views: 15.9ms | ActiveRecord: 14.5ms)
+
+
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:11:23 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:11:23 +0000
+Processing by BooksController#index as */*
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+  [1m[36mBook Load (2.5ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+Processing by EntriesController#index as */*
+  ↳ app/controllers/books_controller.rb:6
+  [1m[36mEntry Load (1.8ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+[active_model_serializers]   [1m[36mEntry Load (1.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+  ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (7.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mCACHE Book Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mCACHE Book Load (0.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (8.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (7.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.6ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.7ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.5ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.6ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   [1m[36mBook Load (1.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (506.19ms)
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+Completed 200 OK in 627ms (Views: 602.4ms | ActiveRecord: 19.0ms)
+
+
+[active_model_serializers]   [1m[36mBook Load (6.6ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (547.36ms)
+Completed 200 OK in 670ms (Views: 634.6ms | ActiveRecord: 28.5ms)
+
+
+Started GET "/welcome" for 10.240.0.71 at 2018-10-21 03:11:33 +0000
+Cannot render console from 10.240.0.71! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (7.02ms)
+Started GET "/books" for 76.245.251.194 at 2018-10-21 03:11:33 +0000
+Completed 200 OK in 28ms (Views: 21.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/entries" for 76.245.251.194 at 2018-10-21 03:11:33 +0000
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Cannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by BooksController#index as */*
+Processing by EntriesController#index as */*
+  [1m[36mBook Load (1.9ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  [1m[36mEntry Load (2.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries"[0m
+  ↳ app/controllers/books_controller.rb:6
+  ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 1]]
+[active_model_serializers]   [1m[36mBook Load (1.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 3]]
+[active_model_serializers]   [1m[36mCACHE Book Load (0.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 4]]
+[active_model_serializers]   [1m[36mCACHE Book Load (0.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 5]]
+[active_model_serializers]   [1m[36mBook Load (1.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 7]]
+[active_model_serializers]   [1m[36mBook Load (1.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 8]]
+[active_model_serializers]   [1m[36mBook Load (1.9ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers]   [1m[36mEntry Load (1.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."book_id" = ?[0m  [["book_id", 13]]
+[active_model_serializers]   [1m[36mBook Load (1.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/books_controller.rb:6
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (495.17ms)
+[active_model_serializers]   [1m[36mBook Load (1.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+Completed 200 OK in 584ms (Views: 567.4ms | ActiveRecord: 10.8ms)
+
+
+[active_model_serializers]   ↳ app/controllers/entries_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (536.6ms)
+Completed 200 OK in 666ms (Views: 648.0ms | ActiveRecord: 11.4ms)
+
+
+Started GET "/welcome" for 10.240.0.171 at 2018-10-21 03:13:13 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.41ms)
+Completed 200 OK in 23ms (Views: 8.8ms | ActiveRecord: 0.0ms)
+
+

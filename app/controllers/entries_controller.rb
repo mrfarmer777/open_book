@@ -1,5 +1,6 @@
 class EntriesController < ApplicationController
-    skip_before_action :verify_authenticity_token
+    #skipping authorized for now, because the components need to send the Authorization header in their requests now.
+    skip_before_action :verify_authenticity_token, :authorized
     
     def index
         @entries=Entry.all
