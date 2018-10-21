@@ -23,9 +23,23 @@ export default class SignInInput extends Component{
     handleSubmit=(event)=>{
         event.preventDefault();
         console.log("pickles");
-        /*Turned off for now...
-        this.props.postSession(this.state);
-        */
+        
+        const loginParams={email: this.state.email, password: this.state.password}
+        const body=JSON.stringify(loginParams)
+        console.log(loginParams);
+        fetch("http://flatiron-2-mrfarmer7771.c9users.io:8080/login",{
+            method:'post',
+            body: body, 
+            headers: {
+                "Accept":"application/json",
+                "Content-Type": "application/json"
+            }
+        })
+          .then((res)=>res.json())
+          .then((json)=>{
+            console.log(json);
+        });
+        
         this.setState({
             email: "",
             password: ""

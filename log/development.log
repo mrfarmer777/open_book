@@ -14029,3 +14029,226 @@ Processing by ApplicationController#welcome as */*
 Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/welcome" for 10.240.0.231 at 2018-10-20 20:13:29 +0000
+Cannot render console from 10.240.0.231! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.171 at 2018-10-20 20:18:43 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 2ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.171 at 2018-10-20 20:19:10 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.118 at 2018-10-21 01:19:09 +0000
+Cannot render console from 10.240.0.118! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.32ms)
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/welcome" for 10.240.0.68 at 2018-10-21 01:21:56 +0000
+Cannot render console from 10.240.0.68! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 1ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.0.68 at 2018-10-21 01:25:04 +0000
+Cannot render console from 10.240.0.68! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+No template found for AuthController#create, rendering head :no_content
+Completed 204 No Content in 65ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/welcome" for 10.240.0.116 at 2018-10-21 01:27:55 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 7ms (Views: 6.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.1.60 at 2018-10-21 01:28:27 +0000
+Cannot render console from 10.240.1.60! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 9ms (Views: 0.8ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/login" for 10.240.0.68 at 2018-10-21 01:29:16 +0000
+Cannot render console from 10.240.0.68! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 13ms (Views: 5.8ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/login" for 10.240.0.68 at 2018-10-21 01:30:26 +0000
+Cannot render console from 10.240.0.68! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.6ms)
+
+
+  
+NoMethodError (undefined method `authenticate' for nil:NilClass):
+  
+app/controllers/auth_controller.rb:12:in `create'
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (50.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+Started POST "/login" for 10.240.0.116 at 2018-10-21 01:32:22 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (58.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 948ms (ActiveRecord: 58.2ms)
+
+
+  
+NoMethodError (undefined method `authenticate' for nil:NilClass):
+  
+app/controllers/auth_controller.rb:12:in `create'
+Started GET "/welcome" for 10.240.0.171 at 2018-10-21 01:32:29 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (29.38ms)
+Completed 200 OK in 446ms (Views: 424.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.2.147 at 2018-10-21 01:32:39 +0000
+Cannot render console from 10.240.2.147! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 1.7ms)
+
+
+  
+NoMethodError (undefined method `authenticate' for nil:NilClass):
+  
+app/controllers/auth_controller.rb:12:in `create'
+Started POST "/login" for 10.240.0.233 at 2018-10-21 01:33:47 +0000
+Cannot render console from 10.240.0.233! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 72ms (Views: 8.0ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/login" for 10.240.0.171 at 2018-10-21 01:35:17 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 24ms (Views: 9.7ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/login" for 10.240.0.171 at 2018-10-21 01:36:26 +0000
+Cannot render console from 10.240.0.171! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:10
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 13ms (Views: 5.4ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/login" for 10.240.0.68 at 2018-10-21 01:38:55 +0000
+Cannot render console from 10.240.0.68! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.8ms)
+
+
+  
+NoMethodError (undefined method `pry' for #<Binding:0x007f4f4014ad98>
+Did you mean?  pretty_print
+               pretty_inspect
+               pretty_print_cycle
+               try):
+  
+app/controllers/auth_controller.rb:10:in `create'
+Started POST "/login" for 10.240.0.207 at 2018-10-21 01:39:17 +0000
+Cannot render console from 10.240.0.207! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 489052ms (ActiveRecord: 0.7ms)
+
+
+  
+SystemExit (exit):
+  
+(byebug):1:in `exit'
+(byebug):1:in `create'
+app/controllers/auth_controller.rb:12:in `create'
+Started GET "/welcome" for 10.240.0.59 at 2018-10-21 01:47:30 +0000
+Cannot render console from 10.240.0.59! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by ApplicationController#welcome as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.24ms)
+Completed 200 OK in 76ms (Views: 70.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 10.240.1.60 at 2018-10-21 01:47:47 +0000
+Cannot render console from 10.240.1.60! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+Completed 500 Internal Server Error in 24831ms (ActiveRecord: 5.4ms)
+
+
+  
+SystemExit (exit):
+  
+(byebug):1:in `exit'
+(byebug):1:in `create'
+app/controllers/auth_controller.rb:12:in `create'
+Started POST "/login" for 10.240.0.116 at 2018-10-21 01:48:43 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (7.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (15.51ms)
+Completed 200 OK in 305ms (Views: 75.0ms | ActiveRecord: 15.4ms)
+
+
+Started POST "/login" for 10.240.0.116 at 2018-10-21 01:49:30 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"higgledypiggledy@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"higgledypiggledy@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "higgledypiggledy@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.19ms)
+Completed 200 OK in 200ms (Views: 67.6ms | ActiveRecord: 5.6ms)
+
+
+Started POST "/login" for 10.240.0.116 at 2018-10-21 01:49:47 +0000
+Cannot render console from 10.240.0.116! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Processing by AuthController#create as JSON
+  Parameters: {"email"=>"trial@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"trial@run.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "trial@run.com"], ["LIMIT", 1]]
+  ↳ app/controllers/auth_controller.rb:9
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (11.3ms)
+Completed 200 OK in 145ms (Views: 20.1ms | ActiveRecord: 6.4ms)
+
+

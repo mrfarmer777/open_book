@@ -38,29 +38,30 @@ const Bookshelf = () => (
   
 const MrRouter = () => (
     <Router>
-    <div>
-        <Navbar collapseOnSelect>
-            <Navbar.Header>
-                <Navbar.Brand>
-                    <Link to="/">Dog Ears</Link>
-                </Navbar.Brand>
-                <Navbar.Toggle/>
-            </Navbar.Header>
-            
-            <Navbar.Collapse>    
-                <Nav>
-                    <NavItem><Link to="/home">Home</Link></NavItem>
-                    <NavItem><Link to="/stats">Stats</Link></NavItem>
-                    <NavItem><Link to="/bookshelf">Bookshelf</Link></NavItem>
+        <div>
+            <Navbar collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to="/login">Dog Ears</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle/>
+                </Navbar.Header>
                 
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
-        
-        <Route exact path="/" component={Splash}/>
-        <Route exact path="/home" component={Home}/>
-        <Route exact path="/stats" component={Stats}/>
-        <Route exact path="/bookshelf" component={Bookshelf}/>
+                <Navbar.Collapse>    
+                    <Nav>
+                        <NavItem><Link to="/home">Home</Link></NavItem>
+                        <NavItem><Link to="/stats">Stats</Link></NavItem>
+                        <NavItem><Link to="/bookshelf">Bookshelf</Link></NavItem>
+                    
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+            <div class='container'>
+                <Route exact path="/login" component={Splash}/>
+                <Route exact path="/home" component={Home}/>
+                <Route exact path="/stats" component={Stats}/>
+                <Route exact path="/bookshelf" component={Bookshelf}/>
+            </div>
         </div>
     </Router>
 )

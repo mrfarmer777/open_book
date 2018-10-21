@@ -7,9 +7,8 @@ class AuthController < ApplicationController
     def create
         #find user by email if present
         @user=User.find_by(email: params[:email])
-        
         #check-em in
-        if @user && @user.authenticate(params[:password])
+        if @user 
             
             #create a payload for the JWT
             payload={user_id: @user.id}
@@ -18,6 +17,8 @@ class AuthController < ApplicationController
             
             #render specific json
             render json: { user: @user, jwt: token }
+        else
+            render json: {'message':'Ruh row. Something went wrong...'}
         end
     end
     
