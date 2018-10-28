@@ -1,8 +1,12 @@
 export function fetchBooks() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
+    const token=JSON.stringify(localStorage.getItem('jwtToken'))
     return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/books`, {
     accept: 'application/json',
+    headers:{
+      "Authorization":token
+    }
   })
       .then(response => response.json())
       .then(books => dispatch({ type: 'ADD_BOOKS', payload: books }));

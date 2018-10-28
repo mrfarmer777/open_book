@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
 import { fetchBooks, postBook } from '../actions/bookActions'
 
@@ -24,15 +24,22 @@ class HomeContainer extends Component{
     }
     
     render(){
+        //Wrapping the actual content in a check for jwtToken which verifies a login
+        //If you're logged in, you get the good stuff
+        if(localStorage.getItem("jwtToken")){
+            return (
+                <div class="container-fluid">
+                    <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
+                    <BookInput postBook={this.props.postBook} />
+                    <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
+                </div>
+            
+            )
+        } else {
+            //Otherwise, go login first...
+            return <Redirect to="/login" />
+        }
         
-        return (
-            <div class="container-fluid">
-                
-                <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
-                <BookInput postBook={this.props.postBook} />
-                <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
-            </div>
-        )
     }
 }
 

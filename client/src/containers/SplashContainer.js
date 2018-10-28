@@ -6,12 +6,13 @@ import SignInInput from "../components/SignInInput.js"
 
 class SplashContainer extends Component{
     componentDidMount(){
-        console.log('this was called');
+        /*
         fetch("http://flatiron-2-mrfarmer7771.c9users.io:8080/welcome")
           .then((res)=>res.json())
           .then((json)=>{
             console.log(json);
         });
+        */
      }
     
     render (){

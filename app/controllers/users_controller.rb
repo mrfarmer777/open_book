@@ -22,6 +22,7 @@ class UsersController < ApplicationController
         end
     end
     
+    #Just a temporary action to see if login is working correctly
     def me
         if @user
             render json: @user
