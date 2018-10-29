@@ -13,3 +13,8 @@ export function loginUser(loginParams){
         })
           .then((res)=>res.json());
 }
+
+
+export function logoutUser(){
+    localStorage.removeItem('jwtToken')
+}

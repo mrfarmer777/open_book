@@ -7,6 +7,7 @@ import { fetchBooks, postBook } from '../actions/bookActions'
 import EntryInput from '../components/EntryInput'
 import Entries from '../components/Entries'
 import BookInput from '../components/BookInput'
+import {logoutUser} from '../services/user'
 
 class HomeContainer extends Component{
     constructor(){
@@ -14,6 +15,13 @@ class HomeContainer extends Component{
         this.state={
             bookFormOpen: false,
         }
+    }
+    
+    handleLogout = ()=>{
+        logoutUser();
+        this.setState({
+            bookFormOpen:false,
+        })
     }
     
     
@@ -32,6 +40,7 @@ class HomeContainer extends Component{
                     <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
                     <BookInput postBook={this.props.postBook} />
                     <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
+                    <button onClick={this.handleLogout}>Logout</button>
                 </div>
             
             )
