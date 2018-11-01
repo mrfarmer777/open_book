@@ -7,9 +7,9 @@ import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
 import Authorize from '../components/Authorize'
 
-const Splash=()=>(
+const Splash=(props)=>(
     <div>
-        <SplashContainer/>
+        <SplashContainer {...props}/>
     </div>
 )
 

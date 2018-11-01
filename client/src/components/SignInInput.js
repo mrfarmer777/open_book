@@ -24,8 +24,7 @@ export default class SignInInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
-        console.log("pickles");
-        
+
         const loginParams={email: this.state.email, password: this.state.password}
         const body=JSON.stringify(loginParams)
         
@@ -33,8 +32,10 @@ export default class SignInInput extends Component{
         //This is done in the user services now
         loginUser(loginParams)
             .then((user)=>{
-                //Store the jwt token in the localStorage
-                localStorage.setItem("jwtToken",user.jwt);
+                //Store the jwt token in the localStorage if it is not undefined
+                if(user.jwt){
+                    localStorage.setItem("jwtToken",user.jwt);
+                }
                 this.setState({
                     email:"",
                     password:""

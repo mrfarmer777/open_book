@@ -6,10 +6,12 @@ import React from 'react'
 function Authorize(RenderedComponent, props){                  //take in any component
     return class extends React.Component{               //Return a new class of component that...
         componentDidMount(){
-            if(localStorage.getItem('jwtToken')){       //Can check if you're logged in
-                                                        //If you are...no biggie, continue
+            if(localStorage.getItem('jwtToken') &&  this.props.location.pathname=="/login"){    
+                this.props.history.push('/home')                                               
+            } else if(!localStorage.getItem('jwtToken') && this.props.location.pathname !=="/login"){
+                this.props.history.push("/login")      
             } else {
-                this.props.history.push("/login")       //if not, push you to login, and write it to history
+                
             }
         }
         render(){

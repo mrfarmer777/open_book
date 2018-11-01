@@ -2,20 +2,15 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Jumbotron } from 'react-bootstrap'
 import SignInInput from "../components/SignInInput.js"
-
+import Authorize from "../components/Authorize"
 
 class SplashContainer extends Component{
-    componentDidMount(){
-        /*
-        fetch("http://flatiron-2-mrfarmer7771.c9users.io:8080/welcome")
-          .then((res)=>res.json())
-          .then((json)=>{
-            console.log(json);
-        });
-        */
-     }
+
     
     render (){
+        
+        
+        
         return(
             <div>
                 <Jumbotron>
