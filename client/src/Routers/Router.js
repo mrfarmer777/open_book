@@ -15,9 +15,9 @@ const Splash=()=>(
 
 const AuthHomeContainer = Authorize(HomeContainer)
 
-const Home = () => (
+const Home = (props) => (
     <div>
-      <AuthHomeContainer/>
+      <AuthHomeContainer {...props}/>
     </div>
 )
 
