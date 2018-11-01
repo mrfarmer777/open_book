@@ -5,6 +5,7 @@ import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
+import Authorize from '../components/Authorize'
 
 const Splash=()=>(
     <div>
@@ -12,11 +13,11 @@ const Splash=()=>(
     </div>
 )
 
-
+const AuthHomeContainer = Authorize(HomeContainer)
 
 const Home = () => (
     <div>
-      <HomeContainer/>
+      <AuthHomeContainer/>
     </div>
 )
 
