@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Redirect} from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
 import { fetchBooks, postBook } from '../actions/bookActions'
 
@@ -20,7 +20,7 @@ class HomeContainer extends Component{
     handleLogout = ()=>{
         logoutUser();
         this.setState({
-            bookFormOpen:false,
+            bookFormOpen: false,
         })
     }
     

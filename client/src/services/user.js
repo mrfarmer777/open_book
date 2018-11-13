@@ -11,7 +11,13 @@ export function loginUser(loginParams){
                 "Content-Type": "application/json"
             }
         })
-          .then((res)=>res.json());
+          .then((res)=>res.json())
+          .then((user)=>{
+                //Store the jwt token in the localStorage if it is not undefined
+                if(user.jwt){
+                    localStorage.setItem("jwtToken",user.jwt);
+                }
+            });
 }
 
 

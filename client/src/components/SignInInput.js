@@ -24,7 +24,6 @@ export default class SignInInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
-
         const loginParams={email: this.state.email, password: this.state.password}
         const body=JSON.stringify(loginParams)
         
@@ -51,26 +50,12 @@ export default class SignInInput extends Component{
     
     render(){
         
-        if(localStorage.getItem('jwtToken')){
-            return <Redirect to="/home"/>
-        } else {
+       
+        return(
+            
+            
+        )
         
-            return(
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="email">
-                        <ControlLabel for="email">Email: </ControlLabel>
-                        <FormControl type="text" name="email" value={this.state.email} onChange={this.handleChange}></FormControl>
-                    </FormGroup>
-                    <FormGroup controlId="password">
-                        <ControlLabel for="password">Password: </ControlLabel>
-                        <FormControl type="password" name="password" value={this.state.password} onChange={this.handleChange}></FormControl>
-                        <Button type="submit" value="Submit">Sign In</Button>
-                    </FormGroup>    
-                
-                </form>
-                
-                )
-        }
     }
     
     

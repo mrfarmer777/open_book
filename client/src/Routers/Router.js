@@ -7,9 +7,11 @@ import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
 import Authorize from '../components/Authorize'
 
+const AuthSplashContainer=Authorize(SplashContainer)
+
 const Splash=(props)=>(
     <div>
-        <SplashContainer {...props}/>
+        <AuthSplashContainer {...props}/>
     </div>
 )
 
@@ -21,18 +23,21 @@ const Home = (props) => (
     </div>
 )
 
+const AuthStatsContainer = Authorize(StatsContainer)
 
-const Stats = () => (
+const Stats = (props) => (
     <div>
-      <StatsContainer/>
+      <AuthStatsContainer {...props}/>
     </div>
   
   )
   
-const Bookshelf = () => (
+const AuthBookshelfContainer = Authorize(BookshelfContainer)
+
+const Bookshelf = (props) => (
      <div>
         <h2>Bookshelf</h2>
-        <BookshelfContainer/>
+        <AuthBookshelfContainer {...props} />
      </div>
      
      )
