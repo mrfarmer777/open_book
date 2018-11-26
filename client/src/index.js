@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 
 import { createStore, applyMiddleware } from 'redux'; 
+import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers/rootReducer';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -13,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker';
 import MrRouter from './Routers/Router';
 
 
-const store=createStore(rootReducer,applyMiddleware(thunk))
+const store=createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
     <Provider store={store}>

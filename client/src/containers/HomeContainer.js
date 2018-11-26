@@ -47,7 +47,8 @@ class HomeContainer extends Component{
 const mapStateToProps = state =>{
     return {
         entries: state.entries,
-        books: state.books
+        books: state.books,
+        bookFormOpen: state.bookFormOpen
     }
 }
 
@@ -57,7 +58,7 @@ const mapDispatchToProps = dispatch =>{
         fetchEntries: () => dispatch(fetchEntries()),  //this.props.fetchEntries is a function that results when you call dispath with the fetchEntries function imported above as an argument. Fetch entries should return a function....
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
-        
+       
         fetchBooks: () => dispatch(fetchBooks()),
         postBook: (book) => dispatch(postBook(book))
     }

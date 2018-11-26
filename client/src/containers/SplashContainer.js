@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter, redirect } from 'react-router-dom'
+import {connect} from 'react-redux'
+
+
 import { Jumbotron } from 'react-bootstrap'
 
 import { loginUser } from '../services/user.js'
@@ -33,12 +36,11 @@ class SplashContainer extends Component{
         
         //This is done in the user services now
         loginUser(loginParams)
-            .then(()=>{
-                this.setState({
-                    email: "",
-                    password: ""
-                })
-            })
+        this.setState({
+            email: "",
+            password: ""
+        })
+           
         
         
         
@@ -74,5 +76,12 @@ class SplashContainer extends Component{
     }
 }
 
-export default withRouter(SplashContainer)
+const mapStateToProps=state=>{
+    return{
+        email: state.email,
+        password: state.password
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(SplashContainer))
 
