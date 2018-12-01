@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 
 import { Jumbotron } from 'react-bootstrap'
 
-import { loginUser } from '../services/user.js'
+import { loginUser } from '../actions/userActions.js'
 import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 
@@ -16,7 +16,7 @@ class SplashContainer extends Component{
         super()
         this.state={
             email: "",
-            password:""
+            password: ""
         }
     }
     
@@ -34,8 +34,7 @@ class SplashContainer extends Component{
         const loginParams={email: this.state.email, password: this.state.password}
 
         
-        //This is done in the user services now
-        loginUser(loginParams)
+        this.props.loginUser(loginParams);
         this.setState({
             email: "",
             password: ""
@@ -49,7 +48,7 @@ class SplashContainer extends Component{
     
     
     render (){
-        
+        console.log("Rendered!")
 
         return(
             <div>
@@ -78,10 +77,16 @@ class SplashContainer extends Component{
 
 const mapStateToProps=state=>{
     return{
-        email: state.email,
-        password: state.password
+        email: state.user.email,
+        password: state.user.password
     }
 }
 
-export default withRouter(connect(mapStateToProps)(SplashContainer))
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: (loginParams) => dispatch(loginUser(loginParams))
+    }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(SplashContainer))
 
