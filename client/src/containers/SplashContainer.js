@@ -16,7 +16,7 @@ class SplashContainer extends Component{
         super()
         this.state={
             email: "",
-            password: ""
+            password: "",
         }
     }
     
@@ -39,6 +39,7 @@ class SplashContainer extends Component{
             email: "",
             password: ""
         })
+        this.forceUpdate();
            
         
         

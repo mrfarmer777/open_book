@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
     #skipping for now, double check this later...
-    before_action :current_user, only: [:me]
+    before_action :current_user, only: [:show]
     skip_before_action :verify_authenticity_token
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create,:show]
     
     def index
         @users=User.all
@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     end
     
     #Just a temporary action to see if login is working correctly
-    def me
+    def show
+        @user=User.find(params[:id])
         if @user
             render json: @user
         else
