@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_26_205056) do
+ActiveRecord::Schema.define(version: 2019_02_06_032930) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -30,6 +30,38 @@ ActiveRecord::Schema.define(version: 2018_11_26_205056) do
     t.integer "user_id"
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.string "course_name"
+    t.integer "year"
+    t.integer "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "student_sections", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.integer "grad_year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_books", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -39,12 +71,18 @@ ActiveRecord::Schema.define(version: 2018_11_26_205056) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.string "password_digest"
     t.string "type"
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

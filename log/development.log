@@ -26174,3 +26174,417 @@ Processing by BooksController#index as */*
 Completed 200 OK in 32ms (Views: 29.8ms | ActiveRecord: 1.8ms)
 
 
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateTeachers (20190203180504)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ db/migrate/20190203180504_create_teachers.rb:3
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "teachers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password_digest" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203180504_create_teachers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203180504"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (29.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateStudents (20190203181543)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "students" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password_digest" varchar, "grad_year" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181543_create_students.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181543"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (21.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateSections (20190203181650)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "course_name" varchar, "year" integer, "teacher_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181650_create_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181650"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (13.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateStudentSections (20190203181848)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "student_sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "student_id" integer, "section_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181848_create_student_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181848"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (11.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to AddDeviseToUsers (20190206032930)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (11.0ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:7
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ bin/rails:9
+  [1m[35m (19.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (19.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateEntries (20180817034648)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "time" integer, "pages" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20180817034648_create_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180817034648"]]
+  ↳ bin/rails:9
+  [1m[35m (19.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateBooks (20180818214347)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "author" varchar, "pages" integer, "genres" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20180818214347_create_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180818214347"]]
+  ↳ bin/rails:9
+  [1m[35m (23.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddBookIdToEntries (20180818224110)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "entries" ADD "book_id" integer[0m
+  ↳ db/migrate/20180818224110_add_book_id_to_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180818224110"]]
+  ↳ bin/rails:9
+  [1m[35m (19.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to RemoveTitleFromEntries (20180819045845)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aentries" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aentries" ("id","title","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","title","time","pages","created_at","updated_at","book_id" FROM "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (1.6ms)[0m  [1m[35mDROP TABLE "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "entries" ("id" integer NOT NULL PRIMARY KEY, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "entries" ("id","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","time","pages","created_at","updated_at","book_id" FROM "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180819045845"]]
+  ↳ bin/rails:9
+  [1m[35m (18.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20181006181425)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "password_digest" varchar, "type" varchar, "age" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20181006181425_create_users.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181006181425"]]
+  ↳ bin/rails:9
+  [1m[35m (16.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateUserBooks (20181006182647)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "user_books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "book_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20181006182647_create_user_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181006182647"]]
+  ↳ bin/rails:9
+  [1m[35m (16.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddUserIdToEntries (20181126205056)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "entries" ADD "user_id" integer[0m
+  ↳ db/migrate/20181126205056_add_user_id_to_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181126205056"]]
+  ↳ bin/rails:9
+  [1m[35m (19.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateTeachers (20190203180504)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "teachers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password_digest" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203180504_create_teachers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203180504"]]
+  ↳ bin/rails:9
+  [1m[35m (19.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateStudents (20190203181543)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "students" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "password_digest" varchar, "grad_year" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181543_create_students.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181543"]]
+  ↳ bin/rails:9
+  [1m[35m (33.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateSections (20190203181650)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "course_name" varchar, "year" integer, "teacher_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181650_create_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181650"]]
+  ↳ bin/rails:9
+  [1m[35m (16.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to CreateStudentSections (20190203181848)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "student_sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "student_id" integer, "section_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181848_create_student_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181848"]]
+  ↳ bin/rails:9
+  [1m[35m (17.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+Migrating to AddDeviseToUsers (20190206032930)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:7
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:11
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:12
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:15
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:40
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:41
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190206032930"]]
+  ↳ bin/rails:9
+  [1m[35m (19.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-02-06 03:35:37.728888"], ["updated_at", "2019-02-06 03:35:37.728888"]]
+  ↳ bin/rails:9
+  [1m[35m (16.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (32.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (18.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateEntries (20180817034648)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "time" integer, "pages" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20180817034648_create_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180817034648"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (18.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateBooks (20180818214347)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "author" varchar, "pages" integer, "genres" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20180818214347_create_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180818214347"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (19.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddBookIdToEntries (20180818224110)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "entries" ADD "book_id" integer[0m
+  ↳ db/migrate/20180818224110_add_book_id_to_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180818224110"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (18.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to RemoveTitleFromEntries (20180819045845)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aentries" ("id" integer NOT NULL PRIMARY KEY, "title" varchar DEFAULT NULL, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aentries" ("id","title","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","title","time","pages","created_at","updated_at","book_id" FROM "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "entries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "entries" ("id" integer NOT NULL PRIMARY KEY, "time" integer DEFAULT NULL, "pages" integer DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "book_id" integer DEFAULT NULL)[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "entries" ("id","time","pages","created_at","updated_at","book_id")
+                     SELECT "id","time","pages","created_at","updated_at","book_id" FROM "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aentries"[0m
+  ↳ db/migrate/20180819045845_remove_title_from_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180819045845"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (20.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateUsers (20181006181425)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "password_digest" varchar, "type" varchar, "age" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20181006181425_create_users.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181006181425"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (24.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateUserBooks (20181006182647)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "user_books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "book_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20181006182647_create_user_books.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181006182647"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (21.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddUserIdToEntries (20181126205056)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "entries" ADD "user_id" integer[0m
+  ↳ db/migrate/20181126205056_add_user_id_to_entries.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181126205056"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (19.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateSections (20190203181650)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "course_name" varchar, "year" integer, "teacher_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181650_create_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181650"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (22.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateStudentSections (20190203181848)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "student_sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "student_id" integer, "section_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190203181848_create_student_sections.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190203181848"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (17.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddDeviseToUsers (20190206032930)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:7
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" varchar[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:11
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" datetime[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:12
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" datetime[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:15
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:40
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  ↳ db/migrate/20190206032930_add_devise_to_users.rb:41
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190206032930"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (13.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddDeviseToTeachers (20190206034111)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "teachers" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:7
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to CreateTeachers (20181006181426)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ db/migrate/20181006181426_create_teachers.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "teachers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "password_digest" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20181006181426_create_teachers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20181006181426"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (18.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddDeviseToTeachers (20190206034111)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "teachers" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:7
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "teachers" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "teachers" ADD "reset_password_token" varchar[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:11
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "teachers" ADD "reset_password_sent_at" datetime[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:12
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "teachers" ADD "remember_created_at" datetime[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:15
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_teachers_on_email" ON "teachers" ("email")[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:40
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_teachers_on_reset_password_token" ON "teachers" ("reset_password_token")[0m
+  ↳ db/migrate/20190206034111_add_devise_to_teachers.rb:41
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190206034111"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (16.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+Migrating to AddDeviseToStudents (20190206034123)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "students" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206034123_add_devise_to_students.rb:7
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /usr/local/rvm/gems/ruby-2.3.4/bin/rake:22
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to AddDeviseToStudents (20190206034123)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "students" ADD "email" varchar DEFAULT '' NOT NULL[0m
+  ↳ db/migrate/20190206034123_add_devise_to_students.rb:7
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ bin/rails:9

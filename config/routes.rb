@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :users, only: [:index, :create, :show]
+  #Trying to set up devise with this, 
+  devise_for :students, path: "students", :controllers => {:omniauth_callbacks => 'users/google_oauth2/callback'}
+  devise_for :teachers, path: "teachers"
+
+
   resources :books
   resources :entries, only: [:index, :create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
