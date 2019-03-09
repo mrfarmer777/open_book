@@ -67,9 +67,10 @@ class SplashContainer extends Component{
                             <ControlLabel >Password: </ControlLabel>
                             <FormControl type="password" name="password" value={this.state.password} onChange={this.handleChange}></FormControl>
                             <Button type="submit" value="Submit">Sign In</Button>
-                        </FormGroup>    
+                        </FormGroup>
                     
-                    </form>               
+                    </form>
+                    <a href="/auth/google_oauth2">Login with Google</a>
                 </div>
             </div>
             )
