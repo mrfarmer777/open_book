@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   #Trying to set up devise with this, 
-  devise_for :students, path: "students", :controllers => {:omniauth_callbacks => 'users/google_oauth2/callback'}
-  devise_for :teachers, path: "teachers"
+  devise_for :students, :controllers => {:omniauth_callbacks => 'students/google_oauth2/callback'}
 
 
   resources :books

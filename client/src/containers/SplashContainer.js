@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter, redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 
+import { GoogleLogin } from 'react-google-login';
+
 
 import { Jumbotron } from 'react-bootstrap'
 
@@ -47,6 +49,8 @@ class SplashContainer extends Component{
         
     }
     
+    googleResponse = (e) => {};
+    
     
     render (){
         console.log("Rendered!")
@@ -70,7 +74,12 @@ class SplashContainer extends Component{
                         </FormGroup>
                     
                     </form>
-                    <a href="/auth/google_oauth2">Login with Google</a>
+                    <GoogleLogin
+                        clientId={ ENV["GOOGLE_CLIENT_ID"] }
+                        buttonText="Login"
+                        onSucces={this.googleResponse}
+                        onFailure={this.googleResponse}
+                        />
                 </div>
             </div>
             )
