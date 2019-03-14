@@ -7,13 +7,15 @@ import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
 import Authorize from '../components/Authorize'
 
-const AuthSplashContainer=Authorize(SplashContainer)
+const AuthSplashContainer= Authorize(SplashContainer)
 
-const Splash=(props)=>(
+const Splash= (props) => (
     <div>
         <AuthSplashContainer {...props}/>
     </div>
 )
+
+
 
 const AuthHomeContainer = Authorize(HomeContainer)
 

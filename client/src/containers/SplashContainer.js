@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter, redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 
 
@@ -17,6 +17,9 @@ class SplashContainer extends Component{
         this.state={
             email: "",
             password: "",
+            user: {
+                authenticated:false
+            }
         }
     }
     
@@ -40,17 +43,11 @@ class SplashContainer extends Component{
             password: ""
         })
         this.forceUpdate();
-           
-        
-        
-        
         
     }
     
     
     render (){
-        console.log("Rendered!")
-
         return(
             <div>
                 <Jumbotron>
@@ -79,7 +76,7 @@ class SplashContainer extends Component{
 const mapStateToProps=state=>{
     return{
         email: state.user.email,
-        password: state.user.password
+        password: state.user.password,
     }
 }
 

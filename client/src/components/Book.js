@@ -40,6 +40,8 @@ export default class Book extends Component{
                         <Panel.Body>
                             <p>{this.props.book.author}</p>
                             <p>{this.props.book.genres}</p>
+                            <p>{(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read</p>
+                            <p>{this.props.book.entries.length} entries</p>
                         </Panel.Body>
                     </Panel>
                 </div>

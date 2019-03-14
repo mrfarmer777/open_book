@@ -3,7 +3,7 @@ class Book < ApplicationRecord
     has_many :users, through: :entries
     
     
-    def book_pages_read
+    def pages_read
         pages=0
         self.entries.each{|ent| pages+=ent.pages}
         pages

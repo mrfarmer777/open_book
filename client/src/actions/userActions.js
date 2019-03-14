@@ -24,8 +24,7 @@ export function loginUser(loginParams){
                 }
                 return user
           })
-          .then((user)=>dispatch({type: "COMPLETE_USER_LOGIN", payload: {email: user, password:""}}));
-          this.history.push('/home');
+          .then((user)=>dispatch({type: "COMPLETE_USER_LOGIN", payload: {email: user, password:"", user: {authenticated: true}}}));
     }
     
 }
