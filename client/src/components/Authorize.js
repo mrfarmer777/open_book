@@ -6,6 +6,12 @@ import { compose } from 'redux'
 //Returns an HOC that takes in a component and gives it the super power to only show it to people if they're logged in.
 function Authorize(RenderedComponent){                  //take in any component and its props
     return class extends React.Component{                      //Return a new class of component that...
+        constructor(){
+            super();
+            this.state={
+                authenticated:false
+            }
+        }
         
         componentDidMount(){
             

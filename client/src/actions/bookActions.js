@@ -2,6 +2,7 @@ export function fetchBooks() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
     const token=JSON.stringify(localStorage.getItem('jwtToken'))
+    console.log(token);
     return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/books`, {
     accept: 'application/json',
     headers:{
@@ -10,6 +11,23 @@ export function fetchBooks() {
   })
       .then(response => response.json())
       .then(books => dispatch({ type: 'ADD_BOOKS', payload: books }));
+  };
+}
+
+
+export function fetchUserBooks() {
+  return (dispatch) => {
+    dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
+    const token=JSON.stringify(localStorage.getItem('jwtToken'))
+    console.log(token);
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/users/1`, {
+    accept: 'application/json',
+    headers:{
+      "Authorization":token
+    }
+  })
+      .then(response => response.json())
+      .then(user => dispatch({ type: 'ADD_BOOKS', payload: user.books }));
   };
 }
 

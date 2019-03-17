@@ -1,3 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :age, :entries, :books
+    has_many :books, through: :user_books
+  
+    attributes :id, :name, :email, :age, :entries, :books
+
 end

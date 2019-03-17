@@ -1,6 +1,9 @@
 class Book < ApplicationRecord
     has_many :entries
-    has_many :users, through: :entries
+    has_many :user_books
+    has_many :users, through: :user_books
+    
+    
     
     
     def pages_read
