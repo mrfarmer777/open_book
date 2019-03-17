@@ -50,7 +50,7 @@ export default class EntryInput extends Component{
                             })}
                         </FormControl>
                     </FormGroup>
-                    <FormGroup controlId="entryMinutes">
+                    <FormGroup >
                         <ControlLabel for="time">Minutes: </ControlLabel>
                         <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                     

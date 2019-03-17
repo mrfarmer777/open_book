@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     
     def auth_header
         header=request.headers['Authorization']
-        
     end
     
     def decoded_token
@@ -44,6 +43,6 @@ class ApplicationController < ActionController::Base
     end
     
     def welcome
-        render json: {message: ""}
+        render json: {message: "Please log in"}
     end
 end

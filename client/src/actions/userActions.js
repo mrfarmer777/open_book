@@ -3,10 +3,12 @@
 export function loginUser(loginParams){
     return (dispatch) => {
         //Tell the state that we're starting the request...
-        dispatch({type: 'BEGIN_LOGIN_REQUEST' });
+        dispatch({type: 'BEGIN_LOGIN_REQUEST', payload: {email: loginParams.email, password: loginParams.password} });
         
         //Set up the login request package
         const body=JSON.stringify(loginParams);
+        
+        //Send login post to rails auth controller
         return fetch("http://flatiron-2-mrfarmer7771.c9users.io:8080/login",{
             method:'post',
             body: body,
@@ -17,14 +19,17 @@ export function loginUser(loginParams){
             }
         })
           .then((res)=>res.json())
-          .then((user)=>{
+          .then((res)=>{
                 //Store the jwt token in the localStorage if it is not undefined
-                if(user.jwt){
-                    localStorage.setItem("jwtToken",user.jwt);
+                if(res.jwt){
+                    localStorage.setItem("jwtToken",res.jwt);
                 }
-                return user
+                return res.user
           })
-          .then((user)=>dispatch({type: "COMPLETE_USER_LOGIN", payload: {email: user, password:"", user: {authenticated: true}}}));
+          .then((user)=>{
+              console.log(user);
+              dispatch({type: "COMPLETE_USER_LOGIN", payload: {email: user.email, id: user.id, name: user.name, authenticated: true}})
+              });
     }
     
 }

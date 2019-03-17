@@ -18,17 +18,22 @@ export function fetchBooks() {
 export function fetchUserBooks() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
-    const token=JSON.stringify(localStorage.getItem('jwtToken'))
-    console.log(token);
-    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/users/1`, {
-    accept: 'application/json',
-    headers:{
-      "Authorization":token
-    }
-  })
-      .then(response => response.json())
-      .then(user => dispatch({ type: 'ADD_BOOKS', payload: user.books }));
-  };
+    const authHeader=JSON.stringify("Bearer " +localStorage.getItem('jwtToken'))
+    console.log(authHeader);
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/current_user_data`, {
+      accept: 'application/json',
+      headers:{
+        'Content-Type': 'application/json',
+        "Authorization": authHeader
+      }
+    })
+        .then(response => response.json())
+        .then(user => {
+          console.log(user);
+          dispatch({ type: 'ADD_BOOKS', payload: user.books})
+        });
+        
+    };
 }
 
 

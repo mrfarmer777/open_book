@@ -1,7 +1,8 @@
 export default function userReducer(
     state={
+        id: null,
+        name: "",
         email: "",
-        password: "",
         authenticated: false
     }
     , action){
@@ -12,7 +13,7 @@ export default function userReducer(
             return state
         case "COMPLETE_USER_LOGIN":
             console.log('Clearing login inputs: '+ action.payload)
-            return {...state, email: "bleh", password:"", authenticated: true}
+            return {...state, email: action.payload.email, id: action.payload.id, name: action.payload.name, authenticated: true}
         case "LOGIN_ERROR":
             console.log('Errors occurred on login: '+ action.payload)
             return {...state, email: "", password: ""}

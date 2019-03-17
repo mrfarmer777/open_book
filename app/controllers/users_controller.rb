@@ -22,13 +22,12 @@ class UsersController < ApplicationController
         end
     end
     
-    #Just a temporary action to see if login is working correctly
-    def show
-        @user=User.find(params[:id])
+    def current_user_data
+        @user=current_user
         if @user
             render json: @user
         else
-            render json: {"message":"Incorrect JWT token"}
+            render json: {"message": "Incorrect JWT token"}
         end
     end
     

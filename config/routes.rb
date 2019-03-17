@@ -5,8 +5,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "bookstats", to: "books#stats"
   get "entries/stats", to: "entries#stats"
+  
+  
   post '/login', to: "auth#create"
-  get "users/me", to: "users#me"
+  
+  
+  get "/current_user_data", to: "users#current_user_data"
   get '/welcome', to: "application#welcome"
   
 end

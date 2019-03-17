@@ -8,7 +8,7 @@ class AuthController < ApplicationController
         #find user by email if present
         @user=User.find_by(email: params[:email])
         #check-em in
-        if @user 
+        if @user && @user.authenticate(params[:password])
             
             #create a payload for the JWT
             payload={user_id: @user.id}

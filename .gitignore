@@ -9,6 +9,9 @@ client/coverage
 # production
 client/build
 
+#client environment configuation
+client/src/config.json
+
 # misc
 .DS_Store
 .env.local
