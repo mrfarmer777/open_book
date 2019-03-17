@@ -8,19 +8,29 @@ import { Jumbotron } from 'react-bootstrap'
 import { loginUser } from '../actions/userActions.js'
 import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
+import AuthService from '../components/AuthService'
+
 
 
 class SplashContainer extends Component{
     //Initializes this component with blanks in the form inputs
     constructor(){
-        super()
+        super();
         this.state={
             email: "",
             password: "",
             user: {
                 authenticated:false
             }
-        }
+        };
+        this.handleSubmit=this.handleSubmit.bind(this);
+        this.Auth = new AuthService();
+        
+    }
+    
+    componentWillMount(){
+        if(this.Auth.loggedIn())
+        this.props.history.replace('/home');
     }
     
     
@@ -29,14 +39,20 @@ class SplashContainer extends Component{
     handleChange=(event)=>{
         this.setState({
             [event.target.name]: event.target.value,
-        })
-    }
+        });
+    };
     
     handleSubmit=(event)=>{
         event.preventDefault();
-        const loginParams={email: this.state.email, password: this.state.password}
+        const loginParams={email: this.state.email, password: this.state.password};
 
-        
+        this.Auth.login(loginParams)
+            .then(res => {
+                this.props.history.replace("/home");
+            })
+            .catch(err => {
+                alert(err);
+            });
         this.props.loginUser(loginParams);
         this.setState({
             email: "",
