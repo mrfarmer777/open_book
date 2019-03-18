@@ -5,9 +5,13 @@ import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
-import Authorize from '../components/Authorize'
+import AuthService from '../components/AuthService'
+import withAuth from '../components/withAuth'
 
-const AuthSplashContainer= SplashContainer
+//Auth service instance to handle logout from this page?!
+const Auth = new AuthService();
+
+
 
 const Splash= (props) => (
     <div>
@@ -17,15 +21,15 @@ const Splash= (props) => (
 
 
 
-const AuthHomeContainer = Authorize(HomeContainer)
+
 
 const Home = (props) => (
     <div>
-      <AuthHomeContainer {...props}/>
+      <HomeContainer {...props}/>
     </div>
 )
 
-const AuthStatsContainer = Authorize(StatsContainer)
+const AuthStatsContainer = withAuth(StatsContainer)
 
 const Stats = (props) => (
     <div>
@@ -34,7 +38,7 @@ const Stats = (props) => (
   
   )
   
-const AuthBookshelfContainer = Authorize(BookshelfContainer)
+const AuthBookshelfContainer = withAuth(BookshelfContainer)
 
 const Bookshelf = (props) => (
      <div>
@@ -57,16 +61,16 @@ const MrRouter = () => (
                 
                 <Navbar.Collapse>    
                     <Nav>
-                        <NavItem><Link to="/home">Home</Link></NavItem>
-                        <NavItem><Link to="/stats">Stats</Link></NavItem>
-                        <NavItem><Link to="/bookshelf">Bookshelf</Link></NavItem>
-                    
+                        <NavItem>Home</NavItem>
+                        <NavItem>Stats</NavItem>
+                        <NavItem>Bookshelf</NavItem>
+
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <div class='container'>
+            <div className='container'>
                 <Route exact path="/login" component={Splash}/>
-                <Route exact path="/home" component={Home}/>
+                <Route exact path="/home" component={withAuth(Home)}/>
                 <Route exact path="/stats" component={Stats}/>
                 <Route exact path="/bookshelf" component={Bookshelf}/>
             </div>

@@ -9,6 +9,7 @@ import { loginUser } from '../actions/userActions.js'
 import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 import AuthService from '../components/AuthService'
+import withAuth from '../components/withAuth'
 
 
 
@@ -45,7 +46,7 @@ class SplashContainer extends Component{
     handleSubmit=(event)=>{
         event.preventDefault();
         const loginParams={email: this.state.email, password: this.state.password};
-
+    
         this.Auth.login(loginParams)
             .then(res => {
                 this.props.history.replace("/home");
@@ -53,13 +54,13 @@ class SplashContainer extends Component{
             .catch(err => {
                 alert(err);
             });
-        this.props.loginUser(loginParams);
+      
+        //this.props.loginUser(loginParams);
         this.setState({
             email: "",
             password: ""
         })
-        this.forceUpdate();
-        
+
     }
     
     

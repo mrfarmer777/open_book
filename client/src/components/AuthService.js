@@ -17,7 +17,7 @@ export default class AuthService {
             method: "POST",
             body: JSON.stringify(loginParams)
         }).then(res=>{
-            this.setToken (res.token)//This might need to be 'res.jwt'
+            this.setToken(res.jwt)//This might need to be 'res.jwt'
             return Promise.resolve(res);
         })
     }
