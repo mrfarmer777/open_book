@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Redirect} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import { fetchEntryStats, fetchBookStats } from '../actions/statsActions'
 import Stats from '../components/stats'
 
@@ -12,18 +12,13 @@ class StatsContainer extends Component{
     }
     
     render(){
-        //Wrapping the actual content in a check for jwtToken which verifies a login
-        //If you're logged in, you get the good stuff
-        if(localStorage.getItem("jwtToken")){
-            return (
-                <div class="container">
-                    <Stats entryStats={this.props.entryStats} bookStats={this.props.bookStats}/>
-                </div>
-            )
-        } else {
-            //Otherwise, go login first...
-            return <Redirect to="/login" />
-        }
+        
+        return (
+            <div className="container">
+                <Stats entryStats={this.props.entryStats} bookStats={this.props.bookStats}/>
+            </div>
+        )
+        
         
     }
 }

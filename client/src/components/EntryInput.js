@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 
 
 export default class EntryInput extends Component{
@@ -39,7 +39,7 @@ export default class EntryInput extends Component{
                 <h3>What are you reading today?</h3>
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup>
-                        <ControlLabel htmlFor="book_id">Book: </ControlLabel>
+                        <FormLabel htmlFor="book_id">Book: </FormLabel>
                         <FormControl componentClass="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
                             <option value="" default disabled>Select a book</option>
                             {this.props.books.map(book=>{
@@ -51,10 +51,10 @@ export default class EntryInput extends Component{
                         </FormControl>
                     </FormGroup>
                     <FormGroup >
-                        <ControlLabel htmlFor="time">Minutes: </ControlLabel>
+                        <FormLabel htmlFor="time">Minutes: </FormLabel>
                         <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                     
-                        <ControlLabel htmlFor="pages">Pages: </ControlLabel>
+                        <FormLabel htmlFor="pages">Pages: </FormLabel>
                         <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
                     </FormGroup>
                     <Button bsStyle="primary" type="submit" value="New Entry">New Entry</Button>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 
 
 
@@ -47,16 +47,16 @@ export default class BookInput extends Component{
             <div id="book-input" className="container panel" >
                     <form id="book-input-form" onSubmit={this.handleSubmit}>
                         <FormGroup>
-                            <ControlLabel htmlFor="title">Book Title: </ControlLabel>
+                            <FormLabel htmlFor="title">Book Title: </FormLabel>
                             <FormControl type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
-                            <ControlLabel htmlFor="author">Author: </ControlLabel>
+                            <FormLabel htmlFor="author">Author: </FormLabel>
                             <FormControl type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
-                            <ControlLabel htmlFor="pages">Pages: </ControlLabel>
+                            <FormLabel htmlFor="pages">Pages: </FormLabel>
                             <FormControl type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
-                            <ControlLabel htmlFor="pages">Genres: </ControlLabel>
+                            <FormLabel htmlFor="pages">Genres: </FormLabel>
                             <FormControl type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
                         </FormGroup>
-                        <Button bsStyle="primary" bsSize="small" type ="submit" value="Add Book">Add Book</Button>
+                        <Button bsstyle="primary" bssize="small" type ="submit" value="Add Book">Add Book</Button>
                     </form>
                     
                 </div>

@@ -23,7 +23,7 @@ class BookshelfContainer extends Component{
         //Wrapping the actual content in a check for jwtToken which verifies a login
         //If you're logged in, you get the good stuff
         return (
-            <div class="container-fluid">
+            <div className="container-fluid">
                 <BookInput postBook={this.props.postBook} />
                 <Bookshelf books={this.props.books} deleteBook={this.props.deleteBook}/>
             </div>

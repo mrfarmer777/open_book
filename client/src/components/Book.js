@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Well, Panel} from 'react-bootstrap'
+import {Button, Well, Card} from 'react-bootstrap'
 
 
 export default class Book extends Component{
@@ -29,21 +29,21 @@ export default class Book extends Component{
     render(){
         return(
             
-                <div class="container col-md-3">
-                    <Panel bsStyle="primary">
-                        <Panel.Heading>
-                            <button class="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>
+                <div className="container col-md-3">
+                    <Card bsstyle="primary">
+                        <Card.Header>
+                            <button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>
                             </button>
                             <h4>{this.props.book.title}</h4>
                             
-                        </Panel.Heading>
-                        <Panel.Body>
+                        </Card.Header>
+                        <Card.Body>
                             <p>{this.props.book.author}</p>
                             <p>{this.props.book.genres}</p>
                             <p>{(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read</p>
                             <p>{this.props.book.entries.length} entries</p>
-                        </Panel.Body>
-                    </Panel>
+                        </Card.Body>
+                    </Card>
                 </div>
             
         )

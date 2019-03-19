@@ -13,6 +13,8 @@ import App from './App.js';
 import registerServiceWorker from './registerServiceWorker';
 import MrRouter from './Routers/Router';
 
+import 'bootstrap/dist/css/bootstrap.css'
+
 
 const store=createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 

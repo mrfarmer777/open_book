@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
 import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
@@ -51,20 +51,36 @@ const Bookshelf = (props) => (
 const MrRouter = () => (
     <Router>
         <div>
-            <Navbar collapseOnSelect>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/login">Dog Ears</Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle/>
-                </Navbar.Header>
-                
-                <Navbar.Collapse>    
-                    <Nav>
-                        <NavItem href="/home">Home</NavItem>
-                        <NavItem href="/stats">Stats</NavItem>
-                        <NavItem href="/bookshelf">Bookshelf</NavItem>
 
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Collapse id="responsive-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="#features">Features</Nav.Link>
+      <Nav.Link href="#pricing">Pricing</Nav.Link>
+      
+    </Nav>
+    <Nav>
+      <Nav.Link href="#deets">More deets</Nav.Link>
+      <Nav.Link eventKey={2} href="#memes">
+        Dank memes
+      </Nav.Link>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
+        
+        
+            <Navbar collapseOnSelect expand="lg">
+                <Navbar.Brand href="/login">Dog Ears</Navbar.Brand>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                
+                
+                <Navbar.Collapse id="responsive-navbar-nav">    
+                    <Nav>
+                        <Nav.Item><Nav.Link to="/home">Home</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link to="/stats">Stats</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link to="/bookshelf">Bookshelf</Nav.Link></Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

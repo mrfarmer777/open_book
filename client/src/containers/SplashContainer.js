@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import { Jumbotron } from 'react-bootstrap'
 
 import { loginUser } from '../actions/userActions.js'
-import {Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 
 import AuthService from '../components/AuthService'
 import withAuth from '../components/withAuth'
@@ -74,11 +74,11 @@ class SplashContainer extends Component{
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <FormGroup controlId="email">
-                            <ControlLabel >Email: </ControlLabel>
+                            <FormLabel >Email: </FormLabel>
                             <FormControl type="text" name="email" value={this.state.email} onChange={this.handleChange}></FormControl>
                         </FormGroup>
                         <FormGroup controlId="password">
-                            <ControlLabel >Password: </ControlLabel>
+                            <FormLabel >Password: </FormLabel>
                             <FormControl type="password" name="password" value={this.state.password} onChange={this.handleChange}></FormControl>
                             <Button type="submit" value="Submit">Sign In</Button>
                         </FormGroup>    

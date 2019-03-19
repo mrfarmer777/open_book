@@ -1,22 +1,22 @@
 import React, {Component} from 'react'
 import Book from './Book'
-import {Well, Clearfix} from 'react-bootstrap'
+import {Well, Clearfix, CardColumns} from 'react-bootstrap'
 
 
 
 const Bookshelf=(props)=>{
     return(
-        <Well>
+        <div>
             <h4>My Books</h4>
-            <div class="row clearfix">
+            <CardColumns>
                 {props.books.map(book=>{
                     return(
-                        <Book book={book} deleteBook={props.deleteBook}/>
+                        <Book book={book} key={book.id} deleteBook={props.deleteBook}/>
                     )
                 })}
-            </div>
+            </CardColumns>
             
-        </Well>
+        </div>
     )
     
 }
