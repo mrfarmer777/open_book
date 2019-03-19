@@ -12,11 +12,11 @@ export default class Entries extends Component{
     render(){
         
         return(
-            <div class="container">
+            <div className="container">
                 <Panel>
                     <Panel.Heading>My Entries</Panel.Heading>
                     <Panel.Body>
-                        <ul class="list-group">
+                        <ul className="list-group">
                             {this.props.entries.map(ent=>{
                                 return (
                                     <Entry key={ent.id} entry={ent} deleteEntry={this.props.deleteEntry}/>)

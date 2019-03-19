@@ -61,9 +61,9 @@ const MrRouter = () => (
                 
                 <Navbar.Collapse>    
                     <Nav>
-                        <NavItem>Home</NavItem>
-                        <NavItem>Stats</NavItem>
-                        <NavItem>Bookshelf</NavItem>
+                        <NavItem href="/home">Home</NavItem>
+                        <NavItem href="/stats">Stats</NavItem>
+                        <NavItem href="/bookshelf">Bookshelf</NavItem>
 
                     </Nav>
                 </Navbar.Collapse>

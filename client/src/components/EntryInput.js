@@ -35,11 +35,11 @@ export default class EntryInput extends Component{
     render(){
         
         return (
-            <div class="container">
+            <div className="container">
                 <h3>What are you reading today?</h3>
                 <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="entryInput">
-                        <ControlLabel for="book_id">Book: </ControlLabel>
+                    <FormGroup>
+                        <ControlLabel htmlFor="book_id">Book: </ControlLabel>
                         <FormControl componentClass="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
                             <option value="" default disabled>Select a book</option>
                             {this.props.books.map(book=>{
@@ -51,10 +51,10 @@ export default class EntryInput extends Component{
                         </FormControl>
                     </FormGroup>
                     <FormGroup >
-                        <ControlLabel for="time">Minutes: </ControlLabel>
+                        <ControlLabel htmlFor="time">Minutes: </ControlLabel>
                         <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                     
-                        <ControlLabel for="pages">Pages: </ControlLabel>
+                        <ControlLabel htmlFor="pages">Pages: </ControlLabel>
                         <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
                     </FormGroup>
                     <Button bsStyle="primary" type="submit" value="New Entry">New Entry</Button>

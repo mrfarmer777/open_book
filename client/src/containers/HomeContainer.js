@@ -33,7 +33,7 @@ class HomeContainer extends Component{
     
     render(){
             return (
-                <div class="container-fluid">
+                <div className="container-fluid">
                     <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
                     <BookInput postBook={this.props.postBook} />
                     <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
