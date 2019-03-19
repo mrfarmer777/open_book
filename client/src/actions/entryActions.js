@@ -1,4 +1,7 @@
 
+
+
+
 export function fetchEntries() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_GET_ENTRIES_REQUEST' });
@@ -18,8 +21,9 @@ export function postEntry(entry){
     dispatch({ type: 'BEGIN_GET_ENTRIES_REQUEST' });
     return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/entries`, {
       method: 'post',
-       headers: {
-        'Content-Type': 'application/json'
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer "+localStorage.getItem("jwtToken")
       },
       body: body
   })

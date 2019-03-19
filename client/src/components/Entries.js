@@ -14,7 +14,7 @@ export default class Entries extends Component{
         return(
             <div className="container">
                 <Card>
-                    <Card.Heading>My Entries</Card.Heading>
+                    <Card.Title>My Entries</Card.Title>
                     <Card.Body>
                         <ul className="list-group">
                             {this.props.entries.map(ent=>{

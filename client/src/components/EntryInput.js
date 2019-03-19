@@ -40,7 +40,7 @@ export default class EntryInput extends Component{
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <FormLabel htmlFor="book_id">Book: </FormLabel>
-                        <FormControl componentClass="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
+                        <FormControl as="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
                             <option value="" default disabled>Select a book</option>
                             {this.props.books.map(book=>{
                                 
@@ -57,7 +57,7 @@ export default class EntryInput extends Component{
                         <FormLabel htmlFor="pages">Pages: </FormLabel>
                         <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
                     </FormGroup>
-                    <Button bsStyle="primary" type="submit" value="New Entry">New Entry</Button>
+                    <Button bsstyle="primary" type="submit" value="New Entry">New Entry</Button>
 
                 </form>
             </div>

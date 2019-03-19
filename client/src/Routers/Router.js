@@ -54,18 +54,18 @@ const MrRouter = () => (
         <div>
         
         
-        <Navbar >
+        <Navbar collapseOnSelect expand='lg'>
             <Navbar.Brand href="/login">Dog Ears</Navbar.Brand>
             <Navbar.Toggle aria-controls='responsive-navbar-nav' />
             
-            
+            <Navbar.Collapse>
                 
                 <Nav>
-                    <Nav.Item><Nav.Link to="/home">Home</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link to="/stats">Stats</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link to="/bookshelf">Bookshelf</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link href="/home">Home</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link href="/stats">Stats</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link href="/bookshelf">Bookshelf</Nav.Link></Nav.Item>
                 </Nav>
-            
+            </Navbar.Collapse>
         </Navbar>
             <div className='container'>
                 <Route exact path="/login" component={Splash}/>
