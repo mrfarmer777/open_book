@@ -10,7 +10,7 @@ class EntriesController < ApplicationController
     def create
         @entry=Entry.new(book_id: entry_params[:book_id], time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id)
         @entry.save
-        render json: Entry.all
+        render json: current_user.entries
     end
     
     def destroy

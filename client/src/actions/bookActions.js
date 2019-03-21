@@ -30,7 +30,9 @@ export function fetchUserBooks() {
         .then(response => response.json())
         .then(user => {
           console.log(user);
-          dispatch({ type: 'ADD_BOOKS', payload: user.books})
+          dispatch({ type: 'ADD_BOOKS', payload: user.books })
+          dispatch({ type: "ADD_ENTRIES", payload: user.entries })
+          dispatch({ type: "COMPLETE_USER_DATA", payload: user})
         });
         
     };
@@ -45,12 +47,13 @@ export function postBook(book){
     return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/books`, {
       method: 'post',
        headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
       },
       body: body
   })
-      .then(response => response.json())
-      .then(books => dispatch({ type: 'ADD_BOOKS', payload: books }));
+      .then((res)=>res.json())
+      .then((books)=>dispatch({type: "ADD_BOOKS",payload: books}))
   };
 }
 

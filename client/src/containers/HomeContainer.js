@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
-import { fetchEntries, postEntry, deleteEntry } from '../actions/entryActions'
-import { fetchBooks, postBook } from '../actions/bookActions'
+import { fetchUserEntries, postEntry, deleteEntry } from '../actions/entryActions'
+import { fetchUserBooks, postBook } from '../actions/bookActions'
 
 import EntryInput from '../components/EntryInput'
 import Entries from '../components/Entries'
@@ -27,8 +27,7 @@ class HomeContainer extends Component{
     
     
     componentDidMount(){
-        this.props.fetchEntries();
-        this.props.fetchBooks();
+        this.props.fetchUserBooks();
     }
     
     render(){
@@ -48,18 +47,18 @@ const mapStateToProps = state =>{
     return {
         entries: state.entries,
         books: state.books,
-        bookFormOpen: state.bookFormOpen
+        bookFormOpen: state.bookFormOpen,
+        user: state.user
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return {
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
-        fetchEntries: () => dispatch(fetchEntries()),  //this.props.fetchEntries is a function that results when you call dispath with the fetchEntries function imported above as an argument. Fetch entries should return a function....
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
        
-        fetchBooks: () => dispatch(fetchBooks()),
+        fetchUserBooks: () => dispatch(fetchUserBooks()),
         postBook: (book) => dispatch(postBook(book))
     }
 }

@@ -23,10 +23,10 @@ const Splash= (props) => (
 
 
 
-
+const AuthHomeContainer = withAuth(HomeContainer)
 const Home = (props) => (
     <div>
-      <HomeContainer {...props}/>
+      <AuthHomeContainer {...props}/>
     </div>
 )
 

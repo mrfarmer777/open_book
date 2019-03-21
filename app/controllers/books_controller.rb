@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
     skip_before_action :verify_authenticity_token, :authorized
+
     def index
         @books=Book.all
         render json: @books
@@ -7,8 +8,12 @@ class BooksController < ApplicationController
     
     def create
         @book=Book.new(title: book_params[:title], author: book_params[:author], pages: book_params[:pages], genres: book_params[:genres])
+        
         @book.save
-        render json: Book.all
+        if !!current_user
+            UserBook.create(user_id: current_user.id, book_id: @book.id)
+        end
+        render json: current_user.books
     end
     
     def destroy

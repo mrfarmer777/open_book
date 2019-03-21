@@ -28,7 +28,7 @@ export function loginUser(loginParams){
           })
           .then((user)=>{
               console.log(user);
-              dispatch({type: "COMPLETE_USER_LOGIN", payload: {email: user.email, id: user.id, name: user.name, authenticated: true}})
+              dispatch({type: "COMPLETE_USER_LOGIN", payload: user})
               });
     }
     

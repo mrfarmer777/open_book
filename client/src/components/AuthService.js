@@ -6,6 +6,7 @@ export default class AuthService {
         this.domain = domain || 'http://flatiron-2-mrfarmer7771.c9users.io:8080'
         this.fetch = this.fetch.bind(this) //Handling binding so fetch, login, and whatnot can be called on this class no matter where it is implemented
         this.login = this.login.bind(this)
+        this.logout= this.logout.bind(this)
         this.getProfile=this.getProfile.bind(this)
     }
     
