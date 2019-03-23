@@ -4,11 +4,13 @@ import {CardColumns, Container} from 'react-bootstrap'
 
 
 
+
+
 const Bookshelf=(props)=>{
     return(
         <Container>
             <h4>My Books</h4>
-            <CardColumns>
+            <CardColumns md="2">
                 {props.books.map(book=>{
                     return(
                         <Book book={book} key={book.id} deleteBook={props.deleteBook}/>

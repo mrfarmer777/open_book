@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
 import {Button, Well, Card} from 'react-bootstrap'
+import { LineChart, Line } from 'recharts';
+import Bookbar from './Bookbar'
 
 
-export default class Book extends Component{
+
+
+
+
+export default class Book extends Component {
     constructor(){
         super()
         this.state={
@@ -41,6 +47,7 @@ export default class Book extends Component{
                                 <p>{(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read</p>
                                 <p>{this.props.book.entries.length} entries</p>
                             </Card.Text>
+                            <Bookbar book={this.props.book}/>
                             <footer>
                                 <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X
                             </Button>
