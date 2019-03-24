@@ -1,7 +1,7 @@
 
 
 export default function booksReducer(
-    state= []
+    state=[]
     ,action){
     
     switch(action.type){

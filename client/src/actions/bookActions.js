@@ -19,7 +19,6 @@ export function fetchUserBooks() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
     const authHeader=JSON.stringify("Bearer " +localStorage.getItem('jwtToken'))
-    console.log(authHeader);
     return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/current_user_data`, {
       accept: 'application/json',
       headers:{
@@ -29,7 +28,6 @@ export function fetchUserBooks() {
     })
         .then(response => response.json())
         .then(user => {
-          console.log(user);
           dispatch({ type: 'ADD_BOOKS', payload: user.books })
           dispatch({ type: "ADD_ENTRIES", payload: user.entries })
           dispatch({ type: "COMPLETE_USER_DATA", payload: user})

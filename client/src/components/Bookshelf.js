@@ -8,15 +8,13 @@ import {Carousel, Container} from 'react-bootstrap'
 
 const Bookshelf=(props)=>{
     return(
-        <Container>
+        <Container >
             <h3>{props.shelfName}</h3>
-            <Carousel interval="">
-                
-                
+            <Carousel interval="" >
                 {props.books.map(book=>{
                     return(
                         <Carousel.Item>
-                            <Book book={book} key={book.id} deleteBook={props.deleteBook}/>
+                            <Book book={book} key={book.id} deleteBook={props.deleteBook} postEntry={props.postEntry} deleteEntry={props.deleteEntry}/>
                         </Carousel.Item>
                     )
                 })}

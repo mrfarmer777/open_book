@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {Button, Well, Card} from 'react-bootstrap'
+import React, {Component} from 'react';
+import {Button, Well, Card} from 'react-bootstrap';
 import { LineChart, Line } from 'recharts';
-import Bookbar from './Bookbar'
-import EntryInput from './EntryInput'
+import Bookbar from './Bookbar';
+import EntryInput from './EntryInput';
 
 
 
@@ -11,25 +11,20 @@ import EntryInput from './EntryInput'
 
 export default class Book extends Component {
     constructor(){
-        super()
+        super();
         this.state={
             likeCount: 0,
-        }
+        };
     }
     
     
     
     handleClick=(event)=>{
         event.preventDefault();
-        this.props.deleteBook(event.target.id)
+        this.props.deleteBook(event.target.id);
     }
     
-    handleLike(event){
-        debugger
-        this.target.setState({
-            likeCount: this.target.state.likeCount+=1
-        })
-    }
+    
     
     
     
@@ -37,26 +32,29 @@ export default class Book extends Component {
         return(
             
                 
-                    <Card bsstyle="primary">
+                    <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book" >
                         <Card.Body>
                             
                             <Card.Title><h4>{this.props.book.title}</h4></Card.Title>
                         
-                            <Card.Text>
-                                <p>{this.props.book.author}</p>
-                                <p>{this.props.book.genres}</p>
-                                <p>{(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read</p>
-                                <p>{this.props.book.entries.length} entries</p>
+                            <Card.Text >
+                                {this.props.book.author}<br/>
+                                <small>{this.props.book.genres}</small><br/>
+                                {(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read<br/>
+                                {this.props.book.entries.length} entries
+                                <Bookbar book={this.props.book}/>
                             </Card.Text>
-                            <Bookbar book={this.props.book}/>
+                            
                             <footer>
-                                <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X
-                            </Button>
+                                <div>
+                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
+                                    <EntryInput book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                                </div>
                             </footer>
                         </Card.Body>
                     </Card>
                 
             
-        )
+        );
     }
 }

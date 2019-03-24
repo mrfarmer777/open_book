@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
-import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Button, FormGroup, FormLabel, FormControl, Modal, Container} from 'react-bootstrap'
 
 
+
+//This and the book entry could be a form of HOC in the future, they share much of the same functionality.
 export default class EntryInput extends Component{
-    constructor(){
+    constructor(props){
         super()
         this.state={
-            book_id: "",
+            book_id: props.book.id,
             time: "0",
             pages: "0",
+            formOpen: false,
         }
     }
     
@@ -26,6 +29,16 @@ export default class EntryInput extends Component{
             book_id: "",
             time: "0",
             pages: "0",
+            formOpen: false
+        })
+        
+    }
+    
+    toggleForm=()=>{
+       
+        this.setState({
+            ...this.state,
+            formOpen: !this.state.formOpen
         })
     }
     
@@ -35,32 +48,34 @@ export default class EntryInput extends Component{
     render(){
         
         return (
-            <div className="container">
-                <h3>What are you reading today?</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <FormLabel htmlFor="book_id">Book: </FormLabel>
-                        <FormControl as="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
-                            <option value="" default disabled>Select a book</option>
-                            {this.props.books.map(book=>{
-                                
-                                return(
-                                    <option key={book.id} value={book.id}>{book.title}</option>
-                                )
-                            })}
-                        </FormControl>
-                    </FormGroup>
-                    <FormGroup >
-                        <FormLabel htmlFor="time">Minutes: </FormLabel>
-                        <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
-                    
-                        <FormLabel htmlFor="pages">Pages: </FormLabel>
-                        <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
-                    </FormGroup>
-                    <Button bsstyle="primary" type="submit" value="New Entry">New Entry</Button>
-
-                </form>
-            </div>
+            <Container>
+                <Button onClick={this.toggleForm} >Read!</Button>
+                <Modal show={this.state.formOpen} onHide={this.toggleForm}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add a Book Entry</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <FormLabel htmlFor="book_id">Book: </FormLabel>
+                                <FormControl as="select" name="book_id" value={this.state.book_id} onChange={this.handleChange}>
+                                    <option key={this.props.book.id} value={this.props.book.id}>{this.props.book.title}</option>
+                                    
+                                </FormControl>
+                            </FormGroup>
+                            <FormGroup >
+                                <FormLabel htmlFor="time">Minutes: </FormLabel>
+                                <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
+                            
+                                <FormLabel htmlFor="pages">Pages: </FormLabel>
+                                <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
+                            </FormGroup>
+                            <Button bsstyle="primary" type="submit" value="New Entry">New Entry</Button>
+        
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </Container>
             
             )
     }

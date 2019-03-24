@@ -33,25 +33,21 @@ export default class BookInput extends Component{
         })
     }
     
-    toggleBookForm=(event)=>{
-        event.preventDefault()
+    toggleForm=()=>{
         this.setState({
             ...this.state,
             formOpen: !this.state.formOpen
         })
     }
     
-    handleClose=(event)=>{
-        event.preventDefault();
-        console.log("You done closed the modal")
-    }
+   
     
     
     render(){
         return (
             <div id="book-input" className="container panel" >
-                <Button variant="primary" onClick={this.toggleBookForm}>Add Book</Button>
-                <Modal show={this.state.formOpen} onHide={this.handleClose}>
+                <Button variant="primary" onClick={this.toggleForm}>Add Book</Button>
+                <Modal show={this.state.formOpen} onHide={this.toggleForm}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add a Book </Modal.Title>
                         
