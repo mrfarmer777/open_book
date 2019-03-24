@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Button, Well, Card} from 'react-bootstrap'
 import { LineChart, Line } from 'recharts';
 import Bookbar from './Bookbar'
+import EntryInput from './EntryInput'
 
 
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Button, FormGroup, FormLabel, FormControl, Modal} from 'react-bootstrap'
 
 
 
@@ -41,25 +41,40 @@ export default class BookInput extends Component{
         })
     }
     
+    handleClose=(event)=>{
+        event.preventDefault();
+        console.log("You done closed the modal")
+    }
+    
     
     render(){
         return (
             <div id="book-input" className="container panel" >
-                    <form id="book-input-form" onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <FormLabel htmlFor="title">Book Title: </FormLabel>
-                            <FormControl type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
-                            <FormLabel htmlFor="author">Author: </FormLabel>
-                            <FormControl type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
-                            <FormLabel htmlFor="pages">Pages: </FormLabel>
-                            <FormControl type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
-                            <FormLabel htmlFor="pages">Genres: </FormLabel>
-                            <FormControl type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
-                        </FormGroup>
-                        <Button bsstyle="primary" bssize="small" type ="submit" value="Add Book">Add Book</Button>
-                    </form>
+                <Button variant="primary" onClick={this.toggleBookForm}>Add Book</Button>
+                <Modal show={this.state.formOpen} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add a Book </Modal.Title>
+                        
+                    </Modal.Header>
                     
-                </div>
+                    <Modal.Body>
+                        <p>Adds a book to your personal bookshelf</p>
+                        <form id="book-input-form" onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <FormLabel htmlFor="title">Book Title: </FormLabel>
+                                <FormControl type="text" name="title" id="title" onChange={this.handleChange} value={this.state.title}/>
+                                <FormLabel htmlFor="author">Author: </FormLabel>
+                                <FormControl type="text" name="author" id="author"  onChange={this.handleChange} value={this.state.author}/>
+                                <FormLabel htmlFor="pages">Pages: </FormLabel>
+                                <FormControl type="number" name="pages" id="pages"  onChange={this.handleChange} value={this.state.pages}/>
+                                <FormLabel htmlFor="pages">Genres: </FormLabel>
+                                <FormControl type="text" name="genres" id="genres" onChange={this.handleChange} value={this.state.genres}/>
+                            </FormGroup>
+                            <Button bsstyle="primary" bssize="small" type ="submit" value="Add Book">Add Book</Button>
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </div>
             
             )
     }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Book from './Book'
-import {CardColumns, Container} from 'react-bootstrap'
+import {Carousel, Container} from 'react-bootstrap'
 
 
 
@@ -9,15 +9,19 @@ import {CardColumns, Container} from 'react-bootstrap'
 const Bookshelf=(props)=>{
     return(
         <Container>
-            <h4>My Books</h4>
-            <CardColumns md="2">
+            <h3>{props.shelfName}</h3>
+            <Carousel interval="">
+                
+                
                 {props.books.map(book=>{
                     return(
-                        <Book book={book} key={book.id} deleteBook={props.deleteBook}/>
+                        <Carousel.Item>
+                            <Book book={book} key={book.id} deleteBook={props.deleteBook}/>
+                        </Carousel.Item>
                     )
                 })}
-            </CardColumns>
-            
+
+            </Carousel>
         </Container>
     )
     

@@ -24,8 +24,11 @@ class BookshelfContainer extends Component{
         //If you're logged in, you get the good stuff
         return (
             <div className="container-fluid">
+                
+                
                 <BookInput postBook={this.props.postBook} />
-                <Bookshelf books={this.props.books} deleteBook={this.props.deleteBook}/>
+                <Bookshelf shelfName="My Books" books={this.props.books} deleteBook={this.props.deleteBook}/>
+                <Bookshelf shelfName="Popular Books" books={this.props.books} />
             </div>
             )
     
