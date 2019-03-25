@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
     #skipping authorized for now, because the components need to send the Authorization header in their requests now.
-    skip_before_action :verify_authenticity_token, :authorized
+    skip_before_action :verify_authenticity_token
     
     def index
         @entries=Entry.all
@@ -8,7 +8,8 @@ class EntriesController < ApplicationController
     end
     
     def create
-        @entry=Entry.new(book_id: entry_params[:book_id], time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id)
+        @user_book=UserBook.find_by(user_id: current_user.id, book_id: entry_params[:book_id])
+        @entry=Entry.new(book_id: entry_params[:book_id], time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id, user_books_id: @user_book.id)
         @entry.save
         render json: current_user.entries
     end
@@ -25,6 +26,6 @@ class EntriesController < ApplicationController
     
     private
     def entry_params
-        params.require(:entry).permit(:book_id, :time, :pages)
+        params.require(:entry).permit(:book_id, :time, :pages, :user_id)
     end
 end

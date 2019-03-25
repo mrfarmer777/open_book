@@ -22,7 +22,7 @@ export default class UserBook extends Book {
     
     handleClick=(event)=>{
         event.preventDefault();
-        this.props.deleteBook(event.target.id);
+        this.props.deleteBook(event.target.user_book_id);
     }
     
     
@@ -49,7 +49,7 @@ export default class UserBook extends Book {
                             <footer>
                                 <div>
                                     <EntryInput book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
-                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>T</Button>
+                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
                                     
                                 </div>
                             </footer>

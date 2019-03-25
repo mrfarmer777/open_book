@@ -55,17 +55,34 @@ export function postBook(book){
   };
 }
 
+export function useBook(book){
+  const body=JSON.stringify({ub: {book_id: book.id, pages: book.pages}})
+  return (dispatch) => {
+    dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/user_books`, {
+      method: 'post',
+       headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+      },
+      body: body
+  })
+      .then((res)=>res.json())
+      .then((book)=>dispatch({type: "ADD_BOOKS",payload: book}))
+  };
+}
+
 
 export function deleteBook(id){
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
-    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/books/${id}`, {
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/user_books/${id}`, {
       method: 'delete',
        headers: {
         'Content-Type': 'application/json'
       }
   })
-      .then(response => console.log("Book was deleted"))
-      .then(()=>dispatch(fetchUserBooks()))
+      .then(response => response.json())
+      .then((res)=>dispatch({type: "REMOVE_BOOK", payload: res}))
   };
 }

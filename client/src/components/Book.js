@@ -19,9 +19,8 @@ export default class Book extends Component {
     
     
     
-    addBook=(event)=>{
-        event.preventDefault();
-        this.props.addBook(event.target.id);
+    useBook=()=>{
+        this.props.useBook(this.props.book);
     }
     
     
@@ -47,7 +46,7 @@ export default class Book extends Component {
                             
                             <footer>
                                 <div>
-                                    <Button>Read this book, yo.</Button>
+                                    <Button onClick={this.useBook}>Read this book, yo.</Button>
                                 </div>
                             </footer>
                         </Card.Body>

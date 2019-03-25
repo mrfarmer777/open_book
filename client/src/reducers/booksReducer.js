@@ -8,12 +8,6 @@ export default function booksReducer(
     ,action){
     
     switch(action.type){
-        case "POST_BOOK":
-            console.log('posting book... ' + action.payload)
-            return {
-                ...state,
-                entries: [...state.entries, action.payload]
-            }
         case "BEGIN_BOOKS_REQUEST":
             console.log("sending request...")
             return state
@@ -27,6 +21,11 @@ export default function booksReducer(
             return {
                 ...state,
                 popBooks: action.payload
+            }
+        case "REMOVE_BOOK":
+            return {
+                ...state,
+                userBooks: state.userBooks.filter(book => book.id !== action.payload.id)
             }
         default: 
             return state

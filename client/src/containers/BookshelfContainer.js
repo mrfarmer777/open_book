@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { postBook, deleteBook, fetchUserBooks, fetchPopBooks } from '../actions/bookActions'
+import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook } from '../actions/bookActions'
 import { postEntry, deleteEntry } from '../actions/entryActions'
 
 
@@ -31,7 +31,7 @@ class BookshelfContainer extends Component{
                 
                 <BookInput postBook={this.props.postBook} />
                 <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
-                <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} />
+                <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>
             </div>
             )
     
@@ -53,6 +53,7 @@ const mapDispatchToProps = dispatch =>{
         deleteBook: (id)=>{dispatch(deleteBook(id))},
         fetchUserBooks: () =>{dispatch(fetchUserBooks())} ,
         fetchPopBooks: () => {dispatch(fetchPopBooks())},
+        useBook: (book) => {dispatch(useBook(book))},
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
