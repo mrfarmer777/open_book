@@ -8,7 +8,7 @@ export default class EntryInput extends Component{
     constructor(props){
         super()
         this.state={
-            book_id: props.book.id,
+            user_book_id: ""+props.book.id,
             time: "0",
             pages: "0",
             formOpen: false,
@@ -24,9 +24,10 @@ export default class EntryInput extends Component{
     
     handleSubmit=(event)=>{
         event.preventDefault();
+        
         this.props.postEntry(this.state);
         this.setState({
-            book_id: "",
+            user_book_id: "",
             time: "0",
             pages: "0",
             formOpen: false

@@ -22,7 +22,7 @@ export default class UserBook extends Book {
     
     handleClick=(event)=>{
         event.preventDefault();
-        this.props.deleteBook(event.target.user_book_id);
+        this.props.deleteBook(this.props.book.id);
     }
     
     

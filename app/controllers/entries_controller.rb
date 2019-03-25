@@ -8,10 +8,10 @@ class EntriesController < ApplicationController
     end
     
     def create
-        @user_book=UserBook.find_by(user_id: current_user.id, book_id: entry_params[:book_id])
-        @entry=Entry.new(book_id: entry_params[:book_id], time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id, user_books_id: @user_book.id)
+        @user_book=UserBook.find_by(entry_params[:user_book_id])
+        @entry=Entry.new(book_id: @user_book.book_id, time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id, user_book_id: @user_book.id)
         @entry.save
-        render json: current_user.entries
+        render json: @entry
     end
     
     def destroy
@@ -26,6 +26,6 @@ class EntriesController < ApplicationController
     
     private
     def entry_params
-        params.require(:entry).permit(:book_id, :time, :pages, :user_id)
+        params.require(:entry).permit(:user_book_id,:time, :pages)
     end
 end

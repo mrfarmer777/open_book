@@ -18,6 +18,11 @@ export default function entriesReducer(
         case "ADD_ENTRIES": 
             console.log('Adding multiple entries: '+action.payload)
             return action.payload
+        case "REMOVE_ENTRY":
+            return {
+                ...state,
+                entries: state.entries.filter(entry => entry.id !== action.payload.id)
+            }
         default: 
             return state
     }
