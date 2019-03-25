@@ -7,6 +7,7 @@ import { postEntry, deleteEntry } from '../actions/entryActions'
 
 import BookInput from '../components/BookInput'
 import Bookshelf from '../components/Bookshelf'
+import UserBookshelf from '../components/UserBookshelf'
 
 class BookshelfContainer extends Component{
     
@@ -29,7 +30,7 @@ class BookshelfContainer extends Component{
                 
                 
                 <BookInput postBook={this.props.postBook} />
-                <Bookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
                 <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} />
             </div>
             )

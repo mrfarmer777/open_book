@@ -3,13 +3,14 @@ import {Button, Well, Card} from 'react-bootstrap';
 import { LineChart, Line } from 'recharts';
 import Bookbar from './Bookbar';
 import EntryInput from './EntryInput';
+import Book from './Book';
 
 
 
 
 
 
-export default class Book extends Component {
+export default class UserBook extends Book {
     constructor(){
         super();
         this.state={
@@ -19,9 +20,9 @@ export default class Book extends Component {
     
     
     
-    addBook=(event)=>{
+    handleClick=(event)=>{
         event.preventDefault();
-        this.props.addBook(event.target.id);
+        this.props.deleteBook(event.target.id);
     }
     
     
@@ -47,7 +48,9 @@ export default class Book extends Component {
                             
                             <footer>
                                 <div>
-                                    <Button>Read this book, yo.</Button>
+                                    <EntryInput book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>T</Button>
+                                    
                                 </div>
                             </footer>
                         </Card.Body>

@@ -14,7 +14,7 @@ const Bookshelf=(props)=>{
                 {props.books.map(book=>{
                     return(
                         <Carousel.Item>
-                            <Book book={book} key={book.id} deleteBook={props.deleteBook} postEntry={props.postEntry} deleteEntry={props.deleteEntry}/>
+                            <Book book={book} key={book.id}/>
                         </Carousel.Item>
                     )
                 })}
