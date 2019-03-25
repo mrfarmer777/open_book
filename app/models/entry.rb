@@ -1,5 +1,5 @@
 class Entry < ApplicationRecord
-    belongs_to :book
+    belongs_to :user_book
     belongs_to :user
     
     

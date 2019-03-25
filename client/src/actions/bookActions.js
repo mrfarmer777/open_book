@@ -28,7 +28,7 @@ export function fetchUserBooks() {
     })
         .then(response => response.json())
         .then(user => {
-          dispatch({ type: 'ADD_BOOKS', payload: user.books })
+          dispatch({ type: 'ADD_BOOKS', payload: user.user_books })
           dispatch({ type: "ADD_ENTRIES", payload: user.entries })
           dispatch({ type: "COMPLETE_USER_DATA", payload: user})
         });
@@ -68,7 +68,7 @@ export function useBook(book){
       body: body
   })
       .then((res)=>res.json())
-      .then((book)=>dispatch({type: "ADD_BOOKS",payload: book}))
+      .then((book)=>dispatch({type: "ADD_BOOK",payload: book}))
   };
 }
 

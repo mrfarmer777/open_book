@@ -17,6 +17,11 @@ export default function booksReducer(
                 ...state,
                 userBooks: action.payload
             }
+        case "ADD_BOOK":
+            return {
+                ...state,
+                userBooks: [...state.userBooks, action.payload]
+            }
         case "ADD_POP_BOOKS":
             return {
                 ...state,

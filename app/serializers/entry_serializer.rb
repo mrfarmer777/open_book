@@ -1,6 +1,6 @@
 class EntrySerializer < ActiveModel::Serializer
-  attributes :id, :time, :pages, :book
+  attributes :id, :time, :pages
   
   belongs_to :user
-  belongs_to :book
+  belongs_to :user_book
 end

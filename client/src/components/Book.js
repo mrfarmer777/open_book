@@ -39,9 +39,6 @@ export default class Book extends Component {
                             <Card.Text >
                                 {this.props.book.author}<br/>
                                 <small>{this.props.book.genres}</small><br/>
-                                {(this.props.book.pages_read/this.props.book.pages*100).toFixed(2)}% read<br/>
-                                {this.props.book.entries.length} entries
-                                <Bookbar book={this.props.book}/>
                             </Card.Text>
                             
                             <footer>

@@ -4,15 +4,15 @@ class UserBooksController < ApplicationController
     
     
     def create
-        @user_book=UserBook.find_or_create_by(user_id: current_user.id, book_id: ub_params[:book_id], pages: ub_params[:pages])
-        @user_book.save
-        render json: @user_book
+        @ub=UserBook.find_or_create_by(user_id: current_user.id, book_id: ub_params[:book_id], pages: ub_params[:pages])
+        @ub.save
+        render json: @ub
     end
     
     def destroy
-        @user_book=UserBook.find(params[:id])
-        if !!@user_book
-            res=@user_book.destroy
+        @ub=UserBook.find(params[:id])
+        if !!@ub
+            res=@ub.destroy
         end
         render json: res
     end
