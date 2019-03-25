@@ -47,8 +47,9 @@ export default class Book extends Component {
                             
                             <footer>
                                 <div>
-                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
                                     <EntryInput book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
+                                    
                                 </div>
                             </footer>
                         </Card.Body>

@@ -1,4 +1,4 @@
-export function fetchBooks() {
+export function fetchPopBooks() {
   return (dispatch) => {
     dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
     const token=JSON.stringify(localStorage.getItem('jwtToken'))
@@ -10,7 +10,7 @@ export function fetchBooks() {
     }
   })
       .then(response => response.json())
-      .then(books => dispatch({ type: 'ADD_BOOKS', payload: books }));
+      .then(books => dispatch({ type: 'ADD_POP_BOOKS', payload: books }));
   };
 }
 
@@ -66,6 +66,6 @@ export function deleteBook(id){
       }
   })
       .then(response => console.log("Book was deleted"))
-      .then(()=>dispatch(fetchBooks()))
+      .then(()=>dispatch(fetchUserBooks()))
   };
 }

@@ -1,7 +1,10 @@
 
 
 export default function booksReducer(
-    state=[]
+    state={
+        userBooks: [],
+        popBooks: []
+    }
     ,action){
     
     switch(action.type){
@@ -16,7 +19,15 @@ export default function booksReducer(
             return state
         case "ADD_BOOKS":
             console.log('adding state with books: '+ action.payload)
-            return action.payload
+            return {
+                ...state,
+                userBooks: action.payload
+            }
+        case "ADD_POP_BOOKS":
+            return {
+                ...state,
+                popBooks: action.payload
+            }
         default: 
             return state
     }

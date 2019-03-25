@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { fetchBooks, postBook, deleteBook, fetchUserBooks } from '../actions/bookActions'
+import { postBook, deleteBook, fetchUserBooks, fetchPopBooks } from '../actions/bookActions'
 import { postEntry, deleteEntry } from '../actions/entryActions'
 
 
@@ -18,6 +18,7 @@ class BookshelfContainer extends Component{
     
     componentDidMount(){
         this.props.fetchUserBooks();
+        this.props.fetchPopBooks();
     }
     
     render(){
@@ -28,8 +29,8 @@ class BookshelfContainer extends Component{
                 
                 
                 <BookInput postBook={this.props.postBook} />
-                <Bookshelf shelfName="My Books" books={this.props.books} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
-                <Bookshelf shelfName="Popular Books" books={this.props.books} />
+                <Bookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} />
             </div>
             )
     
@@ -40,16 +41,17 @@ class BookshelfContainer extends Component{
 
 const mapStateToProps = state =>{
     return {
-        books: state.books
+        books: state.books,
+        popBooks: state.popBooks
     };
 };
 
 const mapDispatchToProps = dispatch =>{
     return {
-        fetchBooks: ()=>{dispatch(fetchBooks())},
         postBook: (book)=>{dispatch(postBook(book))},
         deleteBook: (id)=>{dispatch(deleteBook(id))},
         fetchUserBooks: () =>{dispatch(fetchUserBooks())} ,
+        fetchPopBooks: () => {dispatch(fetchPopBooks())},
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),

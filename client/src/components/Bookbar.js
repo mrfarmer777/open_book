@@ -12,11 +12,10 @@ class Bookbar extends Component {
     
     render() {
         return(
-            <ProgressBar percent={this.props.book.pages_read/this.props.book.pages*100} >
-                                
-                            </ProgressBar>
-            
-            )
+          <div style={{padding: "10px"}}>
+            <ProgressBar percent={this.props.book.pages_read/this.props.book.pages*100}></ProgressBar>
+          </div>
+        )
     }
     
 }
