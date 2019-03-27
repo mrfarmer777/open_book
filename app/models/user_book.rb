@@ -3,7 +3,9 @@ class UserBook < ApplicationRecord
     belongs_to :book
     has_many :entries
     
-    scope :completed, -> {where(completed?)}
+    scope :completed, -> {where(status: "Completed")}
+    scope :planned, -> {where(status: "Planned")}
+    scope :active, -> {where(status: "Active")}
    
     
     def pages_read
@@ -20,12 +22,27 @@ class UserBook < ApplicationRecord
         (self.pages_read/self.pages*100).round(2)
     end
     
+    def check_status
+        if self.completed?
+            self.update(status: "Completed")
+        elsif self.entries.length > 0
+            self.update(status: "Active")
+        else
+            self.update(status: "Planned")
+        end
+    end
+        
+    
     def completed?
-        return self.pages>=self.pages_read
+        return self.pages_read>=self.pages
     end
     
     def last_entry
-        self.entries.length>0 ? self.entries.recent.first.created_at : 0
+        if self.entries.length>0
+            self.entries.recent.first.created_at
+        else
+            DateTime.new()
+        end
     end
         
     

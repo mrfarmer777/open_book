@@ -11,9 +11,9 @@ class BooksController < ApplicationController
         
         @book.save
         if !!current_user
-            UserBook.create(user_id: current_user.id, book_id: @book.id)
+            UserBook.create(user_id: current_user.id, book_id: @book.id, pages: @book.pages)
         end
-        render json: current_user.books
+        render json: @book
     end
     
     def destroy

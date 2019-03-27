@@ -70,7 +70,8 @@ export function postBook(book){
       body: body
   })
       .then((res)=>res.json())
-      .then((books)=>dispatch({type: "ADD_BOOKS",payload: books}))
+      .then((book)=>dispatch(useBook(book)))
+      .then((res)=>dispatch(fetchPopBooks()));
   };
 }
 
