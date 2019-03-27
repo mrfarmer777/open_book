@@ -9,6 +9,11 @@ class Entry < ApplicationRecord
         pages
     end
     
+    def self.recent
+        self.all.order(created_at: :desc)
+    end
+        
+    
     def self.total_minutes
         minutes=0
         self.all.each{|ent| minutes+=ent.time}

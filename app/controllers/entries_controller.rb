@@ -2,6 +2,8 @@ class EntriesController < ApplicationController
     #skipping authorized for now, because the components need to send the Authorization header in their requests now.
     skip_before_action :verify_authenticity_token
     
+    
+    
     def index
         @entries=Entry.all
         render json: @entries

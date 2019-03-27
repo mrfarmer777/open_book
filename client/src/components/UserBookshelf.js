@@ -15,7 +15,7 @@ const UserBookshelf=(props)=>{
                     {props.books.map(book=>{
                         return(
                             <Carousel.Item>
-                                <UserBook book={book} key={book.id} deleteBook={props.deleteBook} postEntry={props.postEntry} deleteEntry={props.deleteEntry} fetchUserBook={props.fetchUserBook}/>
+                                <UserBook book={book} key={String(book.id)} deleteBook={props.deleteBook} postEntry={props.postEntry} deleteEntry={props.deleteEntry} fetchUserBook={props.fetchUserBook}/>
                             </Carousel.Item>
                         )
                     })}

@@ -6,7 +6,7 @@ class UserSerializer < ActiveModel::Serializer
     attributes :id, :name, :email, :age, :entries, :user_books
     
     def user_books
-        self.object.user_books.map do |ub|
+        self.object.recent_books.map do |ub|
             {
             id: ub.id,
             title: ub.book.title,
@@ -15,6 +15,7 @@ class UserSerializer < ActiveModel::Serializer
             pages: ub.pages,
             status: ub.status,
             pages_read: ub.pages_read,
+            percent_complete: ub.percent_complete,
             entries: ub.entries
             }
         end
