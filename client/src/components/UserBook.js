@@ -20,8 +20,7 @@ export default class UserBook extends Book {
     
     
     
-    handleClick=(event)=>{
-        event.preventDefault();
+    handleDelete=()=>{
         this.props.deleteBook(this.props.book.id);
     }
     
@@ -34,24 +33,27 @@ export default class UserBook extends Book {
             
                 
                     <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book" >
+                        <Card.Header>
+                            <Card.Title><h4>{this.props.book.title}</h4></Card.Title>
+                            <ButtonGroup>
+                                    <EntryInput className="btn btn-primary" book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
+                                    <Button className="btn btn-danger pull-right" id={this.props.book.id} onClick={this.handleDelete}>X</Button>
+                            </ButtonGroup>
+                        </Card.Header>
                         <Card.Body>
                             
-                            <Card.Title><h4>{this.props.book.title}</h4></Card.Title>
                         
                             <Card.Text >
+                            
                                 {this.props.book.author}<br/>
-                                <small>{this.props.book.genres}</small><br/>
+                                {this.props.book.status}<br/>
                                 {this.props.book.pages_read}/{this.props.book.pages}({this.props.book.percent_complete}%) read<br/>
                                 {this.props.book.entries.length} entries
                                 <Bookbar book={this.props.book}/>
                             </Card.Text>
                             
                             <footer>
-                                <ButtonGroup>
-                                    <EntryInput className="btn btn-primary" book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
-                                    <Button className="btn btn-danger pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
-                                    
-                                </ButtonGroup>
+                                
                             </footer>
                         </Card.Body>
                     </Card>

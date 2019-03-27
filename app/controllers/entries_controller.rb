@@ -13,6 +13,7 @@ class EntriesController < ApplicationController
         @user_book=UserBook.find(entry_params[:user_book_id])
         @entry=Entry.new(book_id: @user_book.book_id, time: entry_params[:time], pages: entry_params[:pages], user_id: current_user.id, user_book_id: @user_book.id)
         @entry.save
+        @user_book.check_status
         render json: @entry
     end
     

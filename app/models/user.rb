@@ -7,6 +7,6 @@ class User < ApplicationRecord
     
     
     def recent_books
-        self.user_books.active.sort_by{|ub| ub.last_entry}.reverse + self.user_books.planned
+        self.user_books.active.sort_by{|ub| ub.last_entry}.reverse + self.user_books.planned + self.user_books.completed
     end
 end
