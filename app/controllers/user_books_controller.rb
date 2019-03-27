@@ -2,6 +2,10 @@ class UserBooksController < ApplicationController
     #skipping authorized for now, because the components need to send the Authorization header in their requests now.
     skip_before_action :verify_authenticity_token, :authorized
     
+    def show
+        @ub=UserBook.find(params[:id])
+        render json: @ub
+    end
     
     def create
         @ub=UserBook.find_or_create_by(user_id: current_user.id, book_id: ub_params[:book_id], pages: ub_params[:pages])

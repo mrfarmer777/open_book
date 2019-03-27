@@ -36,6 +36,25 @@ export function fetchUserBooks() {
     };
 }
 
+export function fetchUserBook(id){
+  return (dispatch) => {
+    dispatch({ type: 'BEGIN_BOOKS_REQUEST' });
+    const authHeader=JSON.stringify("Bearer " +localStorage.getItem('jwtToken'))
+    return fetch(`https://flatiron-2-mrfarmer7771.c9users.io/user_books/${id}`, {
+      accept: 'application/json',
+      headers:{
+        'Content-Type': 'application/json',
+        "Authorization": authHeader
+      }
+    })
+        .then(response => response.json())
+        .then(book => {
+          dispatch({ type: 'UPDATE_BOOK', payload: book })
+        });
+        
+    };
+}
+
 
 export function postBook(book){
   const body = JSON.stringify({book: {title: book.title, author: book.author, pages: book.pages, genres: book.genres }})

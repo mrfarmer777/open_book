@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Well, Card} from 'react-bootstrap';
+import {Button, ButtonGroup, Card} from 'react-bootstrap';
 import { LineChart, Line } from 'recharts';
 import Bookbar from './Bookbar';
 import EntryInput from './EntryInput';
@@ -47,11 +47,11 @@ export default class UserBook extends Book {
                             </Card.Text>
                             
                             <footer>
-                                <div>
-                                    <EntryInput book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
-                                    <Button className="btn btn-danger glyphicon glyphicon-remove pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
+                                <ButtonGroup>
+                                    <EntryInput className="btn btn-primary" book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
+                                    <Button className="btn btn-danger pull-right" id={this.props.book.id} onClick={this.handleClick}>X</Button>
                                     
-                                </div>
+                                </ButtonGroup>
                             </footer>
                         </Card.Body>
                     </Card>

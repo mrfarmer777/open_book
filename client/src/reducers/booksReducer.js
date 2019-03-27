@@ -32,6 +32,12 @@ export default function booksReducer(
                 ...state,
                 userBooks: state.userBooks.filter(book => book.id !== action.payload.id)
             }
+        case "UPDATE_BOOK":
+            return {
+                ...state,
+                userBooks: state.userBooks.map(b => b.id!==action.payload.id ? b : action.payload)
+            }
+        
         default: 
             return state
     }

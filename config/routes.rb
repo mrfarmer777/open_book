@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :sections
   resources :users, only: [:index, :create, :show]
-  resources :user_books, only: [:create, :destroy]
+  resources :user_books, only: [:create, :destroy, :show]
   resources :books
   resources :entries, only: [:index, :create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

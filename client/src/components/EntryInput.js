@@ -25,13 +25,14 @@ export default class EntryInput extends Component{
     handleSubmit=(event)=>{
         event.preventDefault();
         
-        this.props.postEntry(this.state);
-        this.setState({
-            user_book_id: "",
+        this.props.postEntry(this.state)
+        .then(this.props.fetchUserBook(this.state.user_book_id))
+        .then(this.setState({
+            user_book_id: ""+this.props.book.id,
             time: "0",
             pages: "0",
             formOpen: false
-        })
+        }));
         
     }
     
@@ -50,7 +51,7 @@ export default class EntryInput extends Component{
         
         return (
             <Container>
-                <Button onClick={this.toggleForm} >Read!</Button>
+                
                 <Modal show={this.state.formOpen} onHide={this.toggleForm}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add a Book Entry</Modal.Title>
@@ -76,6 +77,8 @@ export default class EntryInput extends Component{
                         </form>
                     </Modal.Body>
                 </Modal>
+                
+                <Button onClick={this.toggleForm} >Read!</Button>
             </Container>
             
             )

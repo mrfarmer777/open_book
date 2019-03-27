@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook } from '../actions/bookActions'
+import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook, fetchUserBook } from '../actions/bookActions'
 import { postEntry, deleteEntry } from '../actions/entryActions'
 
 
@@ -17,6 +17,7 @@ class BookshelfContainer extends Component{
         
     }
     
+    
     componentDidMount(){
         this.props.fetchUserBooks();
         this.props.fetchPopBooks();
@@ -30,7 +31,7 @@ class BookshelfContainer extends Component{
                 
                 
                 <BookInput postBook={this.props.postBook} />
-                <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry}/>
+                <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
                 <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>
             </div>
             )
@@ -51,7 +52,8 @@ const mapDispatchToProps = dispatch =>{
     return {
         postBook: (book)=>{dispatch(postBook(book))},
         deleteBook: (id)=>{dispatch(deleteBook(id))},
-        fetchUserBooks: () =>{dispatch(fetchUserBooks())} ,
+        fetchUserBooks: () =>{dispatch(fetchUserBooks())},
+        fetchUserBook: (book) => {dispatch(fetchUserBook(book))},
         fetchPopBooks: () => {dispatch(fetchPopBooks())},
         useBook: (book) => {dispatch(useBook(book))},
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
