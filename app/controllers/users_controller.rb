@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     #skipping for now, double check this later...
     before_action :current_user, only: [:show]
     skip_before_action :verify_authenticity_token
-    skip_before_action :authorized, only: [:create,:show]
+    skip_before_action :authorized, only: [:create]
     
     def index
         @users=User.all

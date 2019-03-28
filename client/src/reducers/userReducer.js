@@ -14,8 +14,9 @@ export default function userReducer(
         case "COMPLETE_USER_DATA":
             console.log('Clearing login inputs: '+ action.payload)
             return {...state, name: action.payload.name, email: action.payload.email, authenticated: true}
+        case "REMOVE_USER_DATA":
+            return {...state, name:"", email: "", authenticated: false}
         case "LOGIN_ERROR":
-            console.log('Errors occurred on login: '+ action.payload)
             return {...state, email: "", password: ""}
         default: 
             return state

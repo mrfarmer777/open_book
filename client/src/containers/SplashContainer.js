@@ -49,7 +49,7 @@ class SplashContainer extends Component{
     
         this.Auth.login(loginParams)
             .then(res => {
-                this.props.history.replace("/home");
+                this.props.history.replace("/bookshelf");
             })
             .catch(err => {
                 alert(err);

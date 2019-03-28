@@ -36,5 +36,5 @@ export function loginUser(loginParams){
 
 
 export function logoutUser(){
-    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('jwtToken');
 }

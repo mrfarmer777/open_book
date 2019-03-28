@@ -2,12 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook, fetchUserBook } from '../actions/bookActions'
-import { postEntry, deleteEntry } from '../actions/entryActions'
+import { postEntry, deleteEntry } from '../actions/entryActions';
 
+import MyNav from '../components/MyNav';
+import BookInput from '../components/BookInput';
+import Bookshelf from '../components/Bookshelf';
+import UserBookshelf from '../components/UserBookshelf';
 
-import BookInput from '../components/BookInput'
-import Bookshelf from '../components/Bookshelf'
-import UserBookshelf from '../components/UserBookshelf'
+import {ButtonGroup} from 'react-bootstrap';
 
 class BookshelfContainer extends Component{
     
@@ -28,9 +30,9 @@ class BookshelfContainer extends Component{
         //If you're logged in, you get the good stuff
         return (
             <div className="container-fluid">
-                
-                
-                <BookInput postBook={this.props.postBook} />
+                <ButtonGroup>
+                    <BookInput postBook={this.props.postBook} />
+                </ButtonGroup>
                 <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
                 <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>
             </div>

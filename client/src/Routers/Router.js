@@ -8,6 +8,8 @@ import SplashContainer from '../containers/SplashContainer'
 import AuthService from '../components/AuthService'
 import withAuth from '../components/withAuth'
 import 'bootstrap/dist/css/bootstrap.css'
+import LogoutButton from '../components/LogoutButton'
+import MyNav from '../components/MyNav'
 
 //Auth service instance to handle logout from this page?!
 const Auth = new AuthService();
@@ -43,7 +45,6 @@ const AuthBookshelfContainer = withAuth(BookshelfContainer)
 
 const Bookshelf = (props) => (
      <div>
-        <h2>Bookshelf</h2>
         <AuthBookshelfContainer {...props} />
      </div>
      
@@ -54,24 +55,12 @@ const MrRouter = () => (
         <div>
         
         
-        <Navbar collapseOnSelect expand='lg'>
-            <Navbar.Brand href="/login">Dog Ears</Navbar.Brand>
-            <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-            
-            <Navbar.Collapse>
-                
-                <Nav>
-                    <Nav.Item><Nav.Link href="/home">Home</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link href="/stats">Stats</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link href="/bookshelf">Bookshelf</Nav.Link></Nav.Item>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+        <MyNav/>
             <div className='container'>
                 <Route exact path="/login" component={Splash}/>
                 <Route exact path="/home" component={withAuth(Home)}/>
                 <Route exact path="/stats" component={Stats}/>
-                <Route exact path="/bookshelf" component={Bookshelf}/>
+                <Route exact path="/bookshelf" component={withAuth(Bookshelf)}/>
             </div>
         </div>
     </Router>
