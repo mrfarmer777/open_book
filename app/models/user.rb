@@ -23,6 +23,10 @@ class User < ApplicationRecord
         self.entries.sum(:pages)
     end
     
+    def reading_rate
+        (self.total_pages.to_f/self.total_time.to_f).round(2)
+    end
+    
     
     # This week pages and time
     def time_this_week  
