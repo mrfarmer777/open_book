@@ -17,6 +17,7 @@ export default class Stats extends Component{
                     <p><b>Total Minutes Read: </b>{this.props.userStats.total_time}</p>
                     <p><b>Average Reading Rate: </b>{this.props.userStats.reading_rate} pages/minute</p>
                     <p><b>Progress toward Weekly Page Goal: </b><ProgressBar percent={this.props.userStats.pages_this_week}/></p>
+                    <p><b>Progress toward Weekly Minute Goal: </b><ProgressBar percent={(this.props.userStats.time_this_week/45)}/></p>
                
                 </div>
             </div>
