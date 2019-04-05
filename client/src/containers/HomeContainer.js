@@ -8,6 +8,7 @@ import EntryInput from '../components/EntryInput'
 import Entries from '../components/Entries'
 import BookInput from '../components/BookInput'
 import {logoutUser} from '../services/user'
+import StatsContainer from "../containers/StatsContainer"
 
 class HomeContainer extends Component{
     constructor(){
@@ -33,7 +34,7 @@ class HomeContainer extends Component{
     render(){
             return (
                 <div className="container-fluid">
-                    <EntryInput addEntry={this.props.addEntry} postEntry={this.props.postEntry} books={this.props.books} />
+                    <StatsContainer />
                     <BookInput postBook={this.props.postBook} />
                     <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
                     <button onClick={this.handleLogout}>Logout</button>
@@ -57,9 +58,9 @@ const mapDispatchToProps = dispatch =>{
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
-       
         fetchUserBooks: () => dispatch(fetchUserBooks()),
         postBook: (book) => dispatch(postBook(book))
+        
     }
 }
 

@@ -8,14 +8,13 @@ class StatsContainer extends Component{
     componentWillMount(){
         this.props.fetchBookStats()
         this.props.fetchEntryStats()
-        console.log(this.props)
     }
     
     render(){
         
         return (
             <div className="container">
-                <Stats entryStats={this.props.entryStats} bookStats={this.props.bookStats}/>
+                <Stats entryStats={this.props.entryStats} bookStats={this.props.bookStats} userStats={this.props.userStats}/>
             </div>
         )
         
@@ -26,7 +25,8 @@ class StatsContainer extends Component{
 const mapStateToProps = state =>{
     return {
        entryStats: state.stats.entryStats,
-       bookStats: state.stats.bookStats
+       bookStats: state.stats.bookStats,
+       userStats: state.user.stats
     }
 }
 

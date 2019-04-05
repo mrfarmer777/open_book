@@ -16,7 +16,13 @@ export default function statsReducer(
         case "ADD_BOOK_STATS":
             console.log('updating book stats: '+ action.payload)
             return {...state, bookStats: action.payload}
+        case "ADD_USER_STATS":
+            return {
+                ...state,
+                totalPages: action.payload.total_pages,
+                totalTime: action.payload.total_time
+            };
         default: 
             return state
-    }
+    };
 }

@@ -27,8 +27,9 @@ export function loginUser(loginParams){
                 return res.user
           })
           .then((user)=>{
-              console.log(user);
-              dispatch({type: "COMPLETE_USER_LOGIN", payload: user})
+              
+              dispatch({type: "COMPLETE_USER_LOGIN", payload: user});
+             
               });
     }
     
