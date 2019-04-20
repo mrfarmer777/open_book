@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    validates :email, uniqueness: true
+    
     has_many :entries
     has_many :user_books
     has_many :books, through: :user_books
@@ -10,11 +12,19 @@ class User < ApplicationRecord
         self.user_books.active.sort_by{|ub| ub.last_entry}.reverse + self.user_books.planned + self.user_books.completed
     end
     
+    # USER TYPES HELPER FUNCTIONS
+    def is_teacher?
+        self.type=="Teacher"
+    end
+    
+    def is_student?
+        self.type=="Student"
+    end
+    
+    
     
     
     #STATISTICS HELPER FUNCTIONS
-    
-    
     def total_time      #Returns total time read for user
         self.entries.sum(:time)
     end

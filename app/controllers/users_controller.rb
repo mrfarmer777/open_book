@@ -4,6 +4,8 @@ class UsersController < ApplicationController
     skip_before_action :verify_authenticity_token
     skip_before_action :authorized, only: [:create]
     
+    
+    
     def index
         @users=User.all
         render json: @users
@@ -18,7 +20,7 @@ class UsersController < ApplicationController
             token = encode_token(payload)
             render json: {user: @user, jwt: token}
         else
-            render json: User.all
+            render_json_validation_error(@user)
         end
     end
     

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 import { Jumbotron } from 'react-bootstrap'
@@ -8,8 +8,9 @@ import { Jumbotron } from 'react-bootstrap'
 import { loginUser } from '../actions/userActions.js'
 import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 
-import AuthService from '../components/AuthService'
-import withAuth from '../components/withAuth'
+import NewUserInput from '../components/NewUserInput';
+import AuthService from '../components/AuthService';
+import withAuth from '../components/withAuth';
 
 
 
@@ -83,7 +84,8 @@ class SplashContainer extends Component{
                             <Button type="submit" value="Submit">Sign In</Button>
                         </FormGroup>    
                     
-                    </form>               
+                    </form>  
+                    <NewUserInput/>
                 </div>
             </div>
             )
