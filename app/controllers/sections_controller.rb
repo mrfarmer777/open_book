@@ -20,6 +20,45 @@ class SectionsController < ApplicationController
         end
     end
     
+    
+    #Creates User Section object for this section, users are already created elsewhere.
+    #You can't create users this way so a nested resource seems unnecessary
+    def add_users
+        @section=Section.find(params[:section_id])
+        if @section.teacher==current_user
+            
+            emails=section_params[:users_emails].split("; ")
+            emails.each do |e|
+                @user=User.find_by(email: e)
+                if @user
+                    UserSection.find_or_initialize_by(user_id: @user.id, section_id: @section.id)
+                else
+                    #user isn't already created, we'll handle that in a minute
+                    #Send them to an invite/email flow
+                end
+            end
+        end
+        render json: @section
+    end
+    
+    def remove_users
+        @section=Section.find(params[:section_id])
+        if @section.teacher==current_user            
+            emails=section_params[:users_emails].split("; ")
+            emails.each do |e|
+                @user=User.find_by(email: e)
+                if @user
+                    UserSection.find_by(user_id: @user.id, section_id: @section.id).destroy
+                else
+                    #user isn't already created, we'll handle that in a minute
+                    #Send them to an invite/email flow
+                end
+            end
+        end
+        render json: @section
+    end
+    
+    
     def show
         @section=Section.find(params[:id])
         render json: @section
@@ -43,6 +82,6 @@ class SectionsController < ApplicationController
     
     
     def section_params
-        params.require(:section).permit(:name, :period, :start_date, :end_date, :public)
+        params.require(:section).permit(:name, :period, :start_date, :end_date, :public, :users_emails)
     end
 end

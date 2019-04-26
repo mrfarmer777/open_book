@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :sections
+  resources :sections do
+    post '/add_users', to: "sections#add_users"
+    post '/remove_users', to: "sections#remove_users"
+    
+  end
   resources :users, only: [:index, :create, :show]
   resources :user_books, only: [:create, :destroy, :show]
   resources :books
