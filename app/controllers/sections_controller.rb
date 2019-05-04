@@ -21,26 +21,33 @@ class SectionsController < ApplicationController
     end
     
     
-    #Creates User Section object for this section, users are already created elsewhere.
+    #Creates UserSection object for this section, users are already created elsewhere.
     #You can't create users this way so a nested resource seems unnecessary
     def add_users
         @section=Section.find(params[:section_id])
         if @section.teacher==current_user
-            
+            #buggy emails sent here for error reporting/rendering
+            errs=[]
             emails=section_params[:users_emails].split("; ")
             emails.each do |e|
                 @user=User.find_by(email: e)
                 if @user
-                    UserSection.find_or_initialize_by(user_id: @user.id, section_id: @section.id)
+                    user_section=UserSection.find_or_initialize_by(user_id: @user.id, section_id: @section.id, active: @section.active)
+                    user_section.save
                 else
                     #user isn't already created, we'll handle that in a minute
                     #Send them to an invite/email flow
+                    
+                    #pushing buggy users to the array for eventual reporting
+                    errs.push(@user)
                 end
             end
         end
         render json: @section
     end
     
+    
+    #Removes a UserSection if the current user is the section's teacher
     def remove_users
         @section=Section.find(params[:section_id])
         if @section.teacher==current_user            
@@ -48,10 +55,10 @@ class SectionsController < ApplicationController
             emails.each do |e|
                 @user=User.find_by(email: e)
                 if @user
-                    UserSection.find_by(user_id: @user.id, section_id: @section.id).destroy
-                else
-                    #user isn't already created, we'll handle that in a minute
-                    #Send them to an invite/email flow
+                    user_section=UserSection.find_by(user_id: @user.id, section_id: @section.id)
+                    if user_section
+                        user_section.destroy
+                    end
                 end
             end
         end
