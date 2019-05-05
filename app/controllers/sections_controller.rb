@@ -32,7 +32,9 @@ class SectionsController < ApplicationController
             emails.each do |e|
                 @user=User.find_by(email: e)
                 if @user
-                    user_section=UserSection.find_or_initialize_by(user_id: @user.id, section_id: @section.id, active: @section.active)
+                    
+                    #If a valid users is found, find or initialize this user_section, make it active if the section is active and the user_section is approved by the user
+                    user_section=UserSection.find_or_initialize_by(user_id: @user.id, section_id: @section.id, active: (@section.active && user_section.approved))
                     user_section.save
                 else
                     #user isn't already created, we'll handle that in a minute

@@ -2,6 +2,9 @@ class User < ApplicationRecord
     validates :email, uniqueness: true
     
     has_many :entries
+    
+    has_many :user_sections
+    has_many :sections, through: :user_sections
     has_many :user_books
     has_many :books, through: :user_books
     
