@@ -27,7 +27,8 @@ class UserSerializer < ActiveModel::Serializer
             {
                 id: us.id,
                 name: us.section.name,
-                teacher: us.section.teacher.name
+                teacher_name: us.section.teacher.name,
+                approved: us.approved
             }
         end
     end
