@@ -5,10 +5,11 @@ import { fetchEntryStats, fetchBookStats } from '../actions/statsActions'
 import Stats from '../components/stats'
 
 class StatsContainer extends Component{
+    /* These calls are deprecated, the current_user_data calls should work just fine.
     componentWillMount(){
         this.props.fetchBookStats()
         this.props.fetchEntryStats()
-    }
+    }*/
     
     render(){
         

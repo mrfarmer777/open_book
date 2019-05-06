@@ -7,7 +7,8 @@ export default function userReducer(
         stats: {
             totalPages: 0,
             totalTime: 0,
-        }
+        },
+        section_invites: []
     }
     , action){
     
@@ -29,7 +30,8 @@ export default function userReducer(
                     time_this_week: action.payload.time_this_week,
                     pages_this_week: action.payload.pages_this_week
                     
-                }
+                },
+                section_invites: action.payload.section_invites
                 
             }
         case "REMOVE_USER_DATA":

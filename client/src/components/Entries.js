@@ -4,11 +4,6 @@ import { Card } from 'react-bootstrap'
 
 
 export default class Entries extends Component{
-    
-    
-    
-    
-    
     render(){
         
         return(

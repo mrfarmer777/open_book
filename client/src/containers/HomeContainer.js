@@ -9,8 +9,10 @@ import Entries from '../components/Entries'
 import BookInput from '../components/BookInput'
 import {logoutUser} from '../services/user'
 import StatsContainer from "../containers/StatsContainer"
+import Invites from "../components/Invites"
 
 class HomeContainer extends Component{
+    
     constructor(){
         super()
         this.state={
@@ -25,8 +27,6 @@ class HomeContainer extends Component{
         })
     }
     
-    
-    
     componentDidMount(){
         this.props.fetchUserBooks();
     }
@@ -34,7 +34,14 @@ class HomeContainer extends Component{
     render(){
             return (
                 <div className="container-fluid">
-                    <StatsContainer />
+                    
+                               
+                    
+                                
+                
+                
+                
+                    
                     <BookInput postBook={this.props.postBook} />
                     <Entries entries={this.props.entries} fetchEntries={this.props.fetchEntries} deleteEntry={this.props.deleteEntry} />
                     <button onClick={this.handleLogout}>Logout</button>
@@ -49,7 +56,8 @@ const mapStateToProps = state =>{
         entries: state.entries,
         books: state.books,
         bookFormOpen: state.bookFormOpen,
-        user: state.user
+        user: state.user,
+        invites: state.user.section_invites
     }
 }
 
@@ -60,7 +68,6 @@ const mapDispatchToProps = dispatch =>{
         deleteEntry: (id) => dispatch(deleteEntry(id)),
         fetchUserBooks: () => dispatch(fetchUserBooks()),
         postBook: (book) => dispatch(postBook(book))
-        
     }
 }
 

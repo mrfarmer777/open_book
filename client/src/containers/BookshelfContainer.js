@@ -8,11 +8,11 @@ import MyNav from '../components/MyNav';
 import BookInput from '../components/BookInput';
 import Bookshelf from '../components/Bookshelf';
 import UserBookshelf from '../components/UserBookshelf';
+import Invites from '../components/Invites'
 
 import {ButtonGroup} from 'react-bootstrap';
 
 class BookshelfContainer extends Component{
-    
     
     handleClick=(event)=>{
         event.preventDefault();
@@ -26,10 +26,11 @@ class BookshelfContainer extends Component{
     }
     
     render(){
-        //Wrapping the actual content in a check for jwtToken which verifies a login
-        //If you're logged in, you get the good stuff
+        
         return (
             <div className="container-fluid">
+                
+                <Invites invites={this.props.invites} />
                 <ButtonGroup>
                     <BookInput postBook={this.props.postBook} />
                 </ButtonGroup>
@@ -46,7 +47,8 @@ class BookshelfContainer extends Component{
 const mapStateToProps = state =>{
     return {
         books: state.books,
-        popBooks: state.popBooks
+        popBooks: state.popBooks,
+        invites: state.user.section_invites
     };
 };
 
@@ -61,9 +63,8 @@ const mapDispatchToProps = dispatch =>{
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
-       
-    }
-}
+    };
+};
 
 
 
