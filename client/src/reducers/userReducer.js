@@ -13,10 +13,13 @@ export default function userReducer(
     , action){
     
     switch(action.type){
-        case "BEGIN_LOGIN_REQUEST":
+        case "BEGIN_USER_REQUEST": //A general action for beginning any user request
+            console.log("requesting data: " + action.payload)
+            return state //because nothing's happening yet
+        case "BEGIN_LOGIN_REQUEST": //An action for the start of a login request
             console.log('requesting login...' + action.payload)
             return state
-        case "COMPLETE_USER_DATA":
+        case "COMPLETE_USER_DATA": //Completing the state with returned data
             console.log('Clearing login inputs: '+ action.payload)
             return {
                 ...state,
@@ -34,9 +37,14 @@ export default function userReducer(
                 section_invites: action.payload.section_invites
                 
             }
-        case "REMOVE_USER_DATA":
+        case "REMOVE_USER_DATA": //Removing user data from the state; this isn't used right now, but likely should be
             return {...state, name:"", email: "", authenticated: false}
-        case "LOGIN_ERROR":
+        case "REMOVE_SECTION_INVITE": //Removes an invite from the state (whether accepted or declined)
+            return {
+                ...state,
+                section_invites: state.section_invites.filter(inv => inv.id !== action.payload.id)
+            }
+        case "LOGIN_ERROR": //Action handling an error with the login in request
             return {...state, email: "", password: ""}
         default: 
             return state

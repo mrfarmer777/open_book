@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     
-    
+    #Creates a section object if the current user is a teacher.
     def create
         @user=current_user
         if @user && @user.is_teacher?

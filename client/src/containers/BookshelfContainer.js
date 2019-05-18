@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook, fetchUserBook } from '../actions/bookActions'
+import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook, fetchUserBook} from '../actions/bookActions'
 import { postEntry, deleteEntry } from '../actions/entryActions';
+import {acceptInvite} from '../actions/userActions';
 
 import MyNav from '../components/MyNav';
 import BookInput from '../components/BookInput';
@@ -30,7 +31,7 @@ class BookshelfContainer extends Component{
         return (
             <div className="container-fluid">
                 
-                <Invites invites={this.props.invites} />
+                <Invites invites={this.props.invites} accept={this.props.acceptInvite}/>
                 <ButtonGroup>
                     <BookInput postBook={this.props.postBook} />
                 </ButtonGroup>
@@ -63,6 +64,7 @@ const mapDispatchToProps = dispatch =>{
         addEntry: (payload) => dispatch({type: "ADD_ENTRY", payload: payload}),
         postEntry: (entry) => dispatch(postEntry(entry)),
         deleteEntry: (id) => dispatch(deleteEntry(id)),
+        acceptInvite: (usid) => dispatch(acceptInvite(usid))
     };
 };
 
