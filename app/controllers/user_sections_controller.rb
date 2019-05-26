@@ -18,7 +18,9 @@ class UserSectionsController < ApplicationController
     def destroy
         @us=UserSection.find(params[:id])
         if !!@us
-            res=@us.destroy
+            if(@us.section.teacher==current_user || @us.user==current_user)
+                res=@us.destroy
+            end
         end
         render json: res
     end

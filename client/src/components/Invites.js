@@ -6,7 +6,11 @@ export default class  Invites extends Component {
     
     handleAccept=(event)=>{
         console.log("you just accepted the user section "+ event.target.id)
-        this.props.accept(event.target.id);
+        this.props.accept(event.target.parentElement.id);
+    }
+    
+    handleDecline=(event)=>{
+        this.props.decline(event.target.parentElement.id);
     }
     
     render(){
@@ -14,9 +18,11 @@ export default class  Invites extends Component {
             <div>
                 {this.props.invites.map(inv=>{
                     return(
-                        <p >
-                            {inv.teacher_name} has invited you to join {inv.name}. <Button onClick={this.handleAccept} id={inv.id}>Accept</Button>
-                        </p>
+                        <div id={inv.id} key={inv.id}>
+                            {inv.teacher_name} has invited you to join {inv.name}. 
+                            <Button onClick={this.handleAccept}>Accept</Button>
+                            <Button  onClick={this.handleDecline}>Decline</Button>
+                        </div>
                     );
                 })}
             </div>

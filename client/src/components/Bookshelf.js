@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import Book from './Book'
-import {Carousel, Container} from 'react-bootstrap'
+import React from 'react';
+import Book from './Book';
+import {Carousel, Container} from 'react-bootstrap';
 
 
 
@@ -13,8 +13,8 @@ const Bookshelf=(props)=>{
             <Carousel interval="" >
                 {props.books.map(book=>{
                     return(
-                        <Carousel.Item>
-                            <Book book={book} key={book.id} useBook={props.useBook}/>
+                        <Carousel.Item key={book.id.toString()}>
+                            <Book book={book} key={book.id.toString()} useBook={props.useBook}/>
                         </Carousel.Item>
                     )
                 })}

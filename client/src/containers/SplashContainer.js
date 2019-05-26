@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 
@@ -10,7 +10,7 @@ import {Button, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 
 import NewUserInput from '../components/NewUserInput';
 import AuthService from '../components/AuthService';
-import withAuth from '../components/withAuth';
+//import withAuth from '../components/withAuth';
 
 
 

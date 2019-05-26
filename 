@@ -1,0 +1,868 @@
+[1mdiff --git a/app/models/entry.rb b/app/models/entry.rb[m
+[1mindex f628692..ba4d6a5 100644[m
+[1m--- a/app/models/entry.rb[m
+[1m+++ b/app/models/entry.rb[m
+[36m@@ -1,13 +1,15 @@[m
+ class Entry < ApplicationRecord[m
+     belongs_to :user_book[m
+     belongs_to :user[m
+[31m-    [m
+[32m+[m[32m    belongs_to :book[m
+     [m
+     scope :this_month, -> {where(created_at: Time.zone.now.beginning_of_month..Time.zone.now.end_of_month)}[m
+     scope :this_week, -> {where(created_at: Time.zone.now.beginning_of_week..Time.zone.now.end_of_week)}[m
+     scope :last_month, -> {where(created_at: Time.zone.now.beginning_of_month.prev_month..Time.zone.now.beginning_of_month.prev_day.end_of_day)}[m
+     scope :last_week, -> {where(created_at: Time.zone.now.beginning_of_week.prev_week..Time.zone.now.beginning_of_week.prev_day.end_of_day)}[m
+[32m+[m[32m    scope :for_book, lambda{|book| where(book_id: book.id)}[m
+ [m
+[32m+[m[32m    #BOOKMARK - Let's add a scope for entries from any of your same sections[m
+     [m
+     def self.total_pages[m
+         pages=0[m
+[1mdiff --git a/app/models/section.rb b/app/models/section.rb[m
+[1mindex 4cfabb7..8f9fe6e 100644[m
+[1m--- a/app/models/section.rb[m
+[1m+++ b/app/models/section.rb[m
+[36m@@ -2,4 +2,30 @@[m [mclass Section < ApplicationRecord[m
+     belongs_to :teacher[m
+     has_many :user_sections[m
+     has_many :users, through: :user_sections[m
+[32m+[m[41m    [m
+[32m+[m[32m    #returns an array of all entries from users enrolled in this section, regardless of when the entries were made[m
+[32m+[m[32m    def get_section_entries[m
+[32m+[m[32m        ent=[][m
+[32m+[m[32m        self.users.each do |u|[m
+[32m+[m[32m            u.entries.each do |e|[m
+[32m+[m[32m                ent.push(e)[m
+[32m+[m[32m            end[m
+[32m+[m[32m        end[m
+[32m+[m[32m        return ent[m
+[32m+[m[32m    end[m
+[32m+[m[41m    [m
+[32m+[m[32m    #returns array of all entries by section users about the chosen book[m
+[32m+[m[32m    def get_section_book_entries(book)[m
+[32m+[m[32m        ents=[][m
+[32m+[m[32m        self.users.each do |u|[m
+[32m+[m[32m            u.entries.each do |e|[m
+[32m+[m[32m                if e.book_id==book.id[m
+[32m+[m[32m                    ents.push(e)[m
+[32m+[m[32m                end[m
+[32m+[m[32m            end[m
+[32m+[m[32m        end[m
+[32m+[m[32m        return ents[m
+[32m+[m[32m    end[m
+[32m+[m[41m            [m
+[32m+[m[41m    [m
+ end[m
+[1mdiff --git a/app/serializers/user_book_serializer.rb b/app/serializers/user_book_serializer.rb[m
+[1mindex 3dd0463..3d44a6c 100644[m
+[1m--- a/app/serializers/user_book_serializer.rb[m
+[1m+++ b/app/serializers/user_book_serializer.rb[m
+[36m@@ -1,5 +1,5 @@[m
+ class UserBookSerializer < ActiveModel::Serializer[m
+[31m-  attributes :id, :title, :author, :genres, :pages, :pages_read, :status, :percent_complete[m
+[32m+[m[32m  attributes :id, :title, :author, :genres, :pages, :pages_read, :status, :percent_complete, :all_book_entries[m
+   [m
+   has_many :entries[m
+   [m
+[36m@@ -15,4 +15,8 @@[m [mclass UserBookSerializer < ActiveModel::Serializer[m
+   def author[m
+       self.object.book.author[m
+   end[m
+[32m+[m[41m  [m
+[32m+[m[32m  def all_book_entries[m
+[32m+[m[32m    self.object.book.entries[m
+[32m+[m[32m  end[m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/client/src/components/UserBook.js b/client/src/components/UserBook.js[m
+[1mindex aa3e3e5..5628002 100644[m
+[1m--- a/client/src/components/UserBook.js[m
+[1m+++ b/client/src/components/UserBook.js[m
+[36m@@ -30,33 +30,31 @@[m [mexport default class UserBook extends Book {[m
+     [m
+     render(){[m
+         return([m
+[31m-            [m
+[32m+[m[32m            <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book" >[m
+[32m+[m[32m                <Card.Header>[m
+[32m+[m[32m                    <Card.Title><h4>{this.props.book.title}</h4></Card.Title>[m
+[32m+[m[32m                    <ButtonGroup>[m
+[32m+[m[32m                            <EntryInput className="btn btn-primary" book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>[m
+[32m+[m[32m                            <Button className="btn btn-danger pull-right" id={this.props.book.id} onClick={this.handleDelete}>X</Button>[m
+[32m+[m[32m                    </ButtonGroup>[m
+[32m+[m[32m                </Card.Header>[m
+[32m+[m[32m                <Card.Body>[m
+[32m+[m[41m                    [m
+                 [m
+[31m-                    <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book" >[m
+[31m-                        <Card.Header>[m
+[31m-                            <Card.Title><h4>{this.props.book.title}</h4></Card.Title>[m
+[31m-                            <ButtonGroup>[m
+[31m-                                    <EntryInput className="btn btn-primary" book={this.props.book} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>[m
+[31m-                                    <Button className="btn btn-danger pull-right" id={this.props.book.id} onClick={this.handleDelete}>X</Button>[m
+[31m-                            </ButtonGroup>[m
+[31m-                        </Card.Header>[m
+[31m-                        <Card.Body>[m
+[31m-                            [m
+[32m+[m[32m                    <Card.Text >[m
+[32m+[m[32m                            {this.props.book.author}<br/>[m
+[32m+[m[32m                            {this.props.book.status}<br/>[m
+[32m+[m[32m                            {this.props.book.pages_read}/{this.props.book.pages}({this.props.book.percent_complete}%) read<br/>[m
+[32m+[m[32m                            {this.props.book.entries.length} entries[m
+                         [m
+[31m-                            <Card.Text >[m
+[31m-                                    {this.props.book.author}<br/>[m
+[31m-                                    {this.props.book.status}<br/>[m
+[31m-                                    {this.props.book.pages_read}/{this.props.book.pages}({this.props.book.percent_complete}%) read<br/>[m
+[31m-                                    {this.props.book.entries.length} entries[m
+[31m-                                [m
+[31m-                            </Card.Text>[m
+[31m-                            <Bookbar book={this.props.book}/>[m
+[32m+[m[32m                    </Card.Text>[m
+[32m+[m[32m                    <Bookbar book={this.props.book}/>[m
+ [m
+[31m-                            <footer>[m
+[31m-                                [m
+[31m-                            </footer>[m
+[31m-                        </Card.Body>[m
+[31m-                    </Card>[m
+[32m+[m[32m                    <footer>[m
+[32m+[m[41m                        [m
+[32m+[m[32m                    </footer>[m
+[32m+[m[32m                </Card.Body>[m
+[32m+[m[32m            </Card>[m
+                 [m
+             [m
+         );[m
+[1mdiff --git a/client/src/containers/HomeContainer.js b/client/src/containers/HomeContainer.js[m
+[1mindex 84e8baf..a5f77b6 100644[m
+[1m--- a/client/src/containers/HomeContainer.js[m
+[1m+++ b/client/src/containers/HomeContainer.js[m
+[36m@@ -1,15 +1,15 @@[m
+ import React, {Component} from 'react'[m
+ import {connect} from 'react-redux'[m
+ import { withRouter } from 'react-router-dom'[m
+[31m-import { fetchUserEntries, postEntry, deleteEntry } from '../actions/entryActions'[m
+[31m-import { fetchUserBooks, postBook } from '../actions/bookActions'[m
+[32m+[m[32mimport { fetchUserEntries, postEntry, deleteEntry } from '../actions/entryActions';[m
+[32m+[m[32mimport { fetchUserBooks, postBook } from '../actions/bookActions';[m
+ [m
+[31m-import EntryInput from '../components/EntryInput'[m
+[31m-import Entries from '../components/Entries'[m
+[31m-import BookInput from '../components/BookInput'[m
+[31m-import {logoutUser} from '../services/user'[m
+[31m-import StatsContainer from "../containers/StatsContainer"[m
+[31m-import Invites from "../components/Invites"[m
+[32m+[m[32mimport EntryInput from '../components/EntryInput';[m
+[32m+[m[32mimport Entries from '../components/Entries';[m
+[32m+[m[32mimport BookInput from '../components/BookInput';[m
+[32m+[m[32mimport {logoutUser} from '../services/user';[m
+[32m+[m[32mimport StatsContainer from "../containers/StatsContainer";[m
+[32m+[m[32mimport Invites from "../components/Invites";[m
+ [m
+ class HomeContainer extends Component{[m
+     [m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex 47fb5ec..760537a 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+[1mdiff --git a/db/seeds.rb b/db/seeds.rb[m
+[1mindex 1beea2a..f409df3 100644[m
+[1m--- a/db/seeds.rb[m
+[1m+++ b/db/seeds.rb[m
+[36m@@ -5,3 +5,84 @@[m
+ #[m
+ #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])[m
+ #   Character.create(name: 'Luke', movie: movies.first)[m
+[32m+[m
+[32m+[m[32mUser.create([m
+[32m+[m[32m    {[m
+[32m+[m[32m    name: "Book Worm",[m
+[32m+[m[32m    email: "bookworm@trial.com",[m
+[32m+[m[32m    password: "password",[m
+[32m+[m[32m    type: "student",[m
+[32m+[m[32m    age: "15",[m
+[32m+[m[32m    },[m
+[32m+[m[32m    {[m
+[32m+[m[32m    name: "Bad Reader",[m
+[32m+[m[32m    email: "badreader@trial.com",[m
+[32m+[m[32m    password: "password",[m
+[32m+[m[32m    type: "student",[m
+[32m+[m[32m    age: "16",[m
+[32m+[m[32m    },[m
+[32m+[m[32m    {[m
+[32m+[m[32m    name: "Ms. Nelson",[m
+[32m+[m[32m    email: "msnelson@trial.com",[m
+[32m+[m[32m    password: "password",[m
+[32m+[m[32m    type: "teacher",[m
+[32m+[m[32m    age: "25"[m
+[32m+[m[32m    }[m
+[32m+[m[32m)[m
+[32m+[m[41m    [m
+[32m+[m[32mSection.create([m
+[32m+[m[32m    name: "English 2",[m
+[32m+[m[32m    period: 2,[m
+[32m+[m[32m    teacher_id: User.find_by(name: "Ms. Nelson").id,[m
+[32m+[m[32m    start_date: Date.today,[m
+[32m+[m[32m    end_date: Date.today >> 12,[m
+[32m+[m[32m    active: true,[m
+[32m+[m[32m    public: true,[m
+[32m+[m[32m)[m
+[32m+[m[41m    [m
+[32m+[m[32mUserSection.create([m
+[32m+[m[32m    {[m
+[32m+[m[32m        user_id: User.find_by(name: "Book Worm").id,[m
+[32m+[m[32m        section_id: Section.find_by(name: "English 2"),[m
+[32m+[m[32m        active: true,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    {[m
+[32m+[m[32m        user_id: User.find_by(name: "Bad Reader").id,[m
+[32m+[m[32m        section_id: Section.find_by(name: "English 2"),[m
+[32m+[m[32m        active: true,[m
+[32m+[m[32m    }[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mhp = Book.create([m
+[32m+[m[32m    {[m
+[32m+[m[32m        title: "Harry Potter and the Sorcerer's Stone",[m
+[32m+[m[32m        author: "J.K. Rowling",[m
+[32m+[m[32m        pages: 336,[m
+[32m+[m[32m        genres: "Young Adult, Fantasy",[m
+[32m+[m[32m    }[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32mUserBook.create([m
+[32m+[m[32m    {[m
+[32m+[m[32m        user_id: User.find_by(name: "Book Worm").id,[m
+[32m+[m[32m        book_id: hp.id,[m
+[32m+[m[32m        pages: hp.pages,[m
+[32m+[m[32m    },[m
+[32m+[m[32m    {[m
+[32m+[m[32m        user_id: User.find_by(name: "Bad Reader").id,[m
+[32m+[m[32m        book_id: hp.id,[m
+[32m+[m[32m        pages: hp.pages,[m
+[32m+[m[32m    }[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mEntries.create([m
+[32m+[m[32m    { book_id: hp.id, time: 10, pages: 8, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 15, pages: 14, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 12, pages: 32, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 11, pages: 16, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 27, pages: 31, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 56, pages: 46, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m    { book_id: hp.id, time: 23, pages: 34, user_id: User.find_by(name: "Book Worm").id},[m
+[32m+[m[32m)[m
+[41m+[m
+[1mdiff --git a/log/development.log b/log/development.log[m
+[1mindex fef524b..5fa40bd 100644[m
+[1m--- a/log/development.log[m
+[1m+++ b/log/development.log[m
+[36m@@ -124157,3 +124157,1025 @@[m [mCompleted 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.5ms)[m
+ Completed 200 OK in 62ms (Views: 53.2ms | ActiveRecord: 5.1ms)[m
+ [m
+ [m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 04:27:45 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 33]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (0.3ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 33]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (60.01ms)[m
+[32m+[m[32mCompleted 200 OK in 66ms (Views: 55.8ms | ActiveRecord: 6.4ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 04:27:45 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  [1m[36mBook Load (0.6ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.18ms)[m
+[32m+[m[32mCompleted 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 0.6ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted DELETE "/user_books/33" for 76.245.251.194 at 2019-05-19 04:28:33 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UserBooksController#destroy as */*[m
+[32m+[m[32m  Parameters: {"id"=>"33", "user_book"=>{}}[m
+[32m+[m[32m  [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 33], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/user_books_controller.rb:17[m
+[32m+[m[32m  [1m[35m (1.2ms)[0m  [1m[36mbegin transaction[0m[m
+[32m+[m[32m  ↳ app/controllers/user_books_controller.rb:19[m
+[32m+[m[32m  [1m[36mUserBook Destroy (7.7ms)[0m  [1m[31mDELETE FROM "user_books" WHERE "user_books"."id" = ?[0m  [["id", 33]][m
+[32m+[m[32m  ↳ app/controllers/user_books_controller.rb:19[m
+[32m+[m[32m  [1m[35m (24.4ms)[0m  [1m[36mcommit transaction[0m[m
+[32m+[m[32m  ↳ app/controllers/user_books_controller.rb:19[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_book_serializer.rb:8[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 33]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserBookSerializer with ActiveModelSerializers::Adapter::Attributes (8.98ms)[m
+[32m+[m[32mCompleted 200 OK in 106ms (Views: 39.5ms | ActiveRecord: 34.6ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 04:28:46 +0000[m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 04:28:46 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.19ms)[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32mCompleted 200 OK in 31ms (Views: 29.7ms | ActiveRecord: 0.5ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.2ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.2ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.2ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.2ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (0.3ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (39.22ms)[m
+[32m+[m[32mCompleted 200 OK in 74ms (Views: 37.0ms | ActiveRecord: 5.0ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 04:29:47 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.5ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (1.4ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (1.6ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (1.4ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (69.58ms)[m
+[32m+[m[32mCompleted 200 OK in 92ms (Views: 63.2ms | ActiveRecord: 9.6ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 04:29:47 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.59ms)[m
+[32m+[m[32mCompleted 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.4ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 04:29:47 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.86ms)[m
+[32m+[m[32mCompleted 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.4ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 04:29:47 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (0.3ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (53.47ms)[m
+[32m+[m[32mCompleted 200 OK in 60ms (Views: 49.9ms | ActiveRecord: 6.4ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 05:12:35 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 05:12:35 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  [1m[36mBook Load (2.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (54.1ms)[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32mCompleted 200 OK in 402ms (Views: 325.2ms | ActiveRecord: 2.2ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (1.1ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (1.1ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (4.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.5ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (1.4ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (372.44ms)[m
+[32m+[m[32mCompleted 200 OK in 632ms (Views: 395.1ms | ActiveRecord: 15.2ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 05:12:59 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.4ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (1.7ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (1.5ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.3ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (2.2ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:46[m
+[32m+[m[32m[active_model_serializers]   [1m[35m (0.4ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ? AND "entries"."created_at" BETWEEN ? AND ?[0m  [["user_id", 1], ["created_at", "2019-05-13 00:00:00"], ["created_at", "2019-05-19 23:59:59.999999"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:50[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."pages") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:36[m
+[32m+[m[32m[active_model_serializers]   [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT SUM("entries"."time") FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:32[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserSection Load (2.7ms)[0m  [1m[34mSELECT "user_sections".* FROM "user_sections" WHERE "user_sections"."user_id" = ? AND "user_sections"."approved" = ?[0m  [["user_id", 1], ["approved", 0]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:26[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Active"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Planned"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 1], ["status", "Completed"]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 31]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/serializers/user_serializer.rb:12[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE Entry Load (0.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 32]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] No serializer found for resource: {:id=>31, :title=>"Slaughterhouse Five", :author=>"Kurt Vonnegut, Jr.", :genres=>"sci-fi, fiction, historical fiction", :pages=>288, :status=>"Planned", :pages_read=>0, :percent_complete=>0.0, :entries=>#<ActiveRecord::Associations::CollectionProxy []>}[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (2.0ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_id" = ?[0m  [["user_id", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.1ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mCACHE UserBook Load (0.0ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.3ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.2ms)[0m  [1m[34mSELECT  "user_books".* FROM "user_books" WHERE "user_books"."id" = ? LIMIT ?[0m  [["id", 30], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/controllers/users_controller.rb:30[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 8]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:13[m
+[32m+[m[32m[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (228.17ms)[m
+[32m+[m[32mCompleted 200 OK in 239ms (Views: 218.5ms | ActiveRecord: 16.3ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted POST "/login" for 10.240.0.207 at 2019-05-19 05:13:08 +0000[m
+[32m+[m[32mCannot render console from 10.240.0.207! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by AuthController#create as JSON[m
+[32m+[m[32m  Parameters: {"email"=>"larry@trial.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"larry@trial.com", "password"=>"[FILTERED]"}}[m
+[32m+[m[32m  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "larry@trial.com"], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/auth_controller.rb:9[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (1.24ms)[m
+[32m+[m[32mCompleted 200 OK in 121ms (Views: 2.5ms | ActiveRecord: 0.5ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted POST "/login" for 10.240.2.147 at 2019-05-19 05:13:16 +0000[m
+[32m+[m[32mCannot render console from 10.240.2.147! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by AuthController#create as JSON[m
+[32m+[m[32m  Parameters: {"email"=>"larry@run.com", "password"=>"[FILTERED]", "auth"=>{"email"=>"larry@run.com", "password"=>"[FILTERED]"}}[m
+[32m+[m[32m  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "larry@run.com"], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/auth_controller.rb:9[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (3.59ms)[m
+[32m+[m[32mCompleted 200 OK in 129ms (Views: 4.5ms | ActiveRecord: 0.3ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mStarted GET "/current_user_data" for 76.245.251.194 at 2019-05-19 05:13:16 +0000[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32mProcessing by UsersController#current_user_data as */*[m
+[32m+[m[32m  Parameters: {"user"=>{}}[m
+[32m+[m[32m  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32mStarted GET "/books" for 76.245.251.194 at 2019-05-19 05:13:16 +0000[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32mCannot render console from 76.245.251.194! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32mProcessing by BooksController#index as */*[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m  [1m[36mBook Load (0.6ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m[m
+[32m+[m[32m  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]][m
+[32m+[m[32m  ↳ app/controllers/books_controller.rb:6[m
+[32m+[m[32m  ↳ app/controllers/application_controller.rb:33[m
+[32m+[m[32m[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (5.43ms)[m
+[32m+[m[32m[active_model_serializers]   [1m[36mUserBook Load (0.7ms)[0m  [1m[34mSELECT "user_books".* FROM "user_books" WHERE "user_books"."user_id" = ? AND "user_books"."status" = ?[0m  [["user_id", 3], ["status", "Active"]][m
+[32m+[m[32mCompleted 200 OK in 22ms (Views: 19.9ms | ActiveRecord: 0.6ms)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user.rb:15[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.3ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 19]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:41[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (4.0ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."user_book_id" = ? ORDER BY "entries"."created_at" DESC LIMIT ?[0m  [["user_book_id", 19], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:42[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 20]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:41[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."user_book_id" = ? ORDER BY "entries"."created_at" DESC LIMIT ?[0m  [["user_book_id", 20], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:42[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.2ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 27]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:41[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."user_book_id" = ? ORDER BY "entries"."created_at" DESC LIMIT ?[0m  [["user_book_id", 27], ["LIMIT", 1]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:42[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (0.4ms)[0m  [1m[34mSELECT "entries".* FROM "entries" WHERE "entries"."user_book_id" = ?[0m  [["user_book_id", 28]][m
+[32m+[m[32m[active_model_serializers]   ↳ app/models/user_book.rb:41[m
+[32m+[m[32m[active_model_serializers]   [1m[36mEntry Load (5.3ms)[0m  [1m[34mSELECT  "entries".* FROM "entries" WHERE "entries"."user_book_id" = ? ORDER BY "entries"."created_at" DESC LIMIT ?[0m  [["user_book_id", 28], ["LIMIT", 1]]

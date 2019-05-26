@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+//import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 //Styling Import
 import logo from './logo.svg';
@@ -18,7 +18,6 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Dog Ears - Read Like You Mean It</h1>
         </header>
         <p className="App-intro">
           

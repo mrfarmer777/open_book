@@ -1,12 +1,11 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
-import LogoutButton from '../components/LogoutButton'
 import {logoutUser} from '../actions/userActions'
 
 
 export default class MyNav extends React.Component{
     handleLogout(){
-        alert("Yall wanna logout fo sho?");
+        alert("Would you really like to logout?");
         logoutUser();
     }
     

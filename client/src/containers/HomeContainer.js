@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { fetchUserEntries, postEntry, deleteEntry } from '../actions/entryActions'
-import { fetchUserBooks, postBook } from '../actions/bookActions'
+import { fetchUserEntries, postEntry, deleteEntry } from '../actions/entryActions';
+import { fetchUserBooks, postBook } from '../actions/bookActions';
 
-import EntryInput from '../components/EntryInput'
-import Entries from '../components/Entries'
-import BookInput from '../components/BookInput'
-import {logoutUser} from '../services/user'
-import StatsContainer from "../containers/StatsContainer"
-import Invites from "../components/Invites"
+import EntryInput from '../components/EntryInput';
+import Entries from '../components/Entries';
+import BookInput from '../components/BookInput';
+import {logoutUser} from '../services/user';
+import StatsContainer from "../containers/StatsContainer";
+import Invites from "../components/Invites";
 
 class HomeContainer extends Component{
     

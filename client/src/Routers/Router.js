@@ -1,18 +1,18 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import { Navbar, Nav } from 'react-bootstrap'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
+//import { Navbar, Nav } from 'react-bootstrap'
 import HomeContainer from '../containers/HomeContainer'
 import BookshelfContainer from '../containers/BookshelfContainer'
 import StatsContainer from '../containers/StatsContainer'
 import SplashContainer from '../containers/SplashContainer'
-import AuthService from '../components/AuthService'
+//import AuthService from '../components/AuthService'
 import withAuth from '../components/withAuth'
 import 'bootstrap/dist/css/bootstrap.css'
-import LogoutButton from '../components/LogoutButton'
+//import LogoutButton from '../components/LogoutButton'
 import MyNav from '../components/MyNav'
 
 //Auth service instance to handle logout from this page?!
-const Auth = new AuthService();
+//const Auth = new AuthService();
 
 
 

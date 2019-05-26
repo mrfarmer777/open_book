@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Button, Well, Card} from 'react-bootstrap';
-import { LineChart, Line } from 'recharts';
+import {Button, Card} from 'react-bootstrap';
+//import { LineChart, Line } from 'recharts';
 import Bookbar from './Bookbar';
-import EntryInput from './EntryInput';
+// EntryInput from './EntryInput';
 
 
 
@@ -31,7 +31,7 @@ export default class Book extends Component {
         return(
             
                 
-                    <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book" >
+                    <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book"  >
                         <Card.Body>
                             
                             <Card.Title><h4>{this.props.book.title}</h4></Card.Title>
