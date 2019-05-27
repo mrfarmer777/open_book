@@ -10,7 +10,7 @@ export default class EntryInput extends Component{
         this.state={
             user_book_id: ""+props.book.id,
             time: "0",
-            pages: "0",
+            entry_page: ""+props.book.pages_read,
             formOpen: false,
         }
     }
@@ -30,7 +30,7 @@ export default class EntryInput extends Component{
         .then(this.setState({
             user_book_id: ""+this.props.book.id,
             time: "0",
-            pages: "0",
+            entry_page: "0",
             formOpen: false
         }));
         
@@ -69,8 +69,8 @@ export default class EntryInput extends Component{
                                 <FormLabel htmlFor="time">Minutes: </FormLabel>
                                 <FormControl type="number" name="time" id="time" step="5" onChange={this.handleChange} value={this.state.time}/>
                             
-                                <FormLabel htmlFor="pages">Pages: </FormLabel>
-                                <FormControl type="number" name="pages" id="pages" step="1" onChange={this.handleChange} value={this.state.pages}/>
+                                <FormLabel htmlFor="entry_page">Current Page: </FormLabel>
+                                <FormControl type="number" name="entry_page" id="entry_page" step="1" onChange={this.handleChange} value={this.state.entry_page} min={this.props.book.pages_read} max={this.props.book.pages}/>
                             </FormGroup>
                             <Button bsstyle="primary" type="submit" value="New Entry">New Entry</Button>
         

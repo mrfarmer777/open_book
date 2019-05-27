@@ -18,7 +18,7 @@ class UserBook < ApplicationRecord
     
     
     def percent_complete
-        (self.pages_read/self.pages*100).round(2)
+        (self.pages_read.to_f/self.pages.to_f*100.0).round(2)
     end
     
     def check_status
