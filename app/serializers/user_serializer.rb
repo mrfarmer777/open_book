@@ -16,7 +16,9 @@ class UserSerializer < ActiveModel::Serializer
             status: ub.status,
             pages_read: ub.pages_read,
             percent_complete: ub.percent_complete,
-            entries: ub.entries
+            entries: ub.entries,
+            entry_distribution: ub.book.entry_distribution
+            
             }
         end
     end

@@ -8,10 +8,17 @@ class Entry < ApplicationRecord
     scope :this_week, -> {where(created_at: Time.zone.now.beginning_of_week..Time.zone.now.end_of_week)}
     scope :last_month, -> {where(created_at: Time.zone.now.beginning_of_month.prev_month..Time.zone.now.beginning_of_month.prev_day.end_of_day)}
     scope :last_week, -> {where(created_at: Time.zone.now.beginning_of_week.prev_week..Time.zone.now.beginning_of_week.prev_day.end_of_day)}
-   
-    scope :for_book, lambda{|book| where(book_id: book.id)}
 
-    #BOOKMARK - Let's add a scope for entries from any of your same sections
+
+   
+    
+    
+    
+    #CLASS METHODS/////////////////
+    def self.within_percentage(lowp, highp)
+        where("entry_percentage >= ? AND entry_percentage < ? ", lowp, highp)
+    end
+    
     
     def self.total_pages
         pages=0

@@ -1,5 +1,6 @@
 class UserBookSerializer < ActiveModel::Serializer
-  attributes :id, :title, :author, :genres, :pages, :pages_read, :status, :percent_complete, :all_book_entries
+  attributes :id, :title, :author, :genres, :pages, :pages_read, :status, :percent_complete, :all_book_entries, :entry_distribution
+  
   
   has_many :entries
   
@@ -19,4 +20,6 @@ class UserBookSerializer < ActiveModel::Serializer
   def all_book_entries
     self.object.book.entries
   end
+  
+  
 end

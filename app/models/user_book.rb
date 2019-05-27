@@ -30,6 +30,9 @@ class UserBook < ApplicationRecord
             self.update(status: "Planned")
         end
     end
+    
+    
+    
         
     
     def completed?
