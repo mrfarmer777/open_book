@@ -6,15 +6,14 @@ class UserBook < ApplicationRecord
     scope :completed, -> {where(status: "Completed")}
     scope :planned, -> {where(status: "Planned")}
     scope :active, -> {where(status: "Active")}
-   
-    
+
+
     def pages_read
-        pages=0
-        self.entries.each{|ent| pages+=ent.pages}
-        if pages>=self.pages
-            pages=self.pages
+        if self.entries.count>0
+            self.entries.max_by{|entry| entry[:entry_page]}.entry_page  #returns the highest entry_page of all entries for this UserBook
+        else
+            return 0
         end
-        pages
     end
     
     

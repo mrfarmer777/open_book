@@ -29,7 +29,7 @@ class User < ApplicationRecord
     
     #STATISTICS HELPER FUNCTIONS
     def total_time      #Returns total time read for user
-        self.entries.sum(:time)
+        self.entries.sum(:minutes_read)
     end
     
     def total_pages     #Returns total pages read for user
@@ -43,7 +43,7 @@ class User < ApplicationRecord
     
     # This week pages and time
     def time_this_week  
-        self.entries.this_week.sum(:time)
+        self.entries.this_week.sum(:minutes_read)
     end
     
     def pages_this_week 
@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
     # This month pages and time
     def time_this_month
-        self.entries.this_month.sum(:time)
+        self.entries.this_month.sum(:minutes_read)
     end
     
     def pages_this_month
