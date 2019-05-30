@@ -17,7 +17,7 @@ export function fetchEntries() {
 
 //Posts a new entry and adds it to the store
 export function postEntry(entry){
-  const body = JSON.stringify({entry: {user_book_id: entry.user_book_id, time: entry.time, pages: entry.pages}})
+  const body = JSON.stringify({entry: {user_book_id: entry.user_book_id, minutes_read: entry.minutes_read, entry_page: entry.entry_page, content: entry.entry_content}})
   console.log(body)
   return (dispatch) => {
     dispatch({ type: 'BEGIN_GET_ENTRIES_REQUEST' });

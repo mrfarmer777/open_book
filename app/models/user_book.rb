@@ -9,11 +9,12 @@ class UserBook < ApplicationRecord
 
 
     def pages_read
-        if self.entries.count>0
-            self.entries.max_by{|entry| entry[:entry_page]}.entry_page  #returns the highest entry_page of all entries for this UserBook
-        else
-            return 0
-        end
+        self.entries.total_pages
+        # if self.entries.count>0
+        #     self.entries.max_by{|entry| entry[:entry_page]}.entry_page  #returns the highest entry_page of all entries for this UserBook
+        # else
+        #     return 0
+        # end
     end
     
     

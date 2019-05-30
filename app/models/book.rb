@@ -18,19 +18,23 @@ class Book < ApplicationRecord
     
     def entry_distribution
         res = {
-          "10": self.entries.within_percentage(0,10).count,
-          "20": self.entries.within_percentage(10,20).count,
-          "30": self.entries.within_percentage(20,30).count,
-          "40": self.entries.within_percentage(30,40).count,
-          "50": self.entries.within_percentage(40,50).count,
-          "60": self.entries.within_percentage(50,60).count,
-          "70": self.entries.within_percentage(60,70).count,
-          "80": self.entries.within_percentage(70,80).count,
-          "90": self.entries.within_percentage(80,90).count,
-          "100": self.entries.within_percentage(80,90).count,
+          10 => 0,
+          20 => 0,
+          30 => 0,
+          40 => 0,
+          50 => 0,
+          60 => 0,
+          70 => 0,
+          80 => 0,
+          90 => 0,
+          100 => 0
         }
+        self.entries.each do |e|
+            percentage_boundary=((e.entry_percentage/10).ceil * 10)
+            res[percentage_boundary]=res[percentage_boundary]+1
+        end
         return res
-      end
+    end
     
         
     

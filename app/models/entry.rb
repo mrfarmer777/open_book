@@ -11,7 +11,20 @@ class Entry < ApplicationRecord
 
 
    
+    #INSTANCE METHODS /////////////
+    def get_entry_percentage
+        (self.entry_page.to_f/self.book.pages*100).round(2)
+    end
     
+    def get_pages_read
+        @entries=self.user_book.entries.order(entry_page: :desc)
+        if @entries.count>1
+            self.entry_page-@entries.first.entry_page
+        else
+            self.entry_page
+        end
+    end
+            
     
     
     #CLASS METHODS/////////////////

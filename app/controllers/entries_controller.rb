@@ -11,9 +11,17 @@ class EntriesController < ApplicationController
     def create
         @user_book=UserBook.find(entry_params[:user_book_id])
         #Calculating pages read based upon previous entry page location and this entry page location.
-        pages_read_this_entry=(entry_params[:entry_page]-@user_book.entries.order(entry_page: :desc).first.entry_page)
-        
-        @entry=Entry.new(book_id: @user_book.book_id, minutes_read: entry_params[:minutes_read], entry_page: entry_params[:entry_page], user_id: current_user.id, user_book_id: @user_book.id, pages: pages_read_this_entry)
+
+
+        @entry=Entry.new(
+            book_id: @user_book.book_id,
+            minutes_read: entry_params[:minutes_read],
+            entry_page: entry_params[:entry_page],
+            content: entry_params[:entry_content],
+            user_id: current_user.id,
+            user_book_id: @user_book.id,
+            )
+        @entry.assign_attributes(entry_percentage: @entry.get_entry_percentage, pages: @entry.get_pages_read)
         @entry.save
         @user_book.check_status
         render json: @entry
@@ -31,6 +39,6 @@ class EntriesController < ApplicationController
     
     private
     def entry_params
-        params.require(:entry).permit(:user_book_id,:minutes_read, :entry_page)
+        params.require(:entry).permit(:user_book_id,:minutes_read, :entry_page, :content, :reaction)
     end
 end

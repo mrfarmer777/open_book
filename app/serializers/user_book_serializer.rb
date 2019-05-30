@@ -21,5 +21,9 @@ class UserBookSerializer < ActiveModel::Serializer
     self.object.book.entries
   end
   
+  def entry_distribution
+    self.object.book.entry_distribution
+  end
+  
   
 end
