@@ -1,27 +1,55 @@
-import React from 'react';
+import React,  {Component } from 'react';
 import Book from './Book';
-import {Carousel, Container} from 'react-bootstrap';
+import {ListGroup, Container, Button} from 'react-bootstrap';
 
 
 
 
 
-const Bookshelf=(props)=>{
-    return(
-        <Container >
-            <h3>{props.shelfName}</h3>
-            <Carousel interval="" >
-                {props.books.map(book=>{
-                    return(
-                        <Carousel.Item key={book.id.toString()}>
-                            <Book book={book} key={book.id.toString()} useBook={props.useBook}/>
-                        </Carousel.Item>
-                    )
-                })}
-
-            </Carousel>
-        </Container>
-    )
+class Bookshelf extends Component {
+    constructor(){
+        super()
+        this.state={
+            open: false,
+        }
+    }
+    
+    toggleOpen = (event) => {
+        this.setState({
+            open: !this.state.open,
+        })
+        if(this.state.open){
+            event.target.classList.remove("collapsed");
+        }else{
+            event.target.classList.add("collapsed");
+        }
+        console.log(this.state.open)
+    }
+    
+    
+    
+    
+    
+    render(){
+        return(
+            <div className={this.state.open ? "bookshelf-container": "bookshelf-container collapsed"}>
+                <div>
+                    <Button bsVariant="small" bsClass="mr-auto" onClick={this.toggleOpen}>>></Button>
+                    <h3>{this.props.shelfName}</h3>
+                </div>
+                <ListGroup  >
+                    {this.props.books.map(book=>{
+                        return(
+                            <ListGroup.Item key={book.id.toString()}>
+                                <Book className="book" book={book} key={book.id.toString()} useBook={this.props.useBook}/>
+                            </ListGroup.Item>
+                        )
+                    })}
+    
+                </ListGroup>
+            </div>
+        )
+    }
     
 }
 
