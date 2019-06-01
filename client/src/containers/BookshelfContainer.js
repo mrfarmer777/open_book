@@ -5,6 +5,7 @@ import { postBook, deleteBook, fetchUserBooks, fetchPopBooks, useBook, fetchUser
 import { postEntry, deleteEntry } from '../actions/entryActions';
 import {acceptInvite, declineInvite} from '../actions/userActions';
 
+import Sidebar from '../components/menus/Sidebar';
 import BookInput from '../components/BookInput';
 import Bookshelf from '../components/Bookshelf';
 import UserBookshelf from '../components/UserBookshelf';
@@ -29,7 +30,10 @@ class BookshelfContainer extends Component{
         
         return (
             <div className="container-fluid">
-                <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>
+                <Sidebar name="Bookshelves">
+                    <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>                
+                    </Sidebar>
+            
 
                 <Invites invites={this.props.invites} accept={this.props.acceptInvite} decline={this.props.declineInvite}/>
                 <ButtonGroup>
