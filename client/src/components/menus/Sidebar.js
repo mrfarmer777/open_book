@@ -25,10 +25,10 @@ class Sidebar extends Component {
     
     render(){
         return(
-            <Container onClick={this.toggleOpen} className={this.state.open ? "sidebar": "sidebar collapsed"}>
+            <div onClick={this.toggleOpen} className={this.state.open ? "sidebar": "sidebar collapsed"}>
                 <small className="sidebar-title" >{this.props.name}</small>
                     {this.props.children}
-            </Container>
+            </div>
         )
     }
     

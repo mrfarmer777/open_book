@@ -32,14 +32,15 @@ class BookshelfContainer extends Component{
             <div className="container-fluid">
                 <Sidebar name="Bookshelves">
                     <Bookshelf shelfName="Popular Books" books={this.props.books.popBooks} useBook={this.props.useBook}/>                
-                    </Sidebar>
+                    <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
+
+                </Sidebar>
             
 
                 <Invites invites={this.props.invites} accept={this.props.acceptInvite} decline={this.props.declineInvite}/>
                 <ButtonGroup>
                     <BookInput postBook={this.props.postBook} />
                 </ButtonGroup>
-                <UserBookshelf shelfName="My Books" books={this.props.books.userBooks} deleteBook={this.props.deleteBook} postEntry={this.props.postEntry} deleteEntry={this.props.deleteEntry} fetchUserBook={this.props.fetchUserBook}/>
             </div>
             )
     

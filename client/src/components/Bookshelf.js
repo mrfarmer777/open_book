@@ -34,7 +34,7 @@ class Bookshelf extends Component {
     
     render(){
         return(
-            <Container name={this.props.name}>
+            <Container className="bookshelf" name={this.props.name}>
                 {this.props.books.map(book=>{
                             return(
                                 

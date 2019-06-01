@@ -31,19 +31,20 @@ export default class Book extends Component {
         return(
             
                 
-                    <Card bsstyle="primary ml-auto mr-auto" bsPrefix="book"  >
+                    <Card className="book flex-row flex-wrap" bsPrefix="book">
+                        <Card.Header>
+                            <img src="https://via.placeholder.com/50x75"/>
+                        </Card.Header>
                         <Card.Body>
-                            
-                            <Card.Title><h4>{this.props.book.title}</h4></Card.Title>
-                        
                             <Card.Text >
+                                <p>{this.props.book.title}</p>
                                 {this.props.book.author}<br/>
                                 <small>{this.props.book.genres}</small><br/>
                             </Card.Text>
                             
                             <footer>
                                 <div>
-                                    <Button onClick={this.useBook}>Read this book, yo.</Button>
+                                    <Button onClick={this.useBook}>Read.</Button>
                                 </div>
                             </footer>
                         </Card.Body>
