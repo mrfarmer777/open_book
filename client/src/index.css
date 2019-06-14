@@ -24,15 +24,14 @@
 }
 
 .sidebar .sidebar-title{
-    transform-origin: bottom left;
-    transition: transform 0.2s;
+    width: 40px;
     flex-shrink: 1;
     margin-bottom:15px;
+    background-color:black;
 }
 
 .sidebar.collapsed .sidebar-title{
-    transform-origin: bottom left;
-    transform: rotate(90deg);
+    width:20px;
     
 }
 
@@ -70,4 +69,11 @@
 
 .bookshelf{
     flex-shrink:5;
+}
+
+
+.book-icon{
+    min-width:20px;
+    max-width:50px;
+    margin-bottom:5px;
 }

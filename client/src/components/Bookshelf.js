@@ -1,6 +1,10 @@
 import React,  {Component } from 'react';
+
+
 import Book from './Book';
 import Sidebar from './menus/Sidebar';
+import BookIcon from './BookIcon';
+
 import {ListGroup, Container, Button} from 'react-bootstrap';
 import booksolid from "../images/booksolid.svg"
 
@@ -37,8 +41,7 @@ class Bookshelf extends Component {
             <Container className="bookshelf" name={this.props.name}>
                 {this.props.books.map(book=>{
                             return(
-                                
-                                    <Book className="book" book={book} key={book.id.toString()} useBook={this.props.useBook}/>
+                                <BookIcon source="https://via.placeholder.com/50x75" book={book}/>
                                 
                             )
                         })}
@@ -50,19 +53,6 @@ class Bookshelf extends Component {
 }
 
 export default Bookshelf
-/*
-<div className={this.state.open ? "bookshelf-container": "bookshelf-container collapsed"}>
-                <h5 bsVariant="small" bsClass="mr-auto" onClick={this.toggleOpen}>{this.props.shelfName}</h5>
-                <Container >
-                    {this.props.books.map(book=>{
-                        return(
-                            
-                                <Book className="book" book={book} key={book.id.toString()} useBook={this.props.useBook}/>
-                            
-                        )
-                    })}
-    
-                </Container>
-            </div>
-            
-            */
+
+
+//                                    <Book className="book" book={book} key={book.id.toString()} useBook={this.props.useBook}/>
